@@ -1,11 +1,13 @@
 // Gold-set evaluation (SPEC 13.2). Prints metrics and exits non-zero when a gate fails.
-// M1: retrieval of the right passage for each Art. 28 rule. Rule statuses and answers arrive in M2.
+// Covers rule passage retrieval and no-AI rule statuses; questionnaire answers (Pack C) follow.
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { art28 } from '../src/data/load.ts'
 import { findRuleCandidates } from '../src/core/rules/candidates.ts'
+import { evaluateAllNoAi, type RuleResult } from '../src/core/rules/engine.ts'
 import { verifyQuote } from '../src/core/llm/verifyQuote.ts'
-import { PACKS_DIR, listPacks, loadPack, type LoadedPack } from './packs.ts'
+import { PACKS_DIR, isQuestionnairePack, listPacks, loadPack, type LoadedPack } from './packs.ts'
+import { evalQuestionnairePack } from './eval-questionnaire.ts'
 
 type Gate = { name: string; passed: boolean; detail: string }
 const gates: Gate[] = []
@@ -25,14 +27,30 @@ function retrieval(pack: LoadedPack) {
   return { total, hits: total - misses.length, misses }
 }
 
-// Preview of the no-AI missing-clause metric (gated from M2): a missing clause should have no candidate passage.
-function missingClauseSignal(pack: LoadedPack) {
+// No-AI rule statuses (SPEC 13.2). A missing-clause defect is detected only when its rule is NOT_FOUND.
+function ruleGates(pack: LoadedPack) {
+  const results = evaluateAllNoAi(art28.rules, pack.chunks, { [pack.doc.id]: pack.doc.name })
+  const byId = new Map<string, RuleResult>(results.map((r) => [r.ruleId, r]))
+  const unverifiedFound = results.filter(
+    (r) => r.status === 'FOUND' && !r.evidence.some((e) => e.verified),
+  ).length
   const missing = pack.key.defects.filter((d) => d.type === 'missing')
-  const detected = missing.filter((d) => {
-    const rule = art28.rules.find((r) => r.id === d.ruleId)
-    return rule !== undefined && findRuleCandidates(rule, pack.chunks).length === 0
-  })
-  return { total: missing.length, detected: detected.length }
+  const detected = missing.filter((d) => byId.get(d.ruleId)?.status === 'NOT_FOUND').length
+  const presentCore = art28.rules.filter((r) => r.class === 'core' && pack.key.rules[r.id]?.quote)
+  const falseAlarms = presentCore
+    .filter((r) => byId.get(r.id)?.status === 'NOT_FOUND')
+    .map((r) => r.id)
+  const decoys = pack.key.defects.filter((d) => d.type === 'decoy')
+  const decoyFooled = decoys.filter((d) => byId.get(d.ruleId)?.status !== 'NOT_FOUND').length
+  return {
+    unverifiedFound,
+    missing: missing.length,
+    detected,
+    falseAlarms,
+    presentCore: presentCore.length,
+    decoys: decoys.length,
+    decoyFooled,
+  }
 }
 
 const packs = listPacks()
@@ -44,6 +62,10 @@ gates.push({
 })
 
 for (const name of packs) {
+  if (isQuestionnairePack(name)) {
+    gates.push(...evalQuestionnairePack(name))
+    continue
+  }
   const pack = loadPack(name)
   const r = retrieval(pack)
   const rate = pct(r.hits, r.total)
@@ -56,11 +78,39 @@ for (const name of packs) {
     passed: rate >= 90,
     detail: `${rate}%`,
   })
-  const m = missingClauseSignal(pack)
-  if (m.total > 0)
-    console.log(
-      `  missing-clause defects with no candidate (preview, gated in M2): ${m.detected}/${m.total}`,
-    )
+  const g = ruleGates(pack)
+  console.log(`  FOUND without verified evidence: ${g.unverifiedFound}`)
+  gates.push({
+    name: `${name}: zero FOUND without verified evidence`,
+    passed: g.unverifiedFound === 0,
+    detail: String(g.unverifiedFound),
+  })
+  const fa = g.falseAlarms
+  console.log(
+    `  core rules present but reported NOT_FOUND: ${fa.length}/${g.presentCore}${fa.length ? `  ${fa.join(', ')}` : ''}`,
+  )
+  gates.push({
+    name: `${name}: no false NOT_FOUND on present core rules`,
+    passed: fa.length === 0,
+    detail: `${fa.length}`,
+  })
+  if (g.missing > 0) {
+    const recall = pct(g.detected, g.missing)
+    console.log(`  no-AI recall of missing-clause defects: ${g.detected}/${g.missing} = ${recall}%`)
+    gates.push({
+      name: `${name}: no-AI missing-clause recall >= 90%`,
+      passed: recall >= 90,
+      detail: `${recall}%`,
+    })
+  }
+  if (g.decoys > 0) {
+    console.log(`  decoys that satisfied a rule: ${g.decoyFooled}/${g.decoys}`)
+    gates.push({
+      name: `${name}: decoys do not satisfy rules`,
+      passed: g.decoyFooled === 0,
+      detail: `${g.decoyFooled}`,
+    })
+  }
 }
 
 console.log('')

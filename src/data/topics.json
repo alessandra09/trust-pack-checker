@@ -13,7 +13,9 @@
         "dpo",
         "eu representative",
         "roles",
-        "responsibilities"
+        "responsibilities",
+        "liability",
+        "processor or a controller"
       ],
       "answerableFrom": ["dpa", "privacy"]
     },
@@ -33,7 +35,16 @@
     {
       "id": "T03",
       "name": "Sub-processors and list",
-      "hints": ["sub-processor", "subprocessor", "third parties", "vendors", "subcontractor"],
+      "hints": [
+        "sub-processor",
+        "subprocessor",
+        "third parties",
+        "vendors",
+        "subcontractor",
+        "supplier",
+        "suppliers",
+        "processors on your behalf"
+      ],
       "answerableFrom": ["dpa"]
     },
     {
@@ -46,7 +57,8 @@
         "standard contractual clauses",
         "sccs",
         "adequacy",
-        "data privacy framework"
+        "data privacy framework",
+        "transfer impact assessment"
       ],
       "answerableFrom": ["dpa", "privacy"]
     },
@@ -68,7 +80,15 @@
     {
       "id": "T06",
       "name": "Breach notification and incident response",
-      "hints": ["breach", "incident", "notify", "notification", "incident response"],
+      "hints": [
+        "breach",
+        "incident",
+        "notify",
+        "notification",
+        "incident response",
+        "breach notification",
+        "security incident"
+      ],
       "answerableFrom": ["dpa", "security"]
     },
     {
@@ -80,14 +100,28 @@
         "access request",
         "right to erasure",
         "dsar",
-        "rectification"
+        "rectification",
+        "subject access",
+        "data subject contacts",
+        "requests from individuals"
       ],
       "answerableFrom": ["dpa", "privacy"]
     },
     {
       "id": "T08",
       "name": "Retention, deletion and return",
-      "hints": ["retention", "retain", "delete", "deletion", "return", "termination", "destroy"],
+      "hints": [
+        "retention",
+        "retain",
+        "delete",
+        "deletion",
+        "return",
+        "termination",
+        "destroy",
+        "certificate of deletion",
+        "end of the contract",
+        "backups retained"
+      ],
       "answerableFrom": ["dpa", "privacy"]
     },
     {
@@ -113,7 +147,18 @@
     {
       "id": "T11",
       "name": "Encryption (in transit, at rest)",
-      "hints": ["encryption", "encrypted", "encrypt", "tls", "aes", "at rest", "in transit"],
+      "hints": [
+        "encryption",
+        "encrypted",
+        "encrypt",
+        "tls",
+        "aes",
+        "at rest",
+        "in transit",
+        "encryption keys",
+        "key management",
+        "byok"
+      ],
       "answerableFrom": ["security", "dpa"]
     },
     {
@@ -126,14 +171,30 @@
         "two-factor",
         "least privilege",
         "role-based",
-        "password"
+        "password",
+        "access rights",
+        "user access",
+        "accounts",
+        "leavers",
+        "shared accounts",
+        "authentication"
       ],
       "answerableFrom": ["security"]
     },
     {
       "id": "T13",
       "name": "Logging and monitoring",
-      "hints": ["logging", "logs", "monitoring", "siem", "audit trail"],
+      "hints": [
+        "logging",
+        "logs",
+        "monitoring",
+        "siem",
+        "audit trail",
+        "security operations centre",
+        "security operations center",
+        "24/7 monitoring",
+        "security logs"
+      ],
       "answerableFrom": ["security"]
     },
     {
@@ -145,7 +206,15 @@
     {
       "id": "T15",
       "name": "Vulnerability management and penetration testing",
-      "hints": ["vulnerability", "penetration test", "pen test", "pentest", "patch", "scanning"],
+      "hints": [
+        "vulnerability",
+        "penetration test",
+        "pen test",
+        "pentest",
+        "patch",
+        "scanning",
+        "penetration test report"
+      ],
       "answerableFrom": ["security"]
     },
     {
@@ -163,7 +232,12 @@
         "dpia",
         "impact assessment",
         "privacy policy",
-        "governance"
+        "governance",
+        "information security policy",
+        "security policy",
+        "risk register",
+        "risk management",
+        "policy review"
       ],
       "answerableFrom": ["ropa", "privacy"]
     },
@@ -177,7 +251,10 @@
         "model training",
         "train",
         "llm",
-        "generative"
+        "generative",
+        "ai governance",
+        "speech recognition",
+        "ai or machine learning"
       ],
       "answerableFrom": ["dpa", "privacy", "security"]
     },
