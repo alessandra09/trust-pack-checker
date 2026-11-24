@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+/* Design tokens (SPEC 11.3). Light and dark follow the system; a toggle comes in M4. */
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #4338ca;
+  --border: #e2e8f0;
+  color-scheme: light dark;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1020;
+    --surface: #121a2e;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #a5b4fc;
+    --border: #1e293b;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

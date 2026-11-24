@@ -1,0 +1,9 @@
+{
+  "app.name": "Trust Pack Checker",
+  "hero.headline": "Every answer comes with its proof.",
+  "hero.subline": "Check a DPA against GDPR Article 28 and draft questionnaire answers backed by quotes from your own documents.",
+  "status.placeholder": "Work in progress. The checker is not available yet.",
+  "privacy.note": "Your files stay in this browser tab.",
+  "footer.disclaimer": "Draft for human review. Not legal advice.",
+  "footer.rulesNotReviewed": "Rules not yet reviewed by a lawyer."
+}

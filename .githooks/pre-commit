@@ -1,0 +1,3 @@
+#!/bin/sh
+# Blocks commits of non-synthetic eval packs, private files and secrets (SPEC 5.5).
+npx tsx scripts/check-synthetic.ts || exit 1

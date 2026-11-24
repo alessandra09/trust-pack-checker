@@ -1,0 +1,28 @@
+# dependencies and build output
+node_modules
+dist
+dist-ssr
+coverage
+playwright-report
+test-results
+*.tsbuildinfo
+
+# secrets: never commit keys
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# real documents: never commit (SPEC 5.5, 13.2). Test on real files only from /private.
+/private/
+/real-docs/
+*.real.*
+
+# editors and OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.local
+*.log
