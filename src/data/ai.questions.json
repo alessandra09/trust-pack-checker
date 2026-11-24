@@ -1,0 +1,89 @@
+{
+  "owner": "Oleksandra Hordieieva",
+  "lastVerified": "2026-11-24",
+  "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "Do you use AI systems in your service or internal operations?",
+      "type": "yesno"
+    },
+    {
+      "id": "Q2",
+      "text": "For each AI system: purpose, provider or model, whether personal data enters prompts or logs, hosting region.",
+      "type": "systems"
+    },
+    {
+      "id": "Q3",
+      "text": "Is customer data used to train or fine-tune any model (yours or the provider's)?",
+      "type": "yesnounknown"
+    },
+    {
+      "id": "Q4",
+      "text": "Is AI output reviewed by a human before it affects a person or a customer?",
+      "type": "frequency"
+    },
+    {
+      "id": "Q5",
+      "text": "Do staff receive training on AI use (AI literacy)? Describe, or answer none.",
+      "type": "text"
+    },
+    {
+      "id": "Q6",
+      "text": "Do users interact directly with an AI system (chatbot, voice agent)? If yes, are they told?",
+      "type": "interaction"
+    },
+    {
+      "id": "Q7",
+      "text": "Does any system generate synthetic audio, image, video or text published to others?",
+      "type": "yesno"
+    },
+    {
+      "id": "Q8",
+      "text": "Are AI outputs used for decisions about employees, applicants, credit, insurance, education or access to essential services?",
+      "type": "yesno"
+    },
+    {
+      "id": "Q9",
+      "text": "Does any system infer emotions or sentiment of people (customers, callers, employees)?",
+      "type": "emotion"
+    },
+    {
+      "id": "Q10",
+      "text": "Do you maintain an inventory of AI systems and owners?",
+      "type": "yesno"
+    }
+  ],
+  "flags": [
+    {
+      "id": "F-EMOTION-WORK",
+      "trigger": "Q9 = yes AND the people are employees or the setting is a workplace",
+      "text": "Inferring emotions of employees in the workplace is prohibited in the EU AI Act except for medical or safety reasons (Art. 5(1)(f)). This may apply. Obtain qualified advice before continuing.",
+      "dateId": "D-PROHIBITIONS"
+    },
+    {
+      "id": "F-EMOTION-OTHER",
+      "trigger": "Q9 = yes (other settings)",
+      "text": "Emotion inference has specific rules (transparency, possible high-risk classification). Obtain qualified advice.",
+      "dateId": "D-TRANSPARENCY"
+    },
+    {
+      "id": "F-HIGH-RISK",
+      "trigger": "Q8 = yes",
+      "text": "Uses in these areas may be classified as high-risk (Annex III). Obligations depend on role and dates. Obtain qualified advice.",
+      "dateId": "D-HIGH-RISK-ANNEX-III"
+    },
+    {
+      "id": "F-TRANSPARENCY",
+      "trigger": "Q6 = yes AND not told",
+      "text": "Users interacting with AI generally must be informed (Art. 50).",
+      "dateId": "D-TRANSPARENCY"
+    },
+    {
+      "id": "F-LITERACY",
+      "trigger": "Q5 = none",
+      "text": "AI literacy of staff is an obligation under Art. 4.",
+      "dateId": "D-LITERACY"
+    }
+  ]
+}

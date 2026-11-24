@@ -1,0 +1,142 @@
+"""Generates synthetic parser fixtures in tests/fixtures. All content is fictional.
+Run: python3 scripts/fixtures/make_fixtures.py (needs reportlab, python-docx, pypdf, openpyxl)."""
+import re
+from pathlib import Path
+
+from docx import Document
+from openpyxl import Workbook
+from pypdf import PdfReader, PdfWriter
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+
+ROOT = Path(__file__).resolve().parents[2]
+OUT = ROOT / "tests" / "fixtures"
+OUT.mkdir(parents=True, exist_ok=True)
+PACK_A = (ROOT / "eval/packs/pack-a/docs/dpa.md").read_text()
+PACK_B = (ROOT / "eval/packs/pack-b/docs/dpa.md").read_text()
+
+
+def make_docx():
+    doc = Document()
+    for line in PACK_A.splitlines():
+        if not line.strip():
+            continue
+        m = re.match(r"^(#+)\s+(.*)", line)
+        if m:
+            doc.add_heading(m.group(2), level=len(m.group(1)))
+        elif line.startswith("- "):
+            doc.add_paragraph(line[2:], style="List Bullet")
+        elif line.startswith("|"):
+            continue
+        else:
+            doc.add_paragraph(line)
+    table = doc.add_table(rows=0, cols=3)
+    for row in [("Sub-processor", "Purpose", "Location"), ("Skyline Hosting B.V.", "Cloud hosting", "Netherlands")]:
+        cells = table.add_row().cells
+        for c, v in zip(cells, row):
+            c.text = v
+    doc.save(OUT / "pack-a-dpa.docx")
+
+
+def wrap(text, width=95):
+    lines = []
+    for para in text.splitlines():
+        while len(para) > width:
+            cut = para.rfind(" ", 0, width)
+            lines.append(para[:cut])
+            para = para[cut + 1 :]
+        lines.append(para)
+    return lines
+
+
+def make_text_pdf():
+    c = canvas.Canvas(str(OUT / "pack-b-dpa.pdf"), pagesize=A4)
+    y = 800
+    for line in wrap(PACK_B.replace("#", "").replace("|", " ")):
+        if y < 60:
+            c.showPage()
+            y = 800
+        c.setFont("Helvetica", 9)
+        c.drawString(40, y, line)
+        y -= 12
+    c.save()
+
+
+def make_scanned_pdf():
+    c = canvas.Canvas(str(OUT / "scanned.pdf"), pagesize=A4)
+    for _ in range(2):
+        c.rect(50, 50, 500, 700, fill=1)
+        c.showPage()
+    c.save()
+
+
+def make_password_pdf():
+    reader = PdfReader(OUT / "pack-b-dpa.pdf")
+    writer = PdfWriter()
+    for page in reader.pages:
+        writer.add_page(page)
+    writer.encrypt("synthetic-password")
+    with open(OUT / "password.pdf", "wb") as f:
+        writer.write(f)
+
+
+def make_corrupt_pdf():
+    data = (OUT / "pack-b-dpa.pdf").read_bytes()
+    (OUT / "corrupt.pdf").write_bytes(b"%PDF-1.4\n" + data[400:900])
+
+
+def make_privacy_txt():
+    (OUT / "privacy-policy.txt").write_text(
+        """NORTHWIND VOICE PRIVACY POLICY
+
+1. Who we are
+Northwind Voice Ltd is a fictional company registered in Ireland that provides cloud call recording services to businesses. This policy explains how we handle personal data about visitors to our website and the business contacts of our customers.
+
+2. What data we collect
+We collect names, business email addresses, phone numbers and the content of messages that people send to us through our contact form. We also collect basic technical data such as IP addresses and browser type when people visit our website.
+
+3. How long we keep data
+We keep contact form messages for twenty-four months and then delete them. Technical logs are kept for ninety days.
+
+4. Your rights
+You can ask us for access to your personal data, ask us to correct or delete it, or object to our processing. Write to privacy@northwind-voice.example and we will answer within one month.
+
+5. Changes
+We may update this policy from time to time. The date at the top shows when it last changed.
+"""
+    )
+
+
+def make_questionnaire():
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Security"
+    ws.append(["ID", "Question", "Answer", "Comments"])
+    ws.append(["", "Section A: Data protection", "", ""])
+    ws.merge_cells("B2:D2")
+    rows = [
+        ("A1", "Do you notify customers of personal data breaches, and within how many hours?"),
+        ("A2", "Do you use sub-processors? Please list them."),
+        ("A3", "Is customer data encrypted at rest and in transit?"),
+        ("A4", "Hidden internal row, not for the customer"),
+        ("A5", "Do you use customer data to train AI models?"),
+    ]
+    for r in rows:
+        ws.append([r[0], r[1], "", ""])
+    ws.row_dimensions[6].hidden = True  # row A4
+    info = wb.create_sheet("Instructions")
+    info.append(["Please answer every question in column C."])
+    wb.save(OUT / "questionnaire.xlsx")
+    with open(OUT / "questionnaire.csv", "w", newline="") as f:
+        f.write('ID,Question,Answer\nA1,"Do you notify customers of breaches, and how fast?",\nA2,Do you use sub-processors?,Yes\n')
+
+
+make_docx()
+make_text_pdf()
+make_scanned_pdf()
+make_password_pdf()
+make_corrupt_pdf()
+make_privacy_txt()
+make_questionnaire()
+(OUT / "SYNTHETIC.md").write_text("synthetic: true\n\nGenerated by scripts/fixtures/make_fixtures.py from the synthetic eval packs. Fictional content only.\n")
+print("fixtures written to", OUT)

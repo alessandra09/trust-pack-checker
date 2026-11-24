@@ -10,16 +10,23 @@
     "typecheck": "tsc -b --noEmit",
     "test": "vitest run",
     "e2e": "playwright test --trace off",
-    "eval": "tsx eval/run-eval.ts",
+    "eval": "tsx eval/verify-key.ts && tsx eval/run-eval.ts",
     "check-synthetic": "tsx scripts/check-synthetic.ts",
     "build": "vite build",
     "preview": "vite preview",
     "verify": "npm run lint && npm run typecheck && npm run test && npm run check-synthetic && npm run eval && npm run build",
-    "prepare": "git rev-parse --git-dir >/dev/null 2>&1 && git config core.hooksPath .githooks || true"
+    "prepare": "git rev-parse --git-dir >/dev/null 2>&1 && git config core.hooksPath .githooks || true",
+    "fixtures": "python3 scripts/fixtures/make_fixtures.py"
   },
   "dependencies": {
+    "exceljs": "4.4.0",
+    "mammoth": "1.13.0",
+    "minisearch": "7.2.0",
+    "papaparse": "5.7.1",
+    "pdfjs-dist": "6.5.438",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.1",
@@ -27,6 +34,7 @@
     "@playwright/test": "1.65.1",
     "@tailwindcss/vite": "4.3.5",
     "@types/node": "^24.19.2",
+    "@types/papaparse": "5.5.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
@@ -43,5 +51,8 @@
   },
   "engines": {
     "node": ">=22"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
   }
 }

@@ -1,0 +1,84 @@
+{
+  "pack": "pack-a",
+  "document": "docs/dpa.md",
+  "rules": {
+    "A28-3-intro": {
+      "expected": "FOUND",
+      "quote": "The subject matter, duration, nature and purpose of the processing, the types of personal data and the categories of data subjects are described in Annex 1"
+    },
+    "A28-3-a": {
+      "expected": "FOUND",
+      "quote": "only on documented instructions from the Customer, including with regard to transfers of personal data to a third country"
+    },
+    "A28-3-a2": {
+      "expected": "FOUND",
+      "quote": "immediately inform the Customer if, in its opinion, an instruction infringes the GDPR"
+    },
+    "A28-3-b": {
+      "expected": "FOUND",
+      "quote": "have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality"
+    },
+    "A28-3-c": {
+      "expected": "FOUND",
+      "quote": "Northwind shall take all measures required pursuant to Article 32 GDPR"
+    },
+    "A28-2": {
+      "expected": "FOUND",
+      "quote": "thereby giving the Customer the opportunity to object to such changes"
+    },
+    "A28-3-d": {
+      "expected": "FOUND",
+      "quote": "Northwind shall respect the conditions set out in this Section 6 and in Article 28(2) and 28(4) GDPR"
+    },
+    "A28-4": {
+      "expected": "FOUND",
+      "quote": "Northwind shall remain fully liable to the Customer for the performance of that Sub-processor's obligations"
+    },
+    "A28-3-e": {
+      "expected": "FOUND",
+      "quote": "requests for exercising the data subject's rights laid down in Chapter III of the GDPR"
+    },
+    "A28-3-f": {
+      "expected": "FOUND",
+      "quote": "assist the Customer in ensuring compliance with its obligations pursuant to Articles 32 to 36 GDPR"
+    },
+    "A28-3-g": {
+      "expected": "FOUND",
+      "quote": "At the choice of the Customer, Northwind shall delete or return all Customer Personal Data to the Customer"
+    },
+    "A28-3-h": {
+      "expected": "FOUND",
+      "quote": "allow for and contribute to audits, including inspections, conducted by the Customer"
+    },
+    "P-BREACH-TIME": {
+      "expected": "FOUND",
+      "quote": "in any event within forty-eight (48) hours, after becoming aware of a personal data breach"
+    },
+    "P-TRANSFER": {
+      "expected": "FOUND",
+      "quote": "the Standard Contractual Clauses adopted by the European Commission"
+    },
+    "P-SUBLIST": { "expected": "FOUND", "quote": "| Sub-processor | Purpose | Location |" },
+    "P-RETENTION": {
+      "expected": "FOUND",
+      "quote": "shall be completed within thirty (30) days after the end of the Services"
+    },
+    "P-LIABILITY": {
+      "expected": "FOUND",
+      "quote": "subject to the limitation of liability in the Agreement"
+    },
+    "P-AI-TRAIN": {
+      "expected": "FOUND",
+      "quote": "shall not use Customer Personal Data, including call recordings and transcripts, to train"
+    },
+    "P-DPO": {
+      "expected": "FOUND",
+      "quote": "Northwind's data protection officer can be contacted"
+    },
+    "P-EUREP": {
+      "expected": "NOT_FOUND",
+      "note": "Northwind is established in Ireland, so no EU representative is needed; the rule is not applicable."
+    }
+  },
+  "defects": []
+}

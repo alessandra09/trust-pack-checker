@@ -1,0 +1,46 @@
+{
+  "owner": "Oleksandra Hordieieva",
+  "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+  "dates": [
+    {
+      "id": "D-PROHIBITIONS",
+      "label": "AI Act prohibited practices (Art. 5) apply",
+      "date": "2025-02-02",
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "lastVerified": null,
+      "note": "Baseline from the owner's notes. Must be checked against the Official Journal text before launch (SPEC 10.3)."
+    },
+    {
+      "id": "D-LITERACY",
+      "label": "AI Act AI literacy obligation (Art. 4) applies",
+      "date": "2025-02-02",
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "lastVerified": null,
+      "note": "Baseline from the owner's notes. Must be checked against the Official Journal text before launch (SPEC 10.3)."
+    },
+    {
+      "id": "D-TRANSPARENCY",
+      "label": "AI Act transparency obligations (Art. 50) apply",
+      "date": "2026-08-02",
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "lastVerified": null,
+      "note": "Baseline from the owner's notes. Must be checked against the Official Journal text before launch (SPEC 10.3)."
+    },
+    {
+      "id": "D-HIGH-RISK-ANNEX-III",
+      "label": "AI Act high-risk obligations for Annex III systems apply (as postponed by the 2026 omnibus amendment)",
+      "date": "2027-12-02",
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "lastVerified": null,
+      "note": "Baseline from the owner's notes. Must be checked against the Official Journal text before launch (SPEC 10.3)."
+    },
+    {
+      "id": "D-HIGH-RISK-ANNEX-I",
+      "label": "AI Act high-risk obligations for Annex I product-embedded systems apply (as postponed by the 2026 omnibus amendment)",
+      "date": "2028-08-02",
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "lastVerified": null,
+      "note": "Baseline from the owner's notes. Must be checked against the Official Journal text before launch (SPEC 10.3)."
+    }
+  ]
+}

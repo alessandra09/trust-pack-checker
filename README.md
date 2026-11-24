@@ -2,7 +2,7 @@
 
 Check a DPA against GDPR Article 28 and draft security questionnaire answers, each backed by a verbatim quote that code has verified in your own documents. Runs entirely in the browser. Not legal advice.
 
-> Status: M0 (setup). The checker is not usable yet. See [SPEC.md](SPEC.md) for the plan.
+> Status: M1 (parsing, chunking, retrieval, rules data, benchmark packs A and B). No user interface for checking yet. See [SPEC.md](SPEC.md) for the plan.
 
 ## How it works (planned)
 

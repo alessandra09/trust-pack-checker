@@ -30,6 +30,10 @@ export default tseslint.config(
     },
   },
   {
+    files: ['tests/**/*.ts'],
+    rules: { '@typescript-eslint/no-non-null-assertion': 'off' },
+  },
+  {
     files: ['eval/**/*.ts', 'scripts/**/*.ts'],
     rules: { 'no-console': 'off' },
   },

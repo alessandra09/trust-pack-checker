@@ -1,0 +1,49 @@
+{
+  "owner": "Oleksandra Hordieieva",
+  "lastVerified": "2026-11-24",
+  "source": "SPEC.md section 9.3",
+  "rules": [
+    {
+      "id": "C-BREACH-TIME",
+      "compares": "Breach notice period: DPA vs answer",
+      "method": "duration",
+      "result": "CONFLICT if both state a number and they differ; PARTIAL if only one states a number. 'Without undue delay' is not a number."
+    },
+    {
+      "id": "C-RETENTION",
+      "compares": "Deletion or return period: DPA vs answer",
+      "method": "duration",
+      "result": "Same as C-BREACH-TIME."
+    },
+    {
+      "id": "C-SUBPROC",
+      "compares": "Sub-processor names: DPA list vs answer",
+      "method": "names",
+      "result": "CONFLICT if the answer names an entity not in the DPA list, or says none while the DPA lists some."
+    },
+    {
+      "id": "C-TRANSFER",
+      "compares": "Locations and transfer mechanisms",
+      "method": "locations",
+      "result": "CONFLICT if the answer says EU/EEA only while the DPA mentions non-EEA locations."
+    },
+    {
+      "id": "C-AUDIT",
+      "compares": "Audit rights",
+      "method": "keywords",
+      "result": "CONFLICT if the answer allows audits and the DPA excludes them; PARTIAL if the DPA limits audits to reports."
+    },
+    {
+      "id": "C-AI-TRAIN",
+      "compares": "Use of customer data for AI training",
+      "method": "polarity",
+      "result": "CONFLICT on opposite polarity."
+    },
+    {
+      "id": "C-CLAIM-UNBACKED",
+      "compares": "Security claims in answers absent from the DPA or annex",
+      "method": "keywords",
+      "result": "INFO: claim not reflected in the contract."
+    }
+  ]
+}
