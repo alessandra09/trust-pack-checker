@@ -1,14 +1,29 @@
 @import 'tailwindcss';
 
-/* Design tokens (SPEC 11.3). Light and dark follow the system; a toggle comes in M4. */
+/* Design tokens (SPEC 11.3): neutral greys, one indigo accent, status colours with an icon and label. */
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-2: #f1f5f9;
   --text: #0f172a;
   --muted: #475569;
   --accent: #4338ca;
+  --accent-fg: #ffffff;
   --border: #e2e8f0;
-  color-scheme: light dark;
+  --paper: #fffdf8;
+  --hit-bg: #e0e7ff;
+  --quote-bg: #fde68a;
+  --found-bg: #dcfce7;
+  --found-fg: #14532d;
+  --partial-bg: #fef3c7;
+  --partial-fg: #78350f;
+  --notfound-bg: #e2e8f0;
+  --notfound-fg: #1e293b;
+  --conflict-bg: #fee2e2;
+  --conflict-fg: #991b1b;
+  --human-bg: #ede9fe;
+  --human-fg: #5b21b6;
+  color-scheme: light;
   font-family:
     ui-sans-serif,
     system-ui,
@@ -16,16 +31,58 @@
     'Segoe UI',
     Roboto,
     sans-serif;
+  font-size: 16px;
+}
+
+:root.dark {
+  --bg: #0b1020;
+  --surface: #121a2e;
+  --surface-2: #18223a;
+  --text: #e2e8f0;
+  --muted: #a3b1c6;
+  --accent: #a5b4fc;
+  --accent-fg: #0b1020;
+  --border: #243049;
+  --paper: #141c30;
+  --hit-bg: #312e81;
+  --quote-bg: #713f12;
+  --found-bg: #14532d;
+  --found-fg: #dcfce7;
+  --partial-bg: #78350f;
+  --partial-fg: #fef3c7;
+  --notfound-bg: #334155;
+  --notfound-fg: #f1f5f9;
+  --conflict-bg: #7f1d1d;
+  --conflict-fg: #fee2e2;
+  --human-bg: #4c1d95;
+  --human-fg: #ede9fe;
+  color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     --bg: #0b1020;
     --surface: #121a2e;
+    --surface-2: #18223a;
     --text: #e2e8f0;
-    --muted: #94a3b8;
+    --muted: #a3b1c6;
     --accent: #a5b4fc;
-    --border: #1e293b;
+    --accent-fg: #0b1020;
+    --border: #243049;
+    --paper: #141c30;
+    --hit-bg: #312e81;
+    --quote-bg: #713f12;
+    --found-bg: #14532d;
+    --found-fg: #dcfce7;
+    --partial-bg: #78350f;
+    --partial-fg: #fef3c7;
+    --notfound-bg: #334155;
+    --notfound-fg: #f1f5f9;
+    --conflict-bg: #7f1d1d;
+    --conflict-fg: #fee2e2;
+    --human-bg: #4c1d95;
+    --human-fg: #ede9fe;
+    color-scheme: dark;
   }
 }
 
@@ -33,6 +90,197 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@layer components {
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 6px;
+    padding: 0.5rem 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background-color 150ms,
+      opacity 150ms;
+    list-style: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-primary:disabled,
+  .btn-secondary:disabled,
+  .card-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  .btn-primary[aria-pressed='true'],
+  .btn-secondary[aria-pressed='true'] {
+    box-shadow: inset 0 0 0 2px var(--text);
+  }
+  .btn-link {
+    color: var(--accent);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .btn-link[aria-pressed='true'] {
+    font-weight: 700;
+  }
+  .card-button {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    cursor: pointer;
+    transition:
+      border-color 150ms,
+      transform 150ms;
+  }
+  .card-button:not(:disabled):hover {
+    border-color: var(--accent);
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .field select,
+  .field textarea,
+  .input {
+    font-weight: 400;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    padding: 0.5rem;
+  }
+  .paper {
+    margin: 0;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+  }
+  .tab {
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .tab[aria-selected='true'] {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+  .chip-filter {
+    border-radius: 9999px;
+    padding: 0.125rem 0.25rem;
+    font-size: 14px;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  .chip-filter[aria-pressed='true'] {
+    border-color: var(--accent);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 4rem 1fr auto auto auto;
+    gap: 0.75rem;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    padding: 0.625rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .row:hover {
+    background: var(--surface-2);
+  }
+  .row[aria-current='true'] {
+    background: var(--surface-2);
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+  .menu {
+    position: relative;
+  }
+  .menu > summary::-webkit-details-marker {
+    display: none;
+  }
+  .menu-panel {
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    margin-top: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 18rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    padding: 0.25rem;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+  }
+  .menu-panel button {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .menu-panel button:hover {
+    background: var(--surface-2);
+  }
+  .dialog {
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    padding: 1.5rem;
+    margin: auto;
+  }
+  .dialog::backdrop {
+    background: rgb(0 0 0 / 0.4);
+  }
+  .kbd {
+    font-family: ui-monospace, 'JetBrains Mono', monospace;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0 0.375rem;
+    background: var(--surface-2);
+  }
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+  }
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+    z-index: 50;
+    background: var(--surface);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

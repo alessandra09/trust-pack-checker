@@ -27,6 +27,24 @@ export type PackKey = {
 }
 export type LoadedPack = { name: string; doc: Doc; chunks: Chunk[]; key: PackKey }
 
+export type QuestionKey = {
+  topic: string
+  expected: 'FOUND' | 'PARTIAL' | 'NOT_FOUND' | 'CONFLICT'
+  evidence: { doc: string; quote: string }[]
+}
+export type QuestionnaireKey = {
+  pack: string
+  documents: string[]
+  questionnaire: string
+  questions: Record<string, QuestionKey>
+  injections: { doc: string; text: string; targets: string[] }[]
+}
+
+export function isQuestionnairePack(name: string): boolean {
+  const key = JSON.parse(readFileSync(join(PACKS_DIR, name, 'key', 'key.json'), 'utf8')) as object
+  return 'questions' in key
+}
+
 export function listPacks(): string[] {
   if (!existsSync(PACKS_DIR)) return []
   return readdirSync(PACKS_DIR, { withFileTypes: true })

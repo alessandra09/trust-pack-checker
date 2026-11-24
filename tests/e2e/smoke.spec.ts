@@ -35,3 +35,55 @@ test('landing page has no axe violations', async ({ page }) => {
     .analyze()
   expect(results.violations).toEqual([])
 })
+
+async function axeClean(page: import('@playwright/test').Page) {
+  const results = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])
+    .analyze()
+  expect(results.violations).toEqual([])
+}
+
+test('upload screen has no axe violations', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: /answering a questionnaire/ }).click()
+  await expect(page.getByRole('heading', { name: 'Add your documents' })).toBeVisible()
+  await axeClean(page)
+})
+
+test('sample data opens review with a conflict and no external requests', async ({
+  page,
+  baseURL,
+}) => {
+  const external: string[] = []
+  page.on('request', (req) => {
+    if (!req.url().startsWith(baseURL ?? '')) external.push(req.url())
+  })
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Try with sample data' }).click()
+  await expect(page.locator('[data-item-id]').first()).toBeVisible()
+  await page.getByRole('button', { name: /Q15/ }).click()
+  await expect(page.getByText('These passages state different numbers.')).toBeVisible()
+  await axeClean(page)
+  await page.getByRole('tab', { name: /DPA check/ }).click()
+  await page.locator('[data-item-id]').first().click()
+  await axeClean(page)
+  expect(external).toEqual([])
+})
+
+test('keyboard j/k moves selection and export downloads an XLSX copy', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Try with sample data' }).click()
+  const first = page.locator('[data-item-id]').first()
+  await expect(first).toBeVisible()
+  await first.click()
+  const before = await page.locator('[aria-current="true"]').getAttribute('data-item-id')
+  await page.locator('body').press('j')
+  const after = await page.locator('[aria-current="true"]').getAttribute('data-item-id')
+  expect(after).not.toBe(before)
+  await page.getByText('Export', { exact: true }).click()
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    page.getByRole('button', { name: /Filled questionnaire/ }).click(),
+  ])
+  expect(download.suggestedFilename()).toMatch(/^questionnaire-draft-.*\.xlsx$/)
+})

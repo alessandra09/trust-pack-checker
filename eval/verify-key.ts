@@ -20,6 +20,50 @@ type Defect = {
   mustNotContain: string[]
 }
 type Key = { pack: string; document: string; rules: Record<string, KeyRule>; defects: Defect[] }
+type QKey = {
+  pack: string
+  documents: string[]
+  questionnaire: string
+  questions: Record<
+    string,
+    { topic: string; expected: string; evidence: { doc: string; quote: string }[] }
+  >
+  injections: { doc: string; text: string }[]
+}
+
+function verifyQuestionnairePack(pack: string, key: QKey): void {
+  const texts = new Map(
+    key.documents.map((d) => [d, flat(readFileSync(join(PACKS, pack, d), 'utf8'))]),
+  )
+  const csv = readFileSync(join(PACKS, pack, key.questionnaire), 'utf8')
+  const counts: Record<string, number> = {}
+  for (const [qid, q] of Object.entries(key.questions)) {
+    counts[q.expected] = (counts[q.expected] ?? 0) + 1
+    if (!csv.includes(`${qid},`)) fail(pack, `${qid} not in questionnaire`)
+    if (q.expected === 'NOT_FOUND' && q.evidence.length > 0)
+      fail(pack, `${qid} NOT_FOUND but has evidence`)
+    if (q.expected === 'CONFLICT' && new Set(q.evidence.map((e) => e.doc)).size < 2)
+      fail(pack, `${qid} CONFLICT needs quotes from two documents`)
+    if (['FOUND', 'PARTIAL'].includes(q.expected) && q.evidence.length === 0)
+      fail(pack, `${qid} ${q.expected} without evidence`)
+    for (const e of q.evidence) {
+      const t = texts.get(e.doc)
+      if (!t?.includes(flat(e.quote))) fail(pack, `${qid} quote not in ${e.doc}: "${e.quote}"`)
+    }
+  }
+  for (const inj of key.injections)
+    if (!texts.get(inj.doc)?.includes(flat(inj.text))) fail(pack, `injection not in ${inj.doc}`)
+  const n = Object.keys(key.questions).length
+  if (pack === 'pack-c') {
+    if (n !== 60) fail(pack, `expected 60 questions, found ${n}`)
+    if (counts.NOT_FOUND !== 10)
+      fail(pack, `expected 10 unanswerable, found ${counts.NOT_FOUND ?? 0}`)
+    if (counts.CONFLICT !== 6) fail(pack, `expected 6 conflicts, found ${counts.CONFLICT ?? 0}`)
+    if (key.injections.length !== 4)
+      fail(pack, `expected 4 injections, found ${key.injections.length}`)
+  }
+  console.log(`${pack}: ${n} questions keyed, ${key.injections.length} injections checked`)
+}
 
 const flat = (s: string) => s.replace(/\s+/g, ' ').toLowerCase()
 const problems: string[] = []
@@ -34,7 +78,12 @@ for (const pack of packs) {
     fail(pack, 'key/key.json missing')
     continue
   }
-  const key = JSON.parse(readFileSync(keyPath, 'utf8')) as Key
+  const raw = JSON.parse(readFileSync(keyPath, 'utf8')) as Key | QKey
+  if ('questions' in raw) {
+    verifyQuestionnairePack(pack, raw)
+    continue
+  }
+  const key = raw
   const text = flat(readFileSync(join(PACKS, pack, key.document), 'utf8'))
 
   for (const id of coreIds)
