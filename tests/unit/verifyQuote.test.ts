@@ -27,7 +27,7 @@ describe('verifyQuote', () => {
   })
 
   it('handles non-breaking spaces', () => {
-    expect(verifyQuote('without undue delay', chunk)).toBe(true)
+    expect(verifyQuote('without\u00A0undue\u00A0delay', chunk)).toBe(true)
   })
 
   it('strips soft hyphens', () => {

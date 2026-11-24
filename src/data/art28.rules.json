@@ -1,0 +1,486 @@
+{
+  "owner": "Oleksandra Hordieieva",
+  "source": "https://gdpr-info.eu/art-28/",
+  "lastVerified": "2026-11-24",
+  "reviewedByLawyer": false,
+  "rules": [
+    {
+      "id": "A28-3-intro",
+      "article": "Art. 28(3)",
+      "class": "core",
+      "topic": "T02",
+      "title": "Details of processing",
+      "requirement": "The contract sets out the subject-matter and duration of the processing, the nature and purpose of the processing, the type of personal data and categories of data subjects, and the obligations and rights of the controller.",
+      "elements": [
+        "subject-matter",
+        "duration",
+        "nature and purpose",
+        "type of personal data",
+        "categories of data subjects",
+        "obligations and rights of the controller"
+      ],
+      "hints": [
+        "subject matter",
+        "duration of the processing",
+        "nature and purpose",
+        "categories of data subjects",
+        "types of personal data",
+        "type of personal data",
+        "categories of personal data",
+        "details of processing"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "HIGH",
+      "whyItMatters": "Art. 28(3) requires the contract to describe what is processed, about whom, why and for how long. Without it, the scope of the processor's mandate is unclear.",
+      "suggestedAsk": "Please provide the description of processing: subject-matter, duration, nature and purpose, types of personal data and categories of data subjects.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "A28-3-a",
+      "article": "Art. 28(3)(a)",
+      "class": "core",
+      "topic": "T01",
+      "title": "Documented instructions",
+      "requirement": "The processor processes the personal data only on documented instructions from the controller, including with regard to transfers of personal data to a third country or an international organisation, unless required to do so by Union or Member State law; in such a case it informs the controller of that legal requirement before processing, unless that law prohibits such information.",
+      "elements": [
+        "only on documented instructions",
+        "instructions cover transfers to third countries",
+        "informs the controller of a legal requirement to process otherwise"
+      ],
+      "hints": [
+        "documented instructions",
+        "written instructions",
+        "instructions of the controller",
+        "instructions from the controller",
+        "on behalf of the controller",
+        "only in accordance with"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "HIGH",
+      "whyItMatters": "The processor may act only on the controller's documented instructions, including for international transfers. Without this clause the processor could use the data for its own purposes.",
+      "suggestedAsk": "Please confirm that you process personal data only on our documented instructions, including for transfers outside the EEA, and that you will inform us before processing if the law requires otherwise.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "A28-3-a2",
+      "article": "Art. 28(3), last subparagraph",
+      "class": "core",
+      "topic": "T01",
+      "title": "Infringing instructions",
+      "requirement": "The processor immediately informs the controller if, in its opinion, an instruction infringes the GDPR or other Union or Member State data protection provisions.",
+      "elements": [
+        "immediately informs the controller",
+        "instruction infringes data protection law"
+      ],
+      "hints": [
+        "instruction infringes",
+        "infringes this regulation",
+        "infringes applicable data protection",
+        "violates applicable data protection",
+        "unlawful instruction",
+        "in its opinion"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "MEDIUM",
+      "whyItMatters": "The processor must warn the controller about instructions it believes are unlawful, so the controller can correct them.",
+      "suggestedAsk": "Please confirm that you will immediately inform us if, in your opinion, an instruction infringes data protection law.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "A28-3-b",
+      "article": "Art. 28(3)(b)",
+      "class": "core",
+      "topic": "T10",
+      "title": "Confidentiality of personnel",
+      "requirement": "The processor ensures that persons authorised to process the personal data have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality.",
+      "elements": [
+        "persons authorised to process",
+        "committed to confidentiality or under statutory obligation"
+      ],
+      "hints": [
+        "confidentiality",
+        "obligation of confidentiality",
+        "committed themselves to confidentiality",
+        "persons authorised to process",
+        "personnel",
+        "duty of confidentiality"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "HIGH",
+      "whyItMatters": "Everyone at the processor who handles the data must be bound to confidentiality. Without it, staff access is not contractually controlled.",
+      "suggestedAsk": "Please confirm that all persons authorised to process our personal data are bound by a confidentiality commitment or a statutory duty of confidentiality.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "A28-3-c",
+      "article": "Art. 28(3)(c)",
+      "class": "core",
+      "topic": "T11",
+      "title": "Security of processing",
+      "requirement": "The processor takes all measures required pursuant to Article 32 (security of processing).",
+      "elements": ["measures required by Article 32"],
+      "hints": [
+        "article 32",
+        "technical and organisational measures",
+        "technical and organizational measures",
+        "security of processing",
+        "appropriate level of security",
+        "security measures"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "HIGH",
+      "whyItMatters": "The processor must implement the security measures required by Art. 32. The contract should commit to them, usually with a description in an annex.",
+      "suggestedAsk": "Please confirm your commitment to the security measures required by Art. 32 GDPR and provide the description of your technical and organisational measures.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "A28-2",
+      "article": "Art. 28(2)",
+      "class": "core",
+      "topic": "T03",
+      "title": "Authorisation of sub-processors",
+      "requirement": "The processor does not engage another processor without prior specific or general written authorisation of the controller. Under general written authorisation, the processor informs the controller of any intended changes concerning the addition or replacement of other processors, giving the controller the opportunity to object.",
+      "elements": [
+        "prior specific or general written authorisation",
+        "informs of intended changes",
+        "opportunity to object"
+      ],
+      "hints": [
+        "sub-processor",
+        "subprocessor",
+        "another processor",
+        "written authorisation",
+        "general authorisation",
+        "prior authorisation",
+        "intended changes",
+        "object to"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "HIGH",
+      "whyItMatters": "The controller must keep control over who else processes the data. Under a general authorisation, the controller must be told about changes and be able to object.",
+      "suggestedAsk": "Please confirm how sub-processors are authorised, how you notify us of intended changes, and how we can object.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "A28-3-d",
+      "article": "Art. 28(3)(d)",
+      "class": "core",
+      "topic": "T03",
+      "title": "Conditions for engaging sub-processors",
+      "requirement": "The processor respects the conditions referred to in paragraphs 2 and 4 of Article 28 for engaging another processor.",
+      "elements": ["respects conditions of Art. 28(2) and 28(4)"],
+      "hints": [
+        "engage another processor",
+        "engaging a sub-processor",
+        "engage a sub-processor",
+        "engage sub-processors",
+        "conditions for engaging"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "MEDIUM",
+      "whyItMatters": "The contract must bind the processor to the rules on authorisation and flow-down when it engages sub-processors.",
+      "suggestedAsk": "Please confirm that you will engage sub-processors only under the conditions of Art. 28(2) and 28(4) GDPR.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "A28-4",
+      "article": "Art. 28(4)",
+      "class": "core",
+      "topic": "T03",
+      "title": "Flow-down and liability for sub-processors",
+      "requirement": "The same data protection obligations as in the contract with the controller are imposed on the sub-processor by contract; the initial processor remains fully liable to the controller for the performance of the sub-processor's obligations.",
+      "elements": [
+        "same data protection obligations imposed by contract",
+        "processor remains fully liable"
+      ],
+      "hints": [
+        "same data protection obligations",
+        "fully liable",
+        "remain liable",
+        "remains liable",
+        "written agreement with",
+        "obligations no less protective"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "HIGH",
+      "whyItMatters": "Sub-processors must be bound by the same obligations, and the processor stays liable for them. Otherwise protection weakens down the chain.",
+      "suggestedAsk": "Please confirm that sub-processors are bound by the same data protection obligations by contract and that you remain fully liable for their performance.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "A28-3-e",
+      "article": "Art. 28(3)(e)",
+      "class": "core",
+      "topic": "T07",
+      "title": "Assistance with data subject rights",
+      "requirement": "Taking into account the nature of the processing, the processor assists the controller by appropriate technical and organisational measures, insofar as possible, to respond to requests for exercising the data subject's rights laid down in Chapter III.",
+      "elements": ["assists the controller", "requests from data subjects exercising their rights"],
+      "hints": [
+        "data subject requests",
+        "data subject rights",
+        "rights of data subjects",
+        "exercise of rights",
+        "exercising the data subject",
+        "chapter iii",
+        "requests from data subjects"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "HIGH",
+      "whyItMatters": "The controller must answer access, deletion and other rights requests within legal deadlines. It needs the processor's help to do so.",
+      "suggestedAsk": "Please confirm how you will assist us in responding to data subject rights requests, including timelines.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "A28-3-f",
+      "article": "Art. 28(3)(f)",
+      "class": "core",
+      "topic": "T06",
+      "title": "Assistance with Articles 32 to 36",
+      "requirement": "The processor assists the controller in ensuring compliance with the obligations pursuant to Articles 32 to 36 (security, breach notification and communication, data protection impact assessment, prior consultation), taking into account the nature of processing and the information available to the processor.",
+      "elements": [
+        "security (Art. 32)",
+        "breach notification (Art. 33-34)",
+        "DPIA (Art. 35)",
+        "prior consultation (Art. 36)"
+      ],
+      "hints": [
+        "articles 32 to 36",
+        "data protection impact assessment",
+        "impact assessment",
+        "prior consultation",
+        "personal data breach",
+        "breach notification"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "HIGH",
+      "whyItMatters": "The controller relies on the processor to meet security, breach notification and DPIA obligations. The contract must commit the processor to help.",
+      "suggestedAsk": "Please confirm your assistance with security, personal data breach notification, DPIAs and prior consultation (Art. 32 to 36 GDPR).",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "A28-3-g",
+      "article": "Art. 28(3)(g)",
+      "class": "core",
+      "topic": "T08",
+      "title": "Deletion or return at end of services",
+      "requirement": "At the choice of the controller, the processor deletes or returns all the personal data to the controller after the end of the provision of services relating to processing, and deletes existing copies unless Union or Member State law requires storage of the personal data.",
+      "elements": [
+        "at the controller's choice",
+        "delete or return all personal data",
+        "delete existing copies unless law requires storage"
+      ],
+      "hints": [
+        "delete or return",
+        "return or delete",
+        "deletion or return",
+        "return or deletion",
+        "end of the provision of services",
+        "existing copies",
+        "termination"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "HIGH",
+      "whyItMatters": "When the service ends, the controller decides whether data is deleted or returned. Without this clause, data may stay with the processor indefinitely.",
+      "suggestedAsk": "Please confirm that at the end of services you will, at our choice, delete or return all personal data and delete existing copies unless the law requires storage.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "A28-3-h",
+      "article": "Art. 28(3)(h)",
+      "class": "core",
+      "topic": "T09",
+      "title": "Information and audits",
+      "requirement": "The processor makes available to the controller all information necessary to demonstrate compliance with the obligations of Article 28 and allows for and contributes to audits, including inspections, conducted by the controller or another auditor mandated by the controller.",
+      "elements": [
+        "makes available information necessary to demonstrate compliance",
+        "allows for and contributes to audits, including inspections"
+      ],
+      "hints": [
+        "audits, including inspections",
+        "inspection",
+        "inspections",
+        "demonstrate compliance",
+        "auditor mandated",
+        "audit rights",
+        "right to audit",
+        "contribute to audits"
+      ],
+      "negativeHints": [
+        "financial audit",
+        "statutory audit",
+        "annual accounts",
+        "financial statements",
+        "audited accounts"
+      ],
+      "severityIfMissing": "HIGH",
+      "whyItMatters": "The controller must be able to verify the processor's compliance, through information and audits including inspections.",
+      "suggestedAsk": "Please confirm the controller's audit and inspection rights and the process for exercising them.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "P-BREACH-TIME",
+      "article": "Art. 33(2) context",
+      "class": "practice",
+      "topic": "T06",
+      "title": "Breach notice time limit",
+      "requirement": "The contract states a specific time limit (for example a number of hours) for the processor to notify the controller of a personal data breach. Art. 33(2) itself says 'without undue delay'.",
+      "elements": ["specific time limit"],
+      "hints": [
+        "personal data breach",
+        "security incident",
+        "notify the controller",
+        "without undue delay",
+        "hours"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "MEDIUM",
+      "whyItMatters": "The controller has 72 hours to notify the supervisory authority. A specific processor deadline makes that achievable.",
+      "suggestedAsk": "Please state the maximum time in hours within which you will notify us of a personal data breach.",
+      "source": "https://gdpr-info.eu/art-33/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "P-TRANSFER",
+      "article": "Chapter V context",
+      "class": "practice",
+      "topic": "T04",
+      "title": "Transfer mechanism",
+      "requirement": "Where personal data leaves the EEA, the contract names the transfer mechanism (Standard Contractual Clauses, an adequacy decision or the EU-US Data Privacy Framework).",
+      "elements": ["transfer mechanism named"],
+      "hints": [
+        "standard contractual clauses",
+        "adequacy decision",
+        "data privacy framework",
+        "third country",
+        "outside the eea",
+        "international transfer"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "MEDIUM",
+      "whyItMatters": "Transfers outside the EEA need a legal mechanism under Chapter V. The contract should say which one applies.",
+      "suggestedAsk": "Please confirm whether personal data leaves the EEA and which transfer mechanism applies.",
+      "source": "https://gdpr-info.eu/chapter-5/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "P-SUBLIST",
+      "article": "Art. 28(2) context",
+      "class": "practice",
+      "topic": "T03",
+      "title": "Sub-processor list",
+      "requirement": "A list of sub-processors with name, purpose and location.",
+      "elements": ["name", "purpose", "location"],
+      "hints": [
+        "list of sub-processors",
+        "sub-processor list",
+        "approved sub-processors",
+        "authorised sub-processors"
+      ],
+      "negativeHints": [],
+      "severityIfMissing": "LOW",
+      "whyItMatters": "A list with purpose and location lets the controller assess each sub-processor and any transfers.",
+      "suggestedAsk": "Please provide your current sub-processor list with each entity's purpose and processing location.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "P-RETENTION",
+      "article": "Art. 28(3)(g) context",
+      "class": "practice",
+      "topic": "T08",
+      "title": "Retention period after termination",
+      "requirement": "A specific period within which personal data is deleted or returned after termination, including backups.",
+      "elements": ["specific period"],
+      "hints": ["days", "retention", "retained", "backups", "after termination"],
+      "negativeHints": [],
+      "severityIfMissing": "LOW",
+      "whyItMatters": "A concrete period makes the deletion obligation checkable.",
+      "suggestedAsk": "Please state within how many days after termination personal data, including backups, is deleted or returned.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "P-LIABILITY",
+      "article": "n/a",
+      "class": "practice",
+      "topic": "T01",
+      "title": "Data protection liability",
+      "requirement": "Liability or indemnity terms relating to data protection.",
+      "elements": ["liability or indemnity terms"],
+      "hints": ["liability", "indemnify", "indemnity", "limitation of liability"],
+      "negativeHints": [],
+      "severityIfMissing": "INFO",
+      "whyItMatters": "Liability terms decide who bears the cost of a data protection failure.",
+      "suggestedAsk": "Please confirm how liability for data protection breaches is allocated.",
+      "source": "https://gdpr-info.eu/art-82/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "P-AI-TRAIN",
+      "article": "n/a",
+      "class": "practice",
+      "topic": "T18",
+      "title": "AI training on customer data",
+      "requirement": "A statement on whether customer personal data is used to train or improve AI or machine learning models.",
+      "elements": ["statement on AI training"],
+      "hints": [
+        "train",
+        "training",
+        "machine learning",
+        "artificial intelligence",
+        "ai models",
+        "improve models"
+      ],
+      "negativeHints": ["security awareness training", "staff training", "employee training"],
+      "severityIfMissing": "INFO",
+      "whyItMatters": "Use of customer data to train models is a separate purpose that the controller must know about and authorise.",
+      "suggestedAsk": "Please confirm whether our personal data is used to train or improve any AI or machine learning model, yours or a provider's.",
+      "source": "https://gdpr-info.eu/art-28/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "P-DPO",
+      "article": "Art. 37 context",
+      "class": "practice",
+      "topic": "T01",
+      "title": "Privacy contact",
+      "requirement": "A data protection officer or privacy contact is named.",
+      "elements": ["DPO or privacy contact"],
+      "hints": ["data protection officer", "dpo", "privacy contact", "privacy@"],
+      "negativeHints": [],
+      "severityIfMissing": "INFO",
+      "whyItMatters": "A named contact speeds up rights requests, incidents and audits.",
+      "suggestedAsk": "Please name your data protection officer or privacy contact.",
+      "source": "https://gdpr-info.eu/art-37/",
+      "lastVerified": "2026-11-24"
+    },
+    {
+      "id": "P-EUREP",
+      "article": "Art. 27 context",
+      "class": "practice",
+      "topic": "T01",
+      "title": "EU representative",
+      "requirement": "Where the processor is not established in the EU, an EU representative is named.",
+      "elements": ["EU representative named"],
+      "hints": ["eu representative", "representative in the union", "article 27"],
+      "negativeHints": [],
+      "severityIfMissing": "INFO",
+      "whyItMatters": "Non-EU processors subject to the GDPR generally must designate a representative in the EU.",
+      "suggestedAsk": "If you are not established in the EU, please name your EU representative.",
+      "source": "https://gdpr-info.eu/art-27/",
+      "lastVerified": "2026-11-24"
+    }
+  ]
+}

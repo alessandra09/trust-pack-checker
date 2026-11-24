@@ -1,0 +1,222 @@
+{
+  "pack": "pack-b",
+  "document": "docs/dpa.md",
+  "rules": {
+    "A28-3-intro": {
+      "expected": "FOUND",
+      "quote": "The subject matter, duration, nature and purpose of the processing, the types of personal data and the categories of data subjects are described in Annex 1"
+    },
+    "A28-3-a": {
+      "expected": "PARTIAL",
+      "quote": "only on documented instructions from the Customer, unless required to do so by Union or Member State law",
+      "missingElements": ["instructions cover transfers to third countries"],
+      "defect": "D06"
+    },
+    "A28-3-a2": {
+      "expected": "FOUND",
+      "quote": "immediately inform the Customer if, in its opinion, an instruction infringes the GDPR"
+    },
+    "A28-3-b": { "expected": "NOT_FOUND", "defect": "D05" },
+    "A28-3-c": {
+      "expected": "FOUND",
+      "quote": "Northwind shall take all measures required pursuant to Article 32 GDPR",
+      "incorporatedByReference": true,
+      "defect": "D09"
+    },
+    "A28-2": {
+      "expected": "PARTIAL",
+      "quote": "The Customer gives Northwind general written authorisation to engage the Sub-processors listed in Annex 3",
+      "missingElements": ["informs of intended changes", "opportunity to object"],
+      "defect": "D02"
+    },
+    "A28-3-d": {
+      "expected": "FOUND",
+      "quote": "Northwind shall respect the conditions set out in this Section 5 and in Article 28(2) and 28(4) GDPR"
+    },
+    "A28-4": {
+      "expected": "FOUND",
+      "quote": "Northwind shall remain fully liable to the Customer for the performance of that Sub-processor's obligations"
+    },
+    "A28-3-e": { "expected": "NOT_FOUND", "defect": "D04" },
+    "A28-3-f": {
+      "expected": "FOUND",
+      "quote": "assist the Customer in ensuring compliance with its obligations pursuant to Articles 32 to 36 GDPR"
+    },
+    "A28-3-g": { "expected": "NOT_FOUND", "defect": "D03" },
+    "A28-3-h": { "expected": "NOT_FOUND", "defect": "D01" },
+    "P-BREACH-TIME": {
+      "expected": "PARTIAL",
+      "quote": "within a reasonable time after becoming aware of it",
+      "missingElements": ["specific time limit"],
+      "defect": "D07"
+    },
+    "P-TRANSFER": {
+      "expected": "FOUND",
+      "quote": "the Standard Contractual Clauses adopted by the European Commission"
+    },
+    "P-SUBLIST": {
+      "expected": "PARTIAL",
+      "quote": "| Sub-processor | Purpose |",
+      "missingElements": ["location"],
+      "defect": "D08"
+    },
+    "P-RETENTION": {
+      "expected": "CONFLICT",
+      "quote": "Northwind keeps Customer Personal Data in its backups for thirty (30) days after the Agreement ends",
+      "conflictQuote": "Backups of Customer Personal Data are kept for ninety (90) days after the Agreement ends",
+      "defect": "D10"
+    },
+    "P-LIABILITY": {
+      "expected": "FOUND",
+      "quote": "subject to the limitation of liability in the Agreement"
+    },
+    "P-AI-TRAIN": {
+      "expected": "CONFLICT",
+      "quote": "shall not use Customer Personal Data, including call recordings and transcripts, to train",
+      "conflictQuote": "improving Northwind's speech recognition models by training them on call recordings",
+      "defect": "D11"
+    },
+    "P-DPO": {
+      "expected": "FOUND",
+      "quote": "Northwind's data protection officer can be contacted"
+    },
+    "P-EUREP": {
+      "expected": "NOT_FOUND",
+      "note": "Northwind is established in Ireland; not applicable."
+    }
+  },
+  "defects": [
+    {
+      "id": "D01",
+      "type": "missing",
+      "ruleId": "A28-3-h",
+      "description": "No audit or information clause.",
+      "mustContain": [],
+      "mustNotContain": [
+        "inspection",
+        "demonstrate compliance",
+        "auditor mandated",
+        "audit rights",
+        "right to audit",
+        "contribute to audits"
+      ]
+    },
+    {
+      "id": "D02",
+      "type": "partial",
+      "ruleId": "A28-2",
+      "description": "General authorisation for sub-processors, but no notice of changes and no right to object.",
+      "mustContain": ["general written authorisation"],
+      "mustNotContain": ["intended changes", "object to", "objection"]
+    },
+    {
+      "id": "D03",
+      "type": "missing",
+      "ruleId": "A28-3-g",
+      "description": "No deletion or return clause at the end of services.",
+      "mustContain": [],
+      "mustNotContain": [
+        "delete or return",
+        "return or delete",
+        "deletion or return",
+        "return or deletion",
+        "end of the provision",
+        "existing copies",
+        "termination",
+        "delete",
+        "deletion"
+      ]
+    },
+    {
+      "id": "D04",
+      "type": "missing",
+      "ruleId": "A28-3-e",
+      "description": "No assistance with data subject rights requests.",
+      "mustContain": [],
+      "mustNotContain": [
+        "data subject requests",
+        "data subject rights",
+        "rights of data subjects",
+        "exercise of rights",
+        "exercising the data subject",
+        "chapter iii",
+        "requests from data subjects"
+      ]
+    },
+    {
+      "id": "D05",
+      "type": "missing",
+      "ruleId": "A28-3-b",
+      "description": "No confidentiality commitment for personnel.",
+      "mustContain": [],
+      "mustNotContain": [
+        "confidentiality",
+        "confidential",
+        "personnel",
+        "persons authorised to process"
+      ]
+    },
+    {
+      "id": "D06",
+      "type": "partial",
+      "ruleId": "A28-3-a",
+      "description": "Instructions clause does not cover transfers to third countries.",
+      "mustContain": ["only on documented instructions from the Customer, unless required"],
+      "mustNotContain": ["including with regard to transfers"]
+    },
+    {
+      "id": "D07",
+      "type": "vague",
+      "ruleId": "P-BREACH-TIME",
+      "description": "Breach notice 'within a reasonable time', no number of hours.",
+      "mustContain": ["within a reasonable time"],
+      "mustNotContain": ["hours"]
+    },
+    {
+      "id": "D08",
+      "type": "partial",
+      "ruleId": "P-SUBLIST",
+      "description": "Sub-processor list has no location column.",
+      "mustContain": ["| Sub-processor | Purpose |"],
+      "mustNotContain": ["| Location |", "Netherlands", "Germany"]
+    },
+    {
+      "id": "D09",
+      "type": "incorporated",
+      "ruleId": "A28-3-c",
+      "description": "Security measures incorporated by reference to an Annex 2 that is not provided.",
+      "mustContain": ["incorporated by reference", "Annex 2"],
+      "mustNotContain": ["## Annex 2"]
+    },
+    {
+      "id": "D10",
+      "type": "contradictory",
+      "ruleId": "P-RETENTION",
+      "description": "Backup retention is 30 days in Section 8 and 90 days in Annex 1.",
+      "mustContain": [
+        "thirty (30) days after the Agreement ends",
+        "ninety (90) days after the Agreement ends"
+      ],
+      "mustNotContain": []
+    },
+    {
+      "id": "D11",
+      "type": "contradictory",
+      "ruleId": "P-AI-TRAIN",
+      "description": "AI training denied in Section 9, allowed in Annex 1.",
+      "mustContain": [
+        "shall not use Customer Personal Data, including call recordings and transcripts, to train",
+        "by training them on call recordings"
+      ],
+      "mustNotContain": []
+    },
+    {
+      "id": "D12",
+      "type": "decoy",
+      "ruleId": "A28-3-h",
+      "description": "The word 'audit' used for a statutory financial audit, not a data protection audit. Must not satisfy A28-3-h.",
+      "mustContain": ["statutory audit", "financial statements"],
+      "mustNotContain": []
+    }
+  ]
+}

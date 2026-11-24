@@ -1,0 +1,191 @@
+{
+  "owner": "Oleksandra Hordieieva",
+  "lastVerified": "2026-11-24",
+  "source": "SPEC.md section 9.5",
+  "topics": [
+    {
+      "id": "T01",
+      "name": "Roles and responsibilities, DPO, EU representative",
+      "hints": [
+        "controller",
+        "processor",
+        "data protection officer",
+        "dpo",
+        "eu representative",
+        "roles",
+        "responsibilities"
+      ],
+      "answerableFrom": ["dpa", "privacy"]
+    },
+    {
+      "id": "T02",
+      "name": "Purpose and categories of data and data subjects",
+      "hints": [
+        "purpose",
+        "categories of personal data",
+        "categories of data subjects",
+        "types of data",
+        "what data",
+        "personal data do you process"
+      ],
+      "answerableFrom": ["dpa", "ropa", "privacy"]
+    },
+    {
+      "id": "T03",
+      "name": "Sub-processors and list",
+      "hints": ["sub-processor", "subprocessor", "third parties", "vendors", "subcontractor"],
+      "answerableFrom": ["dpa"]
+    },
+    {
+      "id": "T04",
+      "name": "International transfers and mechanism",
+      "hints": [
+        "transfer",
+        "third country",
+        "outside the eea",
+        "standard contractual clauses",
+        "sccs",
+        "adequacy",
+        "data privacy framework"
+      ],
+      "answerableFrom": ["dpa", "privacy"]
+    },
+    {
+      "id": "T05",
+      "name": "Data location and hosting",
+      "hints": [
+        "hosted",
+        "hosting",
+        "data centre",
+        "data center",
+        "data location",
+        "region",
+        "where is data stored",
+        "stored"
+      ],
+      "answerableFrom": ["dpa", "security"]
+    },
+    {
+      "id": "T06",
+      "name": "Breach notification and incident response",
+      "hints": ["breach", "incident", "notify", "notification", "incident response"],
+      "answerableFrom": ["dpa", "security"]
+    },
+    {
+      "id": "T07",
+      "name": "Data subject rights handling",
+      "hints": [
+        "data subject request",
+        "data subject rights",
+        "access request",
+        "right to erasure",
+        "dsar",
+        "rectification"
+      ],
+      "answerableFrom": ["dpa", "privacy"]
+    },
+    {
+      "id": "T08",
+      "name": "Retention, deletion and return",
+      "hints": ["retention", "retain", "delete", "deletion", "return", "termination", "destroy"],
+      "answerableFrom": ["dpa", "privacy"]
+    },
+    {
+      "id": "T09",
+      "name": "Audit and information rights",
+      "hints": ["audit", "inspection", "right to audit", "demonstrate compliance"],
+      "answerableFrom": ["dpa"]
+    },
+    {
+      "id": "T10",
+      "name": "Confidentiality of personnel and training",
+      "hints": [
+        "confidentiality",
+        "personnel",
+        "employees",
+        "staff",
+        "background check",
+        "training",
+        "nda"
+      ],
+      "answerableFrom": ["dpa", "security"]
+    },
+    {
+      "id": "T11",
+      "name": "Encryption (in transit, at rest)",
+      "hints": ["encryption", "encrypted", "encrypt", "tls", "aes", "at rest", "in transit"],
+      "answerableFrom": ["security", "dpa"]
+    },
+    {
+      "id": "T12",
+      "name": "Access control, MFA, least privilege",
+      "hints": [
+        "access control",
+        "mfa",
+        "multi-factor",
+        "two-factor",
+        "least privilege",
+        "role-based",
+        "password"
+      ],
+      "answerableFrom": ["security"]
+    },
+    {
+      "id": "T13",
+      "name": "Logging and monitoring",
+      "hints": ["logging", "logs", "monitoring", "siem", "audit trail"],
+      "answerableFrom": ["security"]
+    },
+    {
+      "id": "T14",
+      "name": "Backup, continuity, disaster recovery",
+      "hints": ["backup", "business continuity", "disaster recovery", "rpo", "rto", "resilience"],
+      "answerableFrom": ["security"]
+    },
+    {
+      "id": "T15",
+      "name": "Vulnerability management and penetration testing",
+      "hints": ["vulnerability", "penetration test", "pen test", "pentest", "patch", "scanning"],
+      "answerableFrom": ["security"]
+    },
+    {
+      "id": "T16",
+      "name": "Certifications and attestations (ISO 27001, SOC 2)",
+      "hints": ["iso 27001", "iso/iec 27001", "soc 2", "soc2", "certification", "attestation"],
+      "answerableFrom": ["security"]
+    },
+    {
+      "id": "T17",
+      "name": "Privacy governance (ROPA, DPIA, policies)",
+      "hints": [
+        "record of processing",
+        "ropa",
+        "dpia",
+        "impact assessment",
+        "privacy policy",
+        "governance"
+      ],
+      "answerableFrom": ["ropa", "privacy"]
+    },
+    {
+      "id": "T18",
+      "name": "Use of AI and AI training on customer data",
+      "hints": [
+        "artificial intelligence",
+        "ai",
+        "machine learning",
+        "model training",
+        "train",
+        "llm",
+        "generative"
+      ],
+      "answerableFrom": ["dpa", "privacy", "security"]
+    },
+    {
+      "id": "T19",
+      "name": "Other (unclassified)",
+      "hints": [],
+      "answerableFrom": []
+    }
+  ]
+}
