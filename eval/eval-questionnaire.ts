@@ -30,7 +30,7 @@ const ACCEPTABLE: Record<string, string[]> = {
   CONFLICT: ['CONFLICT'],
 }
 
-export function evalQuestionnairePack(name: string): Gate[] {
+export function loadQuestionnairePack(name: string) {
   const dir = join(PACKS_DIR, name)
   const key = JSON.parse(readFileSync(join(dir, 'key', 'key.json'), 'utf8')) as QuestionnaireKey
   const docs = key.documents.map((d) =>
@@ -50,6 +50,12 @@ export function evalQuestionnairePack(name: string): Gate[] {
   )
   const mapping = detectTable(table)
   const questions = mapping ? extractQuestions(table, mapping) : []
+
+  return { key, docs, chunks, ctx, questions }
+}
+
+export function evalQuestionnairePack(name: string): Gate[] {
+  const { key, docs, chunks, ctx, questions } = loadQuestionnairePack(name)
 
   const answers = new Map<string, DraftedAnswer>()
   let topicHits = 0

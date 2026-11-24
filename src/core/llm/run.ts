@@ -25,7 +25,8 @@ import {
 
 // SPEC 12.3: only the question and the selected passages (about 1,500 words) are sent; never whole files or file names.
 export const MAX_PASSAGE_WORDS = 1500
-const MAX_TOKENS = 1024
+// Thinking is on by default on current Claude models and counts toward this limit; only used tokens are billed.
+const MAX_TOKENS = 8000
 
 export type AiOutcome<T> = T & { usage: LlmUsage; calls: number; warnings: string[] }
 

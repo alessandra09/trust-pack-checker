@@ -14,6 +14,8 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       '@typescript-eslint/no-explicit-any': 'error',
+      // Allows dropping fields with { a: _a, ...rest } without a helper.
+      '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
       'no-console': ['error', { allow: ['warn', 'error'] }],
     },
   },
