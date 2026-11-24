@@ -1,22 +1,101 @@
+import { useEffect, useReducer, useState } from 'react'
+import { detectTable } from '../core/qa/detect.ts'
+import type { Doc } from '../core/types.ts'
 import { t } from '../i18n/t.ts'
+import { ModeScreen } from '../screens/ModeScreen.tsx'
+import { UploadScreen } from '../screens/UploadScreen.tsx'
+import { ReviewScreen } from '../screens/review/ReviewScreen.tsx'
+import { analyzeCompany } from './analyze.ts'
+import { sampleFiles } from './sample.ts'
+import { initialState, reducer } from './store.ts'
+import { DOC_SLOTS } from './types.ts'
+
+type Theme = 'system' | 'light' | 'dark'
+
+function useTheme(): [Theme, () => void] {
+  const [theme, setTheme] = useState<Theme>(
+    () => (localStorage.getItem('theme') as Theme | null) ?? 'system',
+  )
+  useEffect(() => {
+    const root = document.documentElement
+    root.classList.toggle('dark', theme === 'dark')
+    root.classList.toggle('light', theme === 'light')
+    if (theme === 'system') localStorage.removeItem('theme')
+    else localStorage.setItem('theme', theme)
+  }, [theme])
+  const prefersDark =
+    typeof matchMedia !== 'undefined' && matchMedia('(prefers-color-scheme: dark)').matches
+  const isDark = theme === 'dark' || (theme === 'system' && prefersDark)
+  return [theme, () => setTheme(isDark ? 'light' : 'dark')]
+}
 
 export function App() {
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const [running, setRunning] = useState(false)
+  const [, toggleTheme] = useTheme()
+
+  const run = () => {
+    setRunning(true)
+    // Let the busy state paint before the synchronous analysis runs.
+    setTimeout(() => {
+      const docs = DOC_SLOTS.flatMap((s) =>
+        state.files[s.id]?.doc ? [state.files[s.id]?.doc as Doc] : [],
+      )
+      const table = state.files.questionnaire?.table ?? null
+      const mapping = state.mapping ?? (table ? detectTable(table) : null)
+      dispatch({ type: 'mapping', mapping })
+      dispatch({ type: 'analysis', analysis: analyzeCompany({ docs, table, mapping }) })
+      setRunning(false)
+    }, 0)
+  }
+
+  const sample = () => {
+    const files = sampleFiles()
+    const table = files.questionnaire?.table ?? null
+    const mapping = table ? detectTable(table) : null
+    const docs = DOC_SLOTS.flatMap((s) => (files[s.id]?.doc ? [files[s.id]?.doc as Doc] : []))
+    dispatch({ type: 'sample', files, mapping, analysis: analyzeCompany({ docs, table, mapping }) })
+  }
+
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="border-b border-[var(--border)] px-6 py-4">
+    <div className="flex h-screen flex-col">
+      <a href="#main" className="skip-link">
+        {t('nav.skip')}
+      </a>
+      <header className="flex items-center gap-4 border-b border-[var(--border)] px-6 py-3">
         <span className="text-[18px] font-semibold">{t('app.name')}</span>
+        <span className="text-[14px] text-[var(--muted)] md:hidden">{t('mobile.notice')}</span>
+        <div className="ml-auto flex items-center gap-2">
+          {state.step !== 'mode' ? (
+            <button type="button" className="btn-link" onClick={() => dispatch({ type: 'reset' })}>
+              {t('nav.startOver')}
+            </button>
+          ) : null}
+          <button
+            type="button"
+            className="btn-secondary"
+            onClick={toggleTheme}
+            aria-label={t('theme.toggle')}
+          >
+            <span aria-hidden="true">◑</span>
+          </button>
+        </div>
       </header>
-      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center gap-4 px-6 py-16">
-        <h1 className="text-[32px] leading-tight font-semibold">{t('hero.headline')}</h1>
-        <p className="text-[18px] text-[var(--muted)]">{t('hero.subline')}</p>
-        <p className="rounded-[10px] border border-[var(--border)] bg-[var(--surface)] p-4 text-[16px]">
-          {t('status.placeholder')}
-        </p>
-        <p className="text-[14px] text-[var(--muted)]">{t('privacy.note')}</p>
+      <main id="main" className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+        {state.step === 'mode' ? (
+          <ModeScreen onMode={(mode) => dispatch({ type: 'start', mode })} onSample={sample} />
+        ) : null}
+        {state.step === 'upload' ? (
+          <UploadScreen state={state} dispatch={dispatch} onRun={run} running={running} />
+        ) : null}
+        {state.step === 'review' ? <ReviewScreen state={state} dispatch={dispatch} /> : null}
       </main>
-      <footer className="border-t border-[var(--border)] px-6 py-4 text-[14px] text-[var(--muted)]">
-        <p>{t('footer.disclaimer')}</p>
-        <p>{t('footer.rulesNotReviewed')}</p>
+      <footer className="flex flex-wrap gap-x-6 gap-y-1 border-t border-[var(--border)] px-6 py-2 text-[14px] text-[var(--muted)]">
+        <span>{t('footer.disclaimer')}</span>
+        <span>{t('footer.rulesNotReviewed')}</span>
+        <span title={t('notChecked.body')}>
+          {t('notChecked.title')}: {t('notChecked.body')}
+        </span>
       </footer>
     </div>
   )
