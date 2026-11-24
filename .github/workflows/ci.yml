@@ -40,7 +40,8 @@ jobs:
 
   deploy:
     needs: verify
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    # Public deploy is manual (SPEC 17 #16): run this workflow on main from the Actions tab.
+    if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       pages: write
