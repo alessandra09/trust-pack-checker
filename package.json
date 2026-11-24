@@ -16,9 +16,11 @@
     "preview": "vite preview",
     "verify": "npm run lint && npm run typecheck && npm run test && npm run check-synthetic && npm run eval && npm run build",
     "prepare": "git rev-parse --git-dir >/dev/null 2>&1 && git config core.hooksPath .githooks || true",
-    "fixtures": "python3 scripts/fixtures/make_fixtures.py"
+    "fixtures": "python3 scripts/fixtures/make_fixtures.py",
+    "eval:ai": "tsx eval/run-ai-eval.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "1.14.0",
     "exceljs": "4.4.0",
     "mammoth": "1.13.0",
     "minisearch": "7.2.0",

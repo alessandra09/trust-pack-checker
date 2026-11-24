@@ -1,6 +1,7 @@
 // SPEC 12.1 cost guard: characters / 4 as a token estimate; confirmation above 200 calls.
 export const CONFIRM_ABOVE_CALLS = 200
-export const REPLY_TOKENS = 250
+// Includes thinking tokens (on by default on current models, billed as output). Recalibrate from the pilot.
+export const REPLY_TOKENS = 800
 
 export type CostEstimate = {
   calls: number

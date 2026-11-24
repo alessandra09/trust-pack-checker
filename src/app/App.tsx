@@ -8,6 +8,10 @@ import { ReviewScreen } from '../screens/review/ReviewScreen.tsx'
 import { analyzeCompany } from './analyze.ts'
 import { sampleFiles } from './sample.ts'
 import { initialState, reducer } from './store.ts'
+import { useAiRun } from './useAiRun.ts'
+import { useApiKey } from './useApiKey.ts'
+import { AiPanel } from '../components/AiPanel.tsx'
+import { ConsentDialog } from '../components/ConsentDialog.tsx'
 import { DOC_SLOTS } from './types.ts'
 
 type Theme = 'system' | 'light' | 'dark'
@@ -33,6 +37,11 @@ export function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [running, setRunning] = useState(false)
   const [, toggleTheme] = useTheme()
+  const apiKey = useApiKey()
+  const ai = useAiRun(apiKey.key, (analysis) => {
+    dispatch({ type: 'analysis', analysis })
+    setRunning(false)
+  })
 
   const run = () => {
     setRunning(true)
@@ -44,8 +53,7 @@ export function App() {
       const table = state.files.questionnaire?.table ?? null
       const mapping = state.mapping ?? (table ? detectTable(table) : null)
       dispatch({ type: 'mapping', mapping })
-      dispatch({ type: 'analysis', analysis: analyzeCompany({ docs, table, mapping }) })
-      setRunning(false)
+      ai.start(analyzeCompany({ docs, table, mapping }), docs)
     }, 0)
   }
 
@@ -86,9 +94,42 @@ export function App() {
           <ModeScreen onMode={(mode) => dispatch({ type: 'start', mode })} onSample={sample} />
         ) : null}
         {state.step === 'upload' ? (
-          <UploadScreen state={state} dispatch={dispatch} onRun={run} running={running} />
+          <UploadScreen
+            state={state}
+            dispatch={dispatch}
+            onRun={run}
+            running={running}
+            aiPanel={
+              <AiPanel
+                enabled={ai.enabled}
+                onEnabled={ai.setEnabled}
+                apiKey={apiKey.key}
+                onKey={apiKey.setKey}
+                remember={apiKey.remember}
+                onRemember={apiKey.setRemember}
+              />
+            }
+            progress={
+              ai.progress ? (
+                <span role="status" className="flex items-center gap-3 text-[14px]">
+                  {t('ai.progress')}: {ai.progress.done}/{ai.progress.total}
+                  <button type="button" className="btn-link" onClick={ai.stop}>
+                    {t('ai.cancel')}
+                  </button>
+                </span>
+              ) : null
+            }
+          />
+        ) : null}
+        {state.step === 'review' && ai.notice ? (
+          <p role="alert" className="border-b border-[var(--border)] px-6 py-2 text-[14px]">
+            {t(ai.notice === 'authError' ? 'ai.authError' : 'ai.failed')}
+          </p>
         ) : null}
         {state.step === 'review' ? <ReviewScreen state={state} dispatch={dispatch} /> : null}
+        {ai.pending ? (
+          <ConsentDialog estimate={ai.pending.estimate} onSend={ai.accept} onNoAi={ai.decline} />
+        ) : null}
       </main>
       <footer className="flex flex-wrap gap-x-6 gap-y-1 border-t border-[var(--border)] px-6 py-2 text-[14px] text-[var(--muted)]">
         <span>{t('footer.disclaimer')}</span>

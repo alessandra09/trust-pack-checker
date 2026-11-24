@@ -5,22 +5,27 @@ import { classifyTopic } from '../core/qa/classify.ts'
 import { extractQuestions, type ColumnMapping } from '../core/qa/detect.ts'
 import { evaluateAllNoAi } from '../core/rules/engine.ts'
 import { buildIndex } from '../core/search/index.ts'
-import type { Doc, Table } from '../core/types.ts'
+import type { Chunk, Doc, Table } from '../core/types.ts'
 import { art28, topics } from '../data/load.ts'
 import type { Analysis, ReviewAnswer } from './types.ts'
 
 export type AnalysisInput = { docs: Doc[]; table: Table | null; mapping: ColumnMapping | null }
 
 // Company mode, no AI: retrieval answers for each question plus the Art. 28 check of the DPA.
-export function analyzeCompany({ docs, table, mapping }: AnalysisInput): Analysis {
+export function buildContext(docs: Doc[]): { chunks: Chunk[]; ctx: QaContext } {
   const chunks = docs.flatMap(chunkDoc)
-  const docNames = Object.fromEntries(docs.map((d) => [d.id, d.name]))
   const ctx: QaContext = {
     index: buildIndex(chunks),
-    docNames,
+    docNames: Object.fromEntries(docs.map((d) => [d.id, d.name])),
     docKinds: Object.fromEntries(docs.map((d) => [d.id, d.kind])),
     topics: topics.topics,
   }
+  return { chunks, ctx }
+}
+
+export function analyzeCompany({ docs, table, mapping }: AnalysisInput): Analysis {
+  const { chunks, ctx } = buildContext(docs)
+  const docNames = ctx.docNames
   const questions =
     table && mapping ? extractQuestions(table, mapping).filter((q) => !q.hidden) : []
   const answers: Record<string, ReviewAnswer> = {}

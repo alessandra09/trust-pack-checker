@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useId, type ReactNode } from 'react'
 import { detectTable, extractQuestions, type ColumnMapping } from '../core/qa/detect.ts'
 import { t } from '../i18n/t.ts'
 import { DropZone } from '../components/DropZone.tsx'
@@ -6,7 +6,15 @@ import { loadDocFile, loadTableFile } from '../app/files.ts'
 import type { Action } from '../app/store.ts'
 import { DOC_SLOTS, type AppState } from '../app/types.ts'
 
-type Props = { state: AppState; dispatch: (a: Action) => void; onRun: () => void; running: boolean }
+type Props = {
+  state: AppState
+  dispatch: (a: Action) => void
+  onRun: () => void
+  running: boolean
+  /** Optional AI settings panel and the AI progress line, owned by App. */
+  aiPanel?: ReactNode
+  progress?: ReactNode
+}
 
 function colName(i: number): string {
   return `${t('upload.mapping.column')} ${String.fromCharCode(65 + (i % 26))}`
@@ -89,7 +97,7 @@ function Mapping({ state, dispatch }: Pick<Props, 'state' | 'dispatch'>) {
   )
 }
 
-export function UploadScreen({ state, dispatch, onRun, running }: Props) {
+export function UploadScreen({ state, dispatch, onRun, running, aiPanel, progress }: Props) {
   const canRun = !!state.files.dpa?.doc && !running
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-6 py-10">
@@ -131,7 +139,8 @@ export function UploadScreen({ state, dispatch, onRun, running }: Props) {
         </aside>
       </div>
       <Mapping state={state} dispatch={dispatch} />
-      <div className="flex gap-3">
+      {aiPanel}
+      <div className="flex flex-wrap items-center gap-3">
         <button type="button" className="btn-secondary" onClick={() => dispatch({ type: 'back' })}>
           {t('upload.back')}
         </button>
@@ -144,6 +153,7 @@ export function UploadScreen({ state, dispatch, onRun, running }: Props) {
         >
           {running ? t('upload.running') : t('upload.run')}
         </button>
+        {progress}
       </div>
     </div>
   )
