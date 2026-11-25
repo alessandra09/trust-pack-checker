@@ -12,11 +12,12 @@ import { useAiRun } from './useAiRun.ts'
 import { useApiKey } from './useApiKey.ts'
 import { AiPanel } from '../components/AiPanel.tsx'
 import { ConsentDialog } from '../components/ConsentDialog.tsx'
+import { Icon } from '../components/Icon.tsx'
 import { DOC_SLOTS } from './types.ts'
 
 type Theme = 'system' | 'light' | 'dark'
 
-function useTheme(): [Theme, () => void] {
+function useTheme(): [boolean, () => void] {
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem('theme') as Theme | null) ?? 'system',
   )
@@ -30,13 +31,13 @@ function useTheme(): [Theme, () => void] {
   const prefersDark =
     typeof matchMedia !== 'undefined' && matchMedia('(prefers-color-scheme: dark)').matches
   const isDark = theme === 'dark' || (theme === 'system' && prefersDark)
-  return [theme, () => setTheme(isDark ? 'light' : 'dark')]
+  return [isDark, () => setTheme(isDark ? 'light' : 'dark')]
 }
 
 export function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [running, setRunning] = useState(false)
-  const [, toggleTheme] = useTheme()
+  const [isDark, toggleTheme] = useTheme()
   const apiKey = useApiKey()
   const ai = useAiRun(apiKey.key, (analysis) => {
     dispatch({ type: 'analysis', analysis })
@@ -70,8 +71,13 @@ export function App() {
       <a href="#main" className="skip-link">
         {t('nav.skip')}
       </a>
-      <header className="flex items-center gap-4 border-b border-[var(--border)] px-6 py-3">
-        <span className="text-[18px] font-semibold">{t('app.name')}</span>
+      <header className="app-header flex items-center gap-4 px-6 py-3">
+        <span className="flex items-center gap-2.5 text-[16px] font-semibold tracking-tight">
+          <span className="brand-mark">
+            <Icon name="mark" size={18} />
+          </span>
+          {t('app.name')}
+        </span>
         <span className="text-[14px] text-[var(--muted)] md:hidden">{t('mobile.notice')}</span>
         <div className="ml-auto flex items-center gap-2">
           {state.step !== 'mode' ? (
@@ -81,11 +87,11 @@ export function App() {
           ) : null}
           <button
             type="button"
-            className="btn-secondary"
+            className="btn-secondary btn-icon"
             onClick={toggleTheme}
             aria-label={t('theme.toggle')}
           >
-            <span aria-hidden="true">◑</span>
+            <Icon name={isDark ? 'sun' : 'moon'} size={18} />
           </button>
         </div>
       </header>
@@ -112,6 +118,13 @@ export function App() {
             progress={
               ai.progress ? (
                 <span role="status" className="flex items-center gap-3 text-[14px]">
+                  <span className="progress" aria-hidden="true">
+                    <span
+                      style={{
+                        width: `${ai.progress.total ? (100 * ai.progress.done) / ai.progress.total : 0}%`,
+                      }}
+                    />
+                  </span>
                   {t('ai.progress')}: {ai.progress.done}/{ai.progress.total}
                   <button type="button" className="btn-link" onClick={ai.stop}>
                     {t('ai.cancel')}

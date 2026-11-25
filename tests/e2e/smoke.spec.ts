@@ -28,8 +28,16 @@ test('no network requests leave the origin', async ({ page, baseURL }) => {
   expect(external).toEqual([])
 })
 
+// Entrance animations fade content in; axe must check the settled page, not a half-faded frame.
+async function settled(page: import('@playwright/test').Page) {
+  await page.waitForFunction(() =>
+    document.getAnimations().every((a) => a.playState === 'finished'),
+  )
+}
+
 test('landing page has no axe violations', async ({ page }) => {
   await page.goto('/')
+  await settled(page)
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])
     .analyze()
@@ -37,6 +45,7 @@ test('landing page has no axe violations', async ({ page }) => {
 })
 
 async function axeClean(page: import('@playwright/test').Page) {
+  await settled(page)
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])
     .analyze()

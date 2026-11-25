@@ -14,10 +14,7 @@ type Props = {
 export function AiPanel({ enabled, onEnabled, apiKey, onKey, remember, onRemember }: Props) {
   const ids = { title: useId(), key: useId(), warn: useId() }
   return (
-    <section
-      className="rounded-[10px] border border-[var(--border)] bg-[var(--surface)] p-4"
-      aria-labelledby={ids.title}
-    >
+    <section className="panel p-5" aria-labelledby={ids.title}>
       <h2 id={ids.title} className="font-semibold">
         {t('ai.title')}
       </h2>
