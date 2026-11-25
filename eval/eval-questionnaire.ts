@@ -11,6 +11,7 @@ import { verifyQuote } from '../src/core/llm/verifyQuote.ts'
 import type { DocKind } from '../src/core/types.ts'
 import { topics } from '../src/data/load.ts'
 import { PACKS_DIR, type QuestionnaireKey } from './packs.ts'
+import { record } from './published.ts'
 
 export type Gate = { name: string; passed: boolean; detail: string }
 const pct = (n: number, d: number) => (d === 0 ? 100 : Math.round((n / d) * 1000) / 10)
@@ -116,6 +117,11 @@ export function evalQuestionnairePack(name: string): Gate[] {
       if (!ACCEPTABLE[k.expected]?.includes(a?.status ?? ''))
         console.log(`    miss ${qid}: expected ${k.expected}, got ${a?.status}`)
     }
+  }
+
+  if (name === 'pack-c') {
+    record('conflicts', conflictHits, conflicts.length)
+    record('passages', retrievalHits, answerable.length)
   }
 
   return [
