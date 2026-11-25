@@ -12,7 +12,7 @@ export function ModeScreen({
   onSample,
 }: {
   onMode: (m: Mode) => void
-  onSample: () => void
+  onSample: (m: Mode) => void
 }) {
   return (
     <div className="relative isolate">
@@ -32,9 +32,17 @@ export function ModeScreen({
             {t('hero.subline')}
           </p>
           <div className="enter-2 flex flex-wrap items-center gap-x-5 gap-y-3 pt-2">
-            <button type="button" className="btn-primary btn-hero" onClick={onSample}>
+            <button
+              type="button"
+              className="btn-primary btn-hero"
+              onClick={() => onSample('company')}
+            >
               <Icon name="sparkle" size={18} />
               {t('mode.sample')}
+            </button>
+
+            <button type="button" className="btn-link" onClick={() => onSample('client')}>
+              {t('mode.client.sample')}
             </button>
             <p className="max-w-xs text-[14px] text-[var(--muted)]">{t('mode.sampleNote')}</p>
           </div>
@@ -47,7 +55,7 @@ export function ModeScreen({
           <div className="bento">
             <button
               type="button"
-              className="tile tile-interactive glass span-6"
+              className="tile tile-interactive glass span-3"
               onClick={() => onMode('company')}
             >
               <span className="card-icon">
@@ -57,6 +65,22 @@ export function ModeScreen({
                 {t('mode.company.title')}
               </span>
               <span className="text-[var(--muted)]">{t('mode.company.body')}</span>
+              <span className="tile-arrow">
+                {t('mode.start')} <span aria-hidden="true">→</span>
+              </span>
+            </button>
+            <button
+              type="button"
+              className="tile tile-interactive glass span-3"
+              onClick={() => onMode('client')}
+            >
+              <span className="card-icon">
+                <Icon name="review" />
+              </span>
+              <span className="text-[22px] font-semibold tracking-tight">
+                {t('mode.client.title')}
+              </span>
+              <span className="text-[var(--muted)]">{t('mode.client.body')}</span>
               <span className="tile-arrow">
                 {t('mode.start')} <span aria-hidden="true">→</span>
               </span>
@@ -95,7 +119,7 @@ export function ModeScreen({
               <h3 className="text-[18px] font-semibold">{t('bento.rules.title')}</h3>
               <p className="text-[14px] text-[var(--muted)]">{t('bento.rules.body')}</p>
             </article>
-            <article className="tile glass span-4 md:flex-row md:items-center md:gap-6">
+            <article className="tile glass span-6 md:flex-row md:items-center md:gap-6">
               <span className="card-icon">
                 <Icon name="upload" />
               </span>
@@ -104,21 +128,6 @@ export function ModeScreen({
                 <p className="text-[14px] text-[var(--muted)]">{t('bento.export.body')}</p>
               </div>
             </article>
-            <button
-              type="button"
-              className="tile glass span-2 text-left opacity-80"
-              disabled
-              aria-describedby="client-soon"
-            >
-              <span className="card-icon">
-                <Icon name="review" />
-              </span>
-              <span className="text-[18px] font-semibold">{t('mode.client.title')}</span>
-              <span className="text-[var(--muted)]">{t('mode.client.body')}</span>
-              <span id="client-soon" className="mt-auto text-[14px] text-[var(--muted)]">
-                {t('mode.client.soon')}
-              </span>
-            </button>
           </div>
         </section>
         <EvalResults />

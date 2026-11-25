@@ -1,11 +1,12 @@
 {
-  "source": "npm run eval (no-AI mode, synthetic packs A, B, C). The eval fails if these numbers differ from what it measures.",
+  "source": "npm run eval (no-AI mode, synthetic packs A, B, C, D). The eval fails if these numbers differ from what it measures.",
   "measured": "2026-11-25",
   "noAi": [
     { "id": "missing", "value": 4, "total": 4 },
     { "id": "decoys", "value": 0, "total": 1 },
     { "id": "conflicts", "value": 5, "total": 6 },
-    { "id": "passages", "value": 41, "total": 44 }
+    { "id": "passages", "value": 41, "total": 44 },
+    { "id": "vendor", "value": 8, "total": 8 }
   ],
   "ai": null
 }

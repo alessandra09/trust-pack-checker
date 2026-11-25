@@ -367,6 +367,15 @@ body {
   }
 
   /* Document paper: the visual centre of the product (SPEC 11.3) */
+  /* Client mode: the plain-language line that says how the answer and the DPA differ. */
+  .diff-line {
+    border-left: 3px solid var(--accent);
+    background: var(--surface-2);
+    border-radius: 0 6px 6px 0;
+    padding: 0.5rem 0.75rem;
+    font-size: 15px;
+    line-height: 1.5;
+  }
   .paper {
     margin: 0;
     background: var(--paper);

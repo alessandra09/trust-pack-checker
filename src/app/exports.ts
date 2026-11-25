@@ -39,6 +39,7 @@ export function exportAudit(s: AppState): void {
     documents,
     answers: Object.values(a.answers),
     findings: a.findings,
+    ...(s.mode === 'client' ? { consistency: a.consistency } : {}),
   })
   download(`audit-log-${today()}.json`, JSON.stringify(log, null, 2), 'application/json')
 }

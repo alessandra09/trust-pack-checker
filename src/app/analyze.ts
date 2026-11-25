@@ -36,7 +36,7 @@ export function analyzeCompany({ docs, table, mapping }: AnalysisInput): Analysi
     ...f,
     reviewed: 'pending' as const,
   }))
-  return { chunks, docNames, questions, answers, findings }
+  return { chunks, docNames, questions, answers, findings, consistency: [], vendorRows: [] }
 }
 
 export function chunkById(analysis: Analysis, id: string) {

@@ -45,6 +45,9 @@ function Mapping({ state, dispatch }: Pick<Props, 'state' | 'dispatch'>) {
       </h2>
       <p className="mt-1 text-[14px] text-[var(--muted)]" role="status">
         {m ? `${count} ${t('upload.mapping.found')}` : t('upload.mapping.notDetected')}
+        {state.mode === 'client' && base.answerCol === null
+          ? ` ${t('upload.mapping.needAnswer')}`
+          : ''}
       </p>
       <div className="mt-3 grid gap-3 sm:grid-cols-3">
         <label htmlFor={ids.sheet} className="field">
@@ -95,16 +98,29 @@ function Mapping({ state, dispatch }: Pick<Props, 'state' | 'dispatch'>) {
   )
 }
 
+/** Client mode needs the vendor's DPA and an answers table with an answer column. */
+function ready(state: AppState): boolean {
+  if (!state.files.dpa?.doc) return false
+  if (state.mode !== 'client') return true
+  const table = state.files.questionnaire?.table
+  const m = table ? (state.mapping ?? detectTable(table)) : null
+  return !!m && m.answerCol !== null
+}
+
 export function UploadScreen({ state, dispatch, onRun, running, aiPanel, progress }: Props) {
-  const canRun = !!state.files.dpa?.doc && !running
+  const canRun = ready(state) && !running
+  const client = state.mode === 'client'
+  const slots = client ? DOC_SLOTS.filter((s) => s.id === 'dpa') : DOC_SLOTS
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-6 py-12">
-      <h1 className="enter text-[32px] font-semibold tracking-tight">{t('upload.title')}</h1>
+      <h1 className="enter text-[32px] font-semibold tracking-tight">
+        {t(client ? 'upload.titleClient' : 'upload.title')}
+      </h1>
       <div className="grid gap-4 md:grid-cols-2">
-        {DOC_SLOTS.map((slot) => (
+        {slots.map((slot) => (
           <DropZone
             key={slot.id}
-            label={t(`upload.slot.${slot.id}`)}
+            label={t(client ? 'upload.slot.vendorDpa' : `upload.slot.${slot.id}`)}
             hint={t('upload.hint.docs')}
             required={slot.required}
             accept=".pdf,.docx,.txt,.md"
@@ -120,8 +136,8 @@ export function UploadScreen({ state, dispatch, onRun, running, aiPanel, progres
           />
         ))}
         <DropZone
-          label={t('upload.slot.questionnaire')}
-          hint={t('upload.hint.table')}
+          label={t(client ? 'upload.slot.answers' : 'upload.slot.questionnaire')}
+          hint={t(client ? 'upload.hint.answers' : 'upload.hint.table')}
           required
           accept=".xlsx,.csv"
           file={state.files.questionnaire}

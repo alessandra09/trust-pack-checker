@@ -1,5 +1,5 @@
 import type { Status } from '../../core/types.ts'
-import { art28, topics } from '../../data/load.ts'
+import { art28, consistency, topics } from '../../data/load.ts'
 import type { AppState } from '../../app/types.ts'
 
 export type Item = {
@@ -17,6 +17,20 @@ const topicName = (id: string) => topics.topics.find((t) => t.id === id)?.name ?
 export function itemsFor(state: AppState): Item[] {
   const a = state.analysis
   if (!a) return []
+  if (state.tab === 'vendor') {
+    return a.consistency.map((f) => {
+      const row = a.vendorRows.find((r) => r.qid === f.qid)
+      return {
+        id: f.id,
+        label: f.qid,
+        text: row?.question ?? f.qid,
+        status: f.status,
+        topic: consistency.rules.find((r) => r.id === f.ruleId)?.title ?? f.ruleId,
+        reviewed: f.reviewed,
+        followUp: !!f.followUp,
+      }
+    })
+  }
   if (state.tab === 'rules') {
     return a.findings.map((f) => {
       const rule = art28.rules.find((r) => r.id === f.ruleId)

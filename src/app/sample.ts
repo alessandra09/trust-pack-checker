@@ -4,6 +4,8 @@ import dpa from '../../eval/packs/pack-c/docs/dpa.md?raw'
 import privacy from '../../eval/packs/pack-c/docs/privacy-policy.md?raw'
 import security from '../../eval/packs/pack-c/docs/security-policy.md?raw'
 import questionnaire from '../../eval/packs/pack-c/questionnaire.csv?raw'
+import vendorDpa from '../../eval/packs/pack-d/docs/dpa.md?raw'
+import vendorAnswers from '../../eval/packs/pack-d/answers.csv?raw'
 import type { LoadedFile, SlotId } from './types.ts'
 
 // "Try with sample data": the synthetic Pack C documents for the fictional Northwind Voice Ltd.
@@ -28,6 +30,22 @@ export function sampleFiles(): Partial<Record<SlotId, LoadedFile>> {
       name: 'Customer questionnaire (sample).csv',
       warnings: [],
       table: csvToTable('questionnaire', 'Customer questionnaire (sample).csv', questionnaire),
+    },
+  }
+}
+
+// Vendor sample: the synthetic Pack D DPA and answers for the fictional Harbourline Payroll Ltd.
+export function vendorSampleFiles(): Partial<Record<SlotId, LoadedFile>> {
+  return {
+    dpa: {
+      name: 'Harbourline DPA (sample).md',
+      warnings: [],
+      doc: makeDoc('dpa', 'Harbourline DPA (sample)', 'dpa', [vendorDpa]),
+    },
+    questionnaire: {
+      name: 'Harbourline answers (sample).csv',
+      warnings: [],
+      table: csvToTable('questionnaire', 'Harbourline answers (sample).csv', vendorAnswers),
     },
   }
 }

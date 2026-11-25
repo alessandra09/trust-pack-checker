@@ -8,6 +8,7 @@ import { evaluateAllNoAi, type RuleResult } from '../src/core/rules/engine.ts'
 import { verifyQuote } from '../src/core/llm/verifyQuote.ts'
 import { PACKS_DIR, isQuestionnairePack, listPacks, loadPack, type LoadedPack } from './packs.ts'
 import { evalQuestionnairePack } from './eval-questionnaire.ts'
+import { evalClientPack, isClientPack } from './eval-client.ts'
 import { publishedMismatches, record } from './published.ts'
 
 type Gate = { name: string; passed: boolean; detail: string }
@@ -63,6 +64,10 @@ gates.push({
 })
 
 for (const name of packs) {
+  if (isClientPack(name)) {
+    gates.push(...evalClientPack(name))
+    continue
+  }
   if (isQuestionnairePack(name)) {
     gates.push(...evalQuestionnairePack(name))
     continue
