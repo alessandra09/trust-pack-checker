@@ -487,6 +487,7 @@ Lawyer/DPO review of rules; 5 user interviews; feedback fixes; optional DOCX que
 | 16 | PR merge and deploy | DECIDED | PR merge: agent after green CI. Public deploy only after owner approval (deploy job is manual; owner checks the site on synthetic data first, after Release 1). |
 | 17 | Anthropic SDK | DECIDED | `@anthropic-ai/sdk` allowed, pinned to an exact version, used inside `src/core/llm` only. `verifyQuote` and zod validation stay even with schema-constrained output. |
 | 18 | Temperature | DECIDED | Spec's "Temperature 0" dropped: current Claude models reject the parameter. Rely on fixed prompt, JSON schema and code checks. |
+| 19 | Fonts | DECIDED | Self-hosted Inter and JetBrains Mono via `@fontsource-variable` (exact pins), served from this origin. |
 
 ## 18. Success criteria for the whole project
 - Measured: gates in 13.2 pass and numbers are published in the README.
