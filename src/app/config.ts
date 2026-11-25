@@ -10,8 +10,8 @@ export const AI_MODEL = 'claude-haiku-5-5'
 // Shown on the landing page. Empty values hide the matching link (filled in by the owner).
 export const AUTHOR: { name: string; role: string; linkedin: string; contact: string } = {
   name: 'Oleksandra Hordieieva',
-  role: '',
-  linkedin: '',
+  role: 'Financial Analyst & Regulatory Compliance Specialist',
+  linkedin: 'https://www.linkedin.com/in/oleksandra-hordieieva-41b143210/',
   /** mailto: address or an https URL for feedback. */
-  contact: '',
+  contact: 'mailto:Oleksandrahordieieva@gmail.com?subject=Trust%20Pack%20Checker%20feedback',
 }
