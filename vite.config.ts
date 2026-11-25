@@ -20,4 +20,9 @@ function cspPlugin(): Plugin {
 export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
   plugins: [react(), tailwindcss(), cspPlugin()],
+  build: {
+    // Fonts must be files, not data: URIs, or the CSP (font-src 'self') blocks them.
+    assetsInlineLimit: (file) =>
+      file.endsWith('.woff2') || file.endsWith('.woff') ? false : undefined,
+  },
 })

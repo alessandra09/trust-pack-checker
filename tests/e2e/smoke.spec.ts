@@ -96,3 +96,14 @@ test('keyboard j/k moves selection and export downloads an XLSX copy', async ({ 
   ])
   expect(download.suggestedFilename()).toMatch(/^questionnaire-draft-.*\.xlsx$/)
 })
+
+test('no CSP violations or console errors on load', async ({ page }) => {
+  const errors: string[] = []
+  page.on('console', (m) => {
+    if (m.type() === 'error') errors.push(m.text().slice(0, 200))
+  })
+  await page.goto('/')
+  await page.waitForLoadState('networkidle')
+  await page.evaluate(() => document.fonts.ready)
+  expect(errors).toEqual([])
+})
