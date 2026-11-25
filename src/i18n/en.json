@@ -170,5 +170,16 @@
   "overview.reviewed": "Reviewed",
   "overview.found": "Have a passage to check",
   "overview.foundHint": "read and confirm each one",
-  "overview.distribution": "Status of all items"
+  "overview.distribution": "Status of all items",
+  "results.kicker": "Measured, not promised",
+  "results.title": "How it does on test documents",
+  "results.note": "Synthetic documents written for testing, checked without AI. Measured",
+  "results.missing": "Missing contract clauses found",
+  "results.decoys": "Look-alike clauses wrongly accepted",
+  "results.conflicts": "Planted contradictions flagged",
+  "results.passages": "Questions with the right passage in the top 5",
+  "results.aiPending": "Results with AI drafting will be added after the AI evaluation run.",
+  "about.builtBy": "Built by",
+  "about.feedback": "Tell me what's missing",
+  "about.linkedin": "LinkedIn profile"
 }

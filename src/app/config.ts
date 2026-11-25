@@ -6,3 +6,12 @@ export const AI_PROVIDER = {
 } as const
 
 export const AI_MODEL = 'claude-haiku-5-5'
+
+// Shown on the landing page. Empty values hide the matching link (filled in by the owner).
+export const AUTHOR: { name: string; role: string; linkedin: string; contact: string } = {
+  name: 'Oleksandra Hordieieva',
+  role: '',
+  linkedin: '',
+  /** mailto: address or an https URL for feedback. */
+  contact: '',
+}

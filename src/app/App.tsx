@@ -67,18 +67,17 @@ export function App() {
   }
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex min-h-screen flex-col md:h-screen">
       <a href="#main" className="skip-link">
         {t('nav.skip')}
       </a>
       <header className="app-header flex items-center gap-4 px-6 py-3">
-        <span className="flex items-center gap-2.5 text-[16px] font-semibold tracking-tight">
+        <span className="flex min-w-0 items-center gap-2.5 text-[16px] font-semibold tracking-tight whitespace-nowrap">
           <span className="brand-mark">
             <Icon name="mark" size={18} />
           </span>
           {t('app.name')}
         </span>
-        <span className="text-[14px] text-[var(--muted)] md:hidden">{t('mobile.notice')}</span>
         <div className="ml-auto flex items-center gap-2">
           {state.step !== 'mode' ? (
             <button type="button" className="btn-link" onClick={() => dispatch({ type: 'reset' })}>
@@ -95,7 +94,10 @@ export function App() {
           </button>
         </div>
       </header>
-      <main id="main" className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+      <p className="border-b border-[var(--border)] px-6 py-1.5 text-center text-[13px] text-[var(--muted)] md:hidden">
+        {t('mobile.notice')}
+      </p>
+      <main id="main" className="flex min-h-0 flex-1 flex-col md:overflow-y-auto">
         {state.step === 'mode' ? (
           <ModeScreen onMode={(mode) => dispatch({ type: 'start', mode })} onSample={sample} />
         ) : null}

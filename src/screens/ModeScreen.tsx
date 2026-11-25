@@ -3,6 +3,8 @@ import type { Mode } from '../app/types.ts'
 import { Icon } from '../components/Icon.tsx'
 import { StatusChip } from '../components/StatusChip.tsx'
 import { art28 } from '../data/load.ts'
+import { BuiltBy } from '../components/BuiltBy.tsx'
+import { EvalResults } from '../components/EvalResults.tsx'
 
 // Landing: hero over a slow gradient mesh, then a bento grid of modes and what the tool does.
 export function ModeScreen({
@@ -45,7 +47,7 @@ export function ModeScreen({
           <div className="bento">
             <button
               type="button"
-              className="tile tile-interactive glass span-3"
+              className="tile tile-interactive glass span-6"
               onClick={() => onMode('company')}
             >
               <span className="card-icon">
@@ -57,23 +59,6 @@ export function ModeScreen({
               <span className="text-[var(--muted)]">{t('mode.company.body')}</span>
               <span className="tile-arrow">
                 {t('mode.start')} <span aria-hidden="true">→</span>
-              </span>
-            </button>
-            <button
-              type="button"
-              className="tile tile-interactive glass span-3"
-              disabled
-              aria-describedby="client-soon"
-            >
-              <span className="card-icon">
-                <Icon name="review" />
-              </span>
-              <span className="text-[22px] font-semibold tracking-tight">
-                {t('mode.client.title')}
-              </span>
-              <span className="text-[var(--muted)]">{t('mode.client.body')}</span>
-              <span id="client-soon" className="mt-auto text-[14px] text-[var(--muted)]">
-                {t('mode.client.soon')}
               </span>
             </button>
 
@@ -110,7 +95,7 @@ export function ModeScreen({
               <h3 className="text-[18px] font-semibold">{t('bento.rules.title')}</h3>
               <p className="text-[14px] text-[var(--muted)]">{t('bento.rules.body')}</p>
             </article>
-            <article className="tile glass span-6 md:flex-row md:items-center md:gap-6">
+            <article className="tile glass span-4 md:flex-row md:items-center md:gap-6">
               <span className="card-icon">
                 <Icon name="upload" />
               </span>
@@ -119,8 +104,25 @@ export function ModeScreen({
                 <p className="text-[14px] text-[var(--muted)]">{t('bento.export.body')}</p>
               </div>
             </article>
+            <button
+              type="button"
+              className="tile glass span-2 text-left opacity-80"
+              disabled
+              aria-describedby="client-soon"
+            >
+              <span className="card-icon">
+                <Icon name="review" />
+              </span>
+              <span className="text-[18px] font-semibold">{t('mode.client.title')}</span>
+              <span className="text-[var(--muted)]">{t('mode.client.body')}</span>
+              <span id="client-soon" className="mt-auto text-[14px] text-[var(--muted)]">
+                {t('mode.client.soon')}
+              </span>
+            </button>
           </div>
         </section>
+        <EvalResults />
+        <BuiltBy />
       </div>
     </div>
   )

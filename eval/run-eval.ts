@@ -8,6 +8,7 @@ import { evaluateAllNoAi, type RuleResult } from '../src/core/rules/engine.ts'
 import { verifyQuote } from '../src/core/llm/verifyQuote.ts'
 import { PACKS_DIR, isQuestionnairePack, listPacks, loadPack, type LoadedPack } from './packs.ts'
 import { evalQuestionnairePack } from './eval-questionnaire.ts'
+import { publishedMismatches, record } from './published.ts'
 
 type Gate = { name: string; passed: boolean; detail: string }
 const gates: Gate[] = []
@@ -79,6 +80,10 @@ for (const name of packs) {
     detail: `${rate}%`,
   })
   const g = ruleGates(pack)
+  if (name === 'pack-b') {
+    record('missing', g.detected, g.missing)
+    record('decoys', g.decoyFooled, g.decoys)
+  }
   console.log(`  FOUND without verified evidence: ${g.unverifiedFound}`)
   gates.push({
     name: `${name}: zero FOUND without verified evidence`,
@@ -112,6 +117,13 @@ for (const name of packs) {
     })
   }
 }
+
+const mismatches = publishedMismatches()
+gates.push({
+  name: 'Landing page numbers match this eval',
+  passed: mismatches.length === 0,
+  detail: mismatches.join('; ') || 'match',
+})
 
 console.log('')
 for (const g of gates) console.log(`${g.passed ? 'PASS' : 'FAIL'}  ${g.name} (${g.detail})`)
