@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Status } from '../../core/types.ts'
 import { t } from '../../i18n/t.ts'
+import { ScoreRing } from '../../components/ScoreRing.tsx'
 import { StatusChip } from '../../components/StatusChip.tsx'
 import {
   exportAcceptedLibrary,
@@ -19,6 +20,14 @@ import { useReviewKeys } from './useReviewKeys.ts'
 
 const STATUSES: Status[] = ['FOUND', 'PARTIAL', 'NOT_FOUND', 'CONFLICT', 'NEEDS_HUMAN']
 const TABS: Tab[] = ['questions', 'rules', 'gaps']
+// Decorative segment colours; the labelled filter chips below carry the meaning (SPEC 11.4).
+const SEGMENT: Record<Status, string> = {
+  FOUND: '#22c55e',
+  PARTIAL: '#f59e0b',
+  NOT_FOUND: '#71717a',
+  CONFLICT: '#ef4444',
+  NEEDS_HUMAN: '#8b5cf6',
+}
 
 export function ReviewScreen({
   state,
@@ -57,6 +66,52 @@ export function ReviewScreen({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
+      {state.tab !== 'gaps' ? (
+        <section
+          className="enter grid gap-4 border-b border-[var(--border)] px-6 py-4 md:grid-cols-[auto_auto_1fr]"
+          aria-label={t('overview.distribution')}
+        >
+          <div className="glass stat">
+            <ScoreRing value={reviewed} total={all.length} label={t('overview.reviewed')} />
+          </div>
+          <div className="glass stat">
+            <ScoreRing
+              value={counts.FOUND + counts.PARTIAL + counts.CONFLICT}
+              total={all.length}
+              label={t('overview.found')}
+              hint={t('overview.foundHint')}
+            />
+          </div>
+          <div className="glass stat flex flex-col justify-center gap-3">
+            <span className="text-[14px] text-[var(--muted)]">{t('overview.distribution')}</span>
+            <div className="dist" aria-hidden="true">
+              {STATUSES.map((s) =>
+                counts[s] > 0 ? (
+                  <span
+                    key={s}
+                    style={{
+                      width: `${(100 * counts[s]) / Math.max(all.length, 1)}%`,
+                      background: SEGMENT[s],
+                    }}
+                  />
+                ) : null,
+              )}
+            </div>
+            <div className="flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-[var(--muted)]">
+              {STATUSES.map((s) => (
+                <span key={s} className="inline-flex items-center gap-1.5">
+                  <span
+                    className="inline-block h-2 w-2 rounded-full"
+                    style={{ background: SEGMENT[s] }}
+                    aria-hidden="true"
+                  />
+                  {t(`status.${s}`)} <span className="tabular-nums">{counts[s]}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
       <div className="flex flex-wrap items-center gap-3 border-b border-[var(--border)] px-6 py-3">
         <div role="tablist" aria-label="Views" className="tabs">
           {TABS.map((tab) => (

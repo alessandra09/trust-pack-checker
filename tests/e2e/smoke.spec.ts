@@ -30,8 +30,13 @@ test('no network requests leave the origin', async ({ page, baseURL }) => {
 
 // Entrance animations fade content in; axe must check the settled page, not a half-faded frame.
 async function settled(page: import('@playwright/test').Page) {
+  // Looping background animations never finish; only one-off entrance animations are awaited.
   await page.waitForFunction(() =>
-    document.getAnimations().every((a) => a.playState === 'finished'),
+    document
+      .getAnimations()
+      .every(
+        (a) => a.playState === 'finished' || a.effect?.getComputedTiming().iterations === Infinity,
+      ),
   )
 }
 
@@ -106,4 +111,22 @@ test('no CSP violations or console errors on load', async ({ page }) => {
   await page.waitForLoadState('networkidle')
   await page.evaluate(() => document.fonts.ready)
   expect(errors).toEqual([])
+})
+
+test('dark theme: landing and review have no axe violations', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' })
+  await page.goto('/')
+  await axeClean(page)
+  await page.getByRole('button', { name: 'Try with sample data' }).click()
+  await page.getByRole('button', { name: /Q15/ }).click()
+  await axeClean(page)
+})
+
+test('reduced motion: no animations run', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/')
+  const running = await page.evaluate(
+    () => document.getAnimations().filter((a) => a.playState === 'running').length,
+  )
+  expect(running).toBe(0)
 })
