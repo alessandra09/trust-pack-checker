@@ -18,7 +18,13 @@ export const initialState: AppState = {
 type Reviewed = 'accepted' | 'edited' | 'rejected'
 export type Action =
   | { type: 'start'; mode: Mode }
-  | { type: 'sample'; files: AppState['files']; mapping: ColumnMapping | null; analysis: Analysis }
+  | {
+      type: 'sample'
+      mode: Mode
+      files: AppState['files']
+      mapping: ColumnMapping | null
+      analysis: Analysis
+    }
   | { type: 'file'; slot: SlotId; file: LoadedFile | undefined }
   | { type: 'mapping'; mapping: ColumnMapping | null }
   | { type: 'analysis'; analysis: Analysis }
@@ -44,6 +50,7 @@ function patchAnswer(
   return { ...s, analysis: { ...a, answers: { ...a.answers, [id]: patch(cur) } } }
 }
 
+// A finding id is either an Art. 28 rule finding or a client-mode consistency finding.
 function patchFinding(
   s: AppState,
   id: string,
@@ -54,6 +61,27 @@ function patchFinding(
   return { ...s, analysis: { ...a, findings: a.findings.map((f) => (f.id === id ? patch(f) : f)) } }
 }
 
+type Flags = { reviewed: Reviewed | 'pending'; followUp?: boolean }
+function patchFlags(s: AppState, id: string, patch: <T extends Flags>(f: T) => T): AppState {
+  const a = s.analysis
+  if (!a) return s
+  if (a.consistency.some((c) => c.id === id))
+    return {
+      ...s,
+      analysis: { ...a, consistency: a.consistency.map((c) => (c.id === id ? patch(c) : c)) },
+    }
+  return patchFinding(s, id, patch)
+}
+
+function firstItem(a: Analysis, mode: Mode | null): { selected: string | null; tab: Tab } {
+  if (mode === 'client')
+    return a.consistency.length
+      ? { selected: a.consistency[0]?.id ?? null, tab: 'vendor' }
+      : { selected: a.findings[0]?.id ?? null, tab: 'rules' }
+  if (a.questions.length) return { selected: a.questions[0]?.qid ?? null, tab: 'questions' }
+  return { selected: a.findings[0]?.id ?? null, tab: 'rules' }
+}
+
 export function reducer(s: AppState, action: Action): AppState {
   switch (action.type) {
     case 'start':
@@ -62,12 +90,12 @@ export function reducer(s: AppState, action: Action): AppState {
       return {
         ...initialState,
         step: 'review',
-        mode: 'company',
+        mode: action.mode,
         files: action.files,
         mapping: action.mapping,
         analysis: action.analysis,
         sample: true,
-        selected: action.analysis.questions[0]?.qid ?? null,
+        ...firstItem(action.analysis, action.mode),
       }
     case 'file':
       return {
@@ -82,8 +110,7 @@ export function reducer(s: AppState, action: Action): AppState {
         ...s,
         step: 'review',
         analysis: action.analysis,
-        selected: action.analysis.questions[0]?.qid ?? action.analysis.findings[0]?.id ?? null,
-        tab: action.analysis.questions.length ? 'questions' : 'rules',
+        ...firstItem(action.analysis, s.mode),
       }
     case 'back':
       return { ...s, step: s.step === 'review' ? 'upload' : 'mode' }
@@ -107,13 +134,11 @@ export function reducer(s: AppState, action: Action): AppState {
       }))
       return next !== s
         ? next
-        : patchFinding(s, action.id, (f) => ({ ...f, reviewed: action.reviewed }))
+        : patchFlags(s, action.id, (f) => ({ ...f, reviewed: action.reviewed }))
     }
     case 'followUp': {
       const next = patchAnswer(s, action.id, (a) => ({ ...a, followUp: !a.followUp }))
-      return next !== s
-        ? next
-        : patchFinding(s, action.id, (f) => ({ ...f, followUp: !f.followUp }))
+      return next !== s ? next : patchFlags(s, action.id, (f) => ({ ...f, followUp: !f.followUp }))
     }
     case 'draft':
       return patchAnswer(s, action.id, (a) => ({ ...a, draft: action.draft, reviewed: 'edited' }))

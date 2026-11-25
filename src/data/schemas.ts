@@ -56,6 +56,9 @@ export const consistencyFileSchema = z.object({
       compares: z.string().min(1),
       method: z.enum(['duration', 'names', 'locations', 'keywords', 'polarity']),
       result: z.string().min(1),
+      title: z.string().min(1),
+      whyItMatters: z.string().min(1),
+      suggestedAsk: z.string().min(1),
     }),
   ),
 })

@@ -15,7 +15,7 @@ export function EvalResults() {
           {t('results.note')} {summary.measured}.
         </p>
       </div>
-      <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {summary.noAi.map((m) => (
           <div key={m.id} className="tile glass">
             <dt className="text-[14px] text-[var(--muted)]">

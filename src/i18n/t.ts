@@ -6,3 +6,8 @@ export type MessageKey = keyof typeof en
 export function t(key: MessageKey): string {
   return en[key]
 }
+
+/** A message with {name} placeholders filled from params; unknown placeholders stay visible. */
+export function tf(key: MessageKey, params: Record<string, string>): string {
+  return t(key).replace(/\{(\w+)\}/g, (m, name: string) => params[name] ?? m)
+}

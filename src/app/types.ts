@@ -2,6 +2,7 @@ import type { IngestErrorCode, IngestWarningCode } from '../core/ingest/errors.t
 import type { DraftedAnswer } from '../core/qa/answer.ts'
 import type { ColumnMapping, Question } from '../core/qa/detect.ts'
 import type { RuleResult } from '../core/rules/engine.ts'
+import type { ConsistencyFinding } from '../core/consistency/types.ts'
 import type { Chunk, Doc, DocKind, Table } from '../core/types.ts'
 
 export type Mode = 'company' | 'client'
@@ -30,15 +31,25 @@ export type ReviewFinding = RuleResult & {
   followUp?: boolean
 }
 
+export type ReviewConsistency = ConsistencyFinding & {
+  reviewed: 'pending' | 'accepted' | 'edited' | 'rejected'
+  followUp?: boolean
+}
+/** A vendor answer row shown next to a client-mode finding. */
+export type VendorRow = { qid: string; question: string; answer: string; chunkId: string }
+
 export type Analysis = {
   chunks: Chunk[]
   docNames: Record<string, string>
   questions: Question[]
   answers: Record<string, ReviewAnswer>
   findings: ReviewFinding[]
+  /** Client mode only: findings from comparing the vendor's answers with its DPA. */
+  consistency: ReviewConsistency[]
+  vendorRows: VendorRow[]
 }
 
-export type Tab = 'questions' | 'rules' | 'gaps'
+export type Tab = 'questions' | 'vendor' | 'rules' | 'gaps'
 
 export type AppState = {
   step: Step

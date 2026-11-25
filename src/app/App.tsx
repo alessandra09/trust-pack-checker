@@ -6,14 +6,27 @@ import { ModeScreen } from '../screens/ModeScreen.tsx'
 import { UploadScreen } from '../screens/UploadScreen.tsx'
 import { ReviewScreen } from '../screens/review/ReviewScreen.tsx'
 import { analyzeCompany } from './analyze.ts'
-import { sampleFiles } from './sample.ts'
+import { analyzeClient } from './analyzeClient.ts'
+import { sampleFiles, vendorSampleFiles } from './sample.ts'
 import { initialState, reducer } from './store.ts'
 import { useAiRun } from './useAiRun.ts'
 import { useApiKey } from './useApiKey.ts'
 import { AiPanel } from '../components/AiPanel.tsx'
 import { ConsentDialog } from '../components/ConsentDialog.tsx'
 import { Icon } from '../components/Icon.tsx'
-import { DOC_SLOTS } from './types.ts'
+import { DOC_SLOTS, type AppState, type Mode } from './types.ts'
+
+// Client mode makes no model calls: every check is code (SPEC 9.3).
+function clientAnalysis(files: AppState['files'], mapping: AppState['mapping']) {
+  const dpa = files.dpa?.doc
+  if (!dpa) return null
+  return analyzeClient({
+    dpa,
+    table: files.questionnaire?.table ?? null,
+    mapping,
+    answersName: files.questionnaire?.name ?? 'Vendor answers',
+  })
+}
 
 type Theme = 'system' | 'light' | 'dark'
 
@@ -54,16 +67,24 @@ export function App() {
       const table = state.files.questionnaire?.table ?? null
       const mapping = state.mapping ?? (table ? detectTable(table) : null)
       dispatch({ type: 'mapping', mapping })
+      if (state.mode === 'client') {
+        const analysis = clientAnalysis(state.files, mapping)
+        if (analysis) dispatch({ type: 'analysis', analysis })
+        setRunning(false)
+        return
+      }
       ai.start(analyzeCompany({ docs, table, mapping }), docs)
     }, 0)
   }
 
-  const sample = () => {
-    const files = sampleFiles()
+  const sample = (mode: Mode) => {
+    const files = mode === 'client' ? vendorSampleFiles() : sampleFiles()
     const table = files.questionnaire?.table ?? null
     const mapping = table ? detectTable(table) : null
     const docs = DOC_SLOTS.flatMap((s) => (files[s.id]?.doc ? [files[s.id]?.doc as Doc] : []))
-    dispatch({ type: 'sample', files, mapping, analysis: analyzeCompany({ docs, table, mapping }) })
+    const analysis =
+      mode === 'client' ? clientAnalysis(files, mapping) : analyzeCompany({ docs, table, mapping })
+    if (analysis) dispatch({ type: 'sample', mode, files, mapping, analysis })
   }
 
   return (
@@ -108,14 +129,16 @@ export function App() {
             onRun={run}
             running={running}
             aiPanel={
-              <AiPanel
-                enabled={ai.enabled}
-                onEnabled={ai.setEnabled}
-                apiKey={apiKey.key}
-                onKey={apiKey.setKey}
-                remember={apiKey.remember}
-                onRemember={apiKey.setRemember}
-              />
+              state.mode === 'client' ? null : (
+                <AiPanel
+                  enabled={ai.enabled}
+                  onEnabled={ai.setEnabled}
+                  apiKey={apiKey.key}
+                  onKey={apiKey.setKey}
+                  remember={apiKey.remember}
+                  onRemember={apiKey.setRemember}
+                />
+              )
             }
             progress={
               ai.progress ? (

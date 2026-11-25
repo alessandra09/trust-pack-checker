@@ -65,6 +65,50 @@ function verifyQuestionnairePack(pack: string, key: QKey): void {
   console.log(`${pack}: ${n} questions keyed, ${key.injections.length} injections checked`)
 }
 
+type CKey = {
+  dpa: string
+  answers: string
+  contradictions: {
+    id: string
+    qid: string
+    numeric: boolean
+    answerQuote: string
+    dpaQuote: string
+  }[]
+  clean: string[]
+  unbacked: { qid: string; claim: string }[]
+  injections: { doc: string; text: string }[]
+}
+
+// Client mode pack: each contradiction's quotes are in the right file, on the right answer row.
+function verifyClientPack(pack: string, key: CKey): void {
+  const dpa = flat(readFileSync(join(PACKS, pack, key.dpa), 'utf8'))
+  const csv = readFileSync(join(PACKS, pack, key.answers), 'utf8')
+  const rows = new Map(csv.split('\n').map((l) => [l.split(',')[0] ?? '', flat(l)] as const))
+  for (const c of key.contradictions) {
+    const row = rows.get(c.qid)
+    if (!row) fail(pack, `${c.id}: ${c.qid} not in answers`)
+    else if (!row.includes(flat(c.answerQuote))) fail(pack, `${c.id}: answer quote not on ${c.qid}`)
+    if (!dpa.includes(flat(c.dpaQuote))) fail(pack, `${c.id}: DPA quote not in DPA`)
+  }
+  for (const q of [...key.clean, ...key.unbacked.map((u) => u.qid)])
+    if (!rows.has(q)) fail(pack, `${q} not in answers`)
+  for (const u of key.unbacked)
+    if (dpa.includes(flat(u.claim)))
+      fail(pack, `claim ${u.claim} is in the DPA, so it is not unbacked`)
+  for (const inj of key.injections)
+    if (!flat(csv).includes(flat(inj.text))) fail(pack, `injection not in ${inj.doc}`)
+  if (pack === 'pack-d') {
+    if (key.contradictions.length !== 8)
+      fail(pack, `expected 8 contradictions, found ${key.contradictions.length}`)
+    if (key.contradictions.filter((c) => c.numeric).length < 3)
+      fail(pack, 'expected at least 3 numeric contradictions')
+  }
+  console.log(
+    `${pack}: ${key.contradictions.length} contradictions and ${key.clean.length} clean rows checked`,
+  )
+}
+
 const flat = (s: string) => s.replace(/\s+/g, ' ').toLowerCase()
 const problems: string[] = []
 const fail = (pack: string, msg: string) => problems.push(`${pack}: ${msg}`)
@@ -78,7 +122,11 @@ for (const pack of packs) {
     fail(pack, 'key/key.json missing')
     continue
   }
-  const raw = JSON.parse(readFileSync(keyPath, 'utf8')) as Key | QKey
+  const raw = JSON.parse(readFileSync(keyPath, 'utf8')) as Key | QKey | CKey
+  if ('contradictions' in raw) {
+    verifyClientPack(pack, raw)
+    continue
+  }
   if ('questions' in raw) {
     verifyQuestionnairePack(pack, raw)
     continue

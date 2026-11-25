@@ -11,7 +11,7 @@ type Props = {
 }
 
 // Nothing is accepted automatically (SPEC 3.3): every decision is a click or a key press.
-export function ReviewActions({ id, reviewed, followUp, draft, dispatch }: Props) {
+export function ReviewActions({ id, reviewed, followUp, draft, dispatch, withEdit = true }: Props) {
   return (
     <div className="flex flex-wrap items-center gap-2">
       <button
@@ -22,21 +22,23 @@ export function ReviewActions({ id, reviewed, followUp, draft, dispatch }: Props
       >
         {t('action.accept')}
       </button>
-      <button
-        type="button"
-        className="btn-secondary"
-        aria-pressed={reviewed === 'edited'}
-        onClick={() =>
-          dispatch({
-            type: 'review',
-            id,
-            reviewed: 'edited',
-            ...(draft !== undefined ? { draft } : {}),
-          })
-        }
-      >
-        {t('action.edit')}
-      </button>
+      {withEdit ? (
+        <button
+          type="button"
+          className="btn-secondary"
+          aria-pressed={reviewed === 'edited'}
+          onClick={() =>
+            dispatch({
+              type: 'review',
+              id,
+              reviewed: 'edited',
+              ...(draft !== undefined ? { draft } : {}),
+            })
+          }
+        >
+          {t('action.edit')}
+        </button>
+      ) : null}
       <button
         type="button"
         className="btn-secondary"

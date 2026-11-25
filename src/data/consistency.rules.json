@@ -1,49 +1,70 @@
 {
   "owner": "Oleksandra Hordieieva",
-  "lastVerified": "2026-11-24",
+  "lastVerified": "2026-11-25",
   "source": "SPEC.md section 9.3",
   "rules": [
     {
       "id": "C-BREACH-TIME",
       "compares": "Breach notice period: DPA vs answer",
       "method": "duration",
-      "result": "CONFLICT if both state a number and they differ; PARTIAL if only one states a number. 'Without undue delay' is not a number."
+      "result": "CONFLICT if both state a number and they differ; PARTIAL if only one states a number. 'Without undue delay' is not a number.",
+      "title": "Breach notice period",
+      "whyItMatters": "Your incident plan depends on the time the contract gives you, not the time in a questionnaire answer.",
+      "suggestedAsk": "Your answer and the DPA give different breach notification periods. Please confirm the period that applies and update the DPA if needed."
     },
     {
       "id": "C-RETENTION",
       "compares": "Deletion or return period: DPA vs answer",
       "method": "duration",
-      "result": "Same as C-BREACH-TIME."
+      "result": "Same as C-BREACH-TIME.",
+      "title": "Deletion and return period",
+      "whyItMatters": "After the contract ends, the DPA decides how long your data stays with the vendor.",
+      "suggestedAsk": "Your answer and the DPA give different deletion or retention periods. Please confirm the period that applies and update the DPA if needed."
     },
     {
       "id": "C-SUBPROC",
       "compares": "Sub-processor names: DPA list vs answer",
       "method": "names",
-      "result": "CONFLICT if the answer names an entity not in the DPA list, or says none while the DPA lists some."
+      "result": "CONFLICT if the answer names an entity not in the DPA list, or says none while the DPA lists some.",
+      "title": "Sub-processors",
+      "whyItMatters": "Art. 28(2) GDPR ties sub-processors to your authorisation, so the list in the contract has to match reality.",
+      "suggestedAsk": "Your answers and the DPA's sub-processor list do not match. Please send the complete current list with each sub-processor's name, purpose and location."
     },
     {
       "id": "C-TRANSFER",
       "compares": "Locations and transfer mechanisms",
       "method": "locations",
-      "result": "CONFLICT if the answer says EU/EEA only while the DPA mentions non-EEA locations."
+      "result": "CONFLICT if the answer says EU/EEA only while the DPA mentions non-EEA locations.",
+      "title": "Data location and transfers",
+      "whyItMatters": "A claim that data stays in the EU/EEA matters for transfer rules in Chapter V GDPR.",
+      "suggestedAsk": "Your answer says data stays in the EU/EEA, but the DPA names a location outside it. Please confirm where data is processed and the transfer mechanism used."
     },
     {
       "id": "C-AUDIT",
       "compares": "Audit rights",
       "method": "keywords",
-      "result": "CONFLICT if the answer allows audits and the DPA excludes them; PARTIAL if the DPA limits audits to reports."
+      "result": "CONFLICT if the answer allows audits and the DPA excludes them; PARTIAL if the DPA limits audits to reports.",
+      "title": "Audit rights",
+      "whyItMatters": "Art. 28(3)(h) GDPR covers audits and inspections; a narrower contract term limits what you can actually do.",
+      "suggestedAsk": "Your answer describes audit rights that the DPA does not give. Please confirm which audit rights apply and add them to the DPA if needed."
     },
     {
       "id": "C-AI-TRAIN",
       "compares": "Use of customer data for AI training",
       "method": "polarity",
-      "result": "CONFLICT on opposite polarity."
+      "result": "CONFLICT on opposite polarity.",
+      "title": "Use of data for AI training",
+      "whyItMatters": "Whether your data trains the vendor's models is a purpose question; the contract wording is what binds the vendor.",
+      "suggestedAsk": "Your answer and the DPA disagree on whether customer data is used to train AI or machine learning models. Please confirm which is correct and align the DPA."
     },
     {
       "id": "C-CLAIM-UNBACKED",
       "compares": "Security claims in answers absent from the DPA or annex",
       "method": "keywords",
-      "result": "INFO: claim not reflected in the contract."
+      "result": "INFO: claim not reflected in the contract.",
+      "title": "Claim not in the contract",
+      "whyItMatters": "DPAs need not list every control, but a claim that is not in the contract is not a contractual commitment.",
+      "suggestedAsk": "Please send evidence for this claim (for example a certificate or report), or add it to the DPA's security annex."
     }
   ]
 }
