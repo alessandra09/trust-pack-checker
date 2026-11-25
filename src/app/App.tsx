@@ -144,7 +144,7 @@ export function App() {
           <ConsentDialog estimate={ai.pending.estimate} onSend={ai.accept} onNoAi={ai.decline} />
         ) : null}
       </main>
-      <footer className="flex flex-wrap gap-x-6 gap-y-1 border-t border-[var(--border)] px-6 py-2 text-[14px] text-[var(--muted)]">
+      <footer className="flex flex-wrap gap-x-6 gap-y-0.5 border-t border-[var(--border)] bg-[var(--bg)] px-6 py-1.5 text-[13px] text-[var(--muted)]">
         <span>{t('footer.disclaimer')}</span>
         <span>{t('footer.rulesNotReviewed')}</span>
         <span title={t('notChecked.body')}>

@@ -19,7 +19,7 @@ export function Highlight({ text, query, quote }: { text: string; query: string;
         const hit = /[\p{L}\p{N}]/u.test(part) && terms.has(stem(part))
         if (inQuote)
           return (
-            <mark key={i} className="rounded-sm bg-[var(--quote-bg)] text-inherit">
+            <mark key={i} className="quote-hl">
               {part}
             </mark>
           )
