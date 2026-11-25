@@ -130,3 +130,15 @@ test('reduced motion: no animations run', async ({ page }) => {
   )
   expect(running).toBe(0)
 })
+
+test('landing shows the author credit and a feedback email link', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.getByRole('link', { name: /Oleksandra Hordieieva/ })).toHaveAttribute(
+    'href',
+    /linkedin\.com\/in\//,
+  )
+  await expect(page.getByRole('link', { name: "Tell me what's missing" })).toHaveAttribute(
+    'href',
+    /^mailto:/,
+  )
+})
