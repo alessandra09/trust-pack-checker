@@ -2,6 +2,7 @@ import { useId, type ReactNode } from 'react'
 import { detectTable, extractQuestions, type ColumnMapping } from '../core/qa/detect.ts'
 import { t } from '../i18n/t.ts'
 import { DropZone } from '../components/DropZone.tsx'
+import { Icon } from '../components/Icon.tsx'
 import { loadDocFile, loadTableFile } from '../app/files.ts'
 import type { Action } from '../app/store.ts'
 import { DOC_SLOTS, type AppState } from '../app/types.ts'
@@ -38,10 +39,7 @@ function Mapping({ state, dispatch }: Pick<Props, 'state' | 'dispatch'>) {
   const set = (patch: Partial<ColumnMapping>) =>
     dispatch({ type: 'mapping', mapping: { ...base, ...patch } })
   return (
-    <section
-      className="rounded-[10px] border border-[var(--border)] bg-[var(--surface)] p-4"
-      aria-labelledby={`${ids.q}-title`}
-    >
+    <section className="panel p-5" aria-labelledby={`${ids.q}-title`}>
       <h2 id={`${ids.q}-title`} className="font-semibold">
         {t('upload.mapping.title')}
       </h2>
@@ -100,8 +98,8 @@ function Mapping({ state, dispatch }: Pick<Props, 'state' | 'dispatch'>) {
 export function UploadScreen({ state, dispatch, onRun, running, aiPanel, progress }: Props) {
   const canRun = !!state.files.dpa?.doc && !running
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-6 py-10">
-      <h1 className="text-[24px] font-semibold">{t('upload.title')}</h1>
+    <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-6 py-12">
+      <h1 className="enter text-[32px] font-semibold tracking-tight">{t('upload.title')}</h1>
       <div className="grid gap-4 md:grid-cols-2">
         {DOC_SLOTS.map((slot) => (
           <DropZone
@@ -132,8 +130,11 @@ export function UploadScreen({ state, dispatch, onRun, running, aiPanel, progres
           }
           onRemove={() => dispatch({ type: 'file', slot: 'questionnaire', file: undefined })}
         />
-        <aside className="rounded-[10px] border border-[var(--border)] bg-[var(--surface-2)] p-4 text-[14px]">
-          <h2 className="font-semibold">{t('privacy.title')}</h2>
+        <aside className="rounded-[10px] border border-[var(--border)] bg-[var(--accent-soft)] p-5 text-[14px]">
+          <h2 className="flex items-center gap-2 font-semibold">
+            <Icon name="lock" size={16} />
+            {t('privacy.title')}
+          </h2>
           <p className="mt-1">{t('privacy.note')}</p>
           <p className="mt-1 text-[var(--muted)]">{t('privacy.body')}</p>
         </aside>

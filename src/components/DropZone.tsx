@@ -1,3 +1,4 @@
+import { Icon } from './Icon.tsx'
 import { useId, useRef, useState } from 'react'
 import { t, type MessageKey } from '../i18n/t.ts'
 import type { LoadedFile } from '../app/types.ts'
@@ -25,7 +26,7 @@ export function DropZone({ label, hint, required, accept, file, onFile, onRemove
   const rows = file?.table?.sheets.reduce((n, s) => n + s.rows.length, 0)
   return (
     <div
-      className={`rounded-[10px] border-2 border-dashed p-4 transition-colors duration-150 ${over ? 'border-[var(--accent)] bg-[var(--surface-2)]' : 'border-[var(--border)] bg-[var(--surface)]'}`}
+      className={`rounded-[10px] border border-dashed p-5 transition-[border-color,background-color,box-shadow] duration-150 ${over ? 'border-[var(--accent)] bg-[var(--accent-soft)] shadow-[var(--shadow-md)]' : file && !file.error ? 'border-solid border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-sm)]' : 'border-[var(--border-strong)] bg-[var(--surface)] hover:border-[var(--accent)]'}`}
       onDragOver={(e) => {
         e.preventDefault()
         setOver(true)
@@ -65,7 +66,10 @@ export function DropZone({ label, hint, required, accept, file, onFile, onRemove
         </div>
       ) : (
         <div className="mt-2 text-[14px] text-[var(--muted)]">
-          <p>{t('upload.drop')}</p>
+          <p className="flex items-center gap-2">
+            <Icon name="upload" size={16} />
+            {t('upload.drop')}
+          </p>
           <p>{hint}</p>
           {file?.error ? (
             <p className="mt-1 text-[var(--conflict-fg)]" role="alert">

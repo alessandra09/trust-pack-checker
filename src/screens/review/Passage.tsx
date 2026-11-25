@@ -20,7 +20,7 @@ export function Passage({
         {docName}
         {chunk.heading ? ` · ${chunk.heading}` : ''} · {t('evidence.page')} {chunk.page}
       </figcaption>
-      <blockquote className="font-mono text-[14px] leading-relaxed whitespace-pre-wrap">
+      <blockquote className="quote whitespace-pre-wrap">
         <Highlight text={chunk.text} query={query} {...(quote ? { quote } : {})} />
       </blockquote>
     </figure>

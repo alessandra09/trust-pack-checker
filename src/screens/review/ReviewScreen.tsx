@@ -58,7 +58,7 @@ export function ReviewScreen({
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <div className="flex flex-wrap items-center gap-3 border-b border-[var(--border)] px-6 py-3">
-        <div role="tablist" aria-label="Views" className="flex gap-1">
+        <div role="tablist" aria-label="Views" className="tabs">
           {TABS.map((tab) => (
             <button
               key={tab}
