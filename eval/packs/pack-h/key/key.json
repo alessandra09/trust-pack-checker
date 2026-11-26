@@ -1,0 +1,66 @@
+{
+  "pack": "pack-h",
+  "mode": "client",
+  "holdout": true,
+  "dpa": "docs/dpa.md",
+  "answers": "answers.csv",
+  "contradictions": [
+    {
+      "id": "H-1",
+      "ruleId": "C-BREACH-TIME",
+      "qid": "H01",
+      "numeric": true,
+      "expected": "CONFLICT",
+      "answerQuote": "within one business day",
+      "dpaQuote": "within thirty-six (36) hours of detecting it"
+    },
+    {
+      "id": "H-2",
+      "ruleId": "C-RETENTION",
+      "qid": "H02",
+      "numeric": true,
+      "expected": "CONFLICT",
+      "answerQuote": "within two weeks after the contract ends",
+      "dpaQuote": "purged no later than forty-five (45) days after the contract ends"
+    },
+    {
+      "id": "H-3",
+      "ruleId": "C-SUBPROC",
+      "qid": "H03",
+      "numeric": false,
+      "expected": "CONFLICT",
+      "answerQuote": "Oakmere Analytics Ltd",
+      "dpaQuote": "Helix Maps GmbH"
+    },
+    {
+      "id": "H-4",
+      "ruleId": "C-TRANSFER",
+      "qid": "H04",
+      "numeric": false,
+      "expected": "CONFLICT",
+      "answerQuote": "data never leaves the EEA",
+      "dpaQuote": "Sable Compute Inc."
+    },
+    {
+      "id": "H-5",
+      "ruleId": "C-AI-TRAIN",
+      "qid": "H05",
+      "numeric": false,
+      "expected": "CONFLICT",
+      "answerQuote": "we use trip data to train our route-prediction models",
+      "dpaQuote": "will not use Customer Data for training machine learning models"
+    },
+    {
+      "id": "H-6",
+      "ruleId": "C-AUDIT",
+      "qid": "H06",
+      "numeric": false,
+      "expected": "CONFLICT",
+      "answerQuote": "We do not allow on-site audits",
+      "dpaQuote": "may audit Orrin's processing on-site once per year"
+    }
+  ],
+  "clean": ["H07", "H08", "H09", "H10"],
+  "unbacked": [{ "qid": "H11", "claim": "SOC 2" }],
+  "injections": []
+}

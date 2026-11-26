@@ -20,6 +20,7 @@ const SUBPROC_HINTS = [
   'vendors',
   'suppliers',
 ]
+const LIST_ASK = /\b(list|which|name|names|all|who are)\b/i
 const NONE =
   /\b(no|none|not use any|do not use|don't use|never use)\b[^.]{0,40}\b(sub-?processors?|third[- ]part(y|ies)|subcontractors?|suppliers)\b|^\s*none\b/i
 // A party used as a defined term ("Harbourline") appears throughout the DPA; a sub-processor does not.
@@ -97,6 +98,23 @@ export function checkSubprocessors(
       continue
     }
     const known = mentionsListed(a.answer, listed)
+    // A list in the answer that names some, but not all, of the DPA's sub-processors.
+    const omitted = listed.filter((e) => !known.has(e.key))
+    if (known.size > 0 && omitted.length > 0 && LIST_ASK.test(a.question)) {
+      const answer = answerEvidence(a, docNames, (s) => mentionsListed(s, listed).size > 0)
+      const missing = omitted.flatMap((e) => evidenceFor(e.unit, docNames) ?? [])
+      if (answer && missing.length > 0)
+        out.push({
+          id: `C-SUBPROC:${a.qid}:omitted`,
+          ruleId: 'C-SUBPROC',
+          qid: a.qid,
+          kind: 'omitted-name',
+          status: 'CONFLICT',
+          answer,
+          contract: missing,
+          detail: { names: omitted.map((e) => e.name).join(', ') },
+        })
+    }
     for (const name of findNames(a.answer)) {
       const key = nameKey(name)
       const first = key.split(' ')[0] ?? ''

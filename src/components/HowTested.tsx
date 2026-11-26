@@ -58,6 +58,17 @@ export function HowTested() {
           </dl>
         </div>
       </div>
+      <div>
+        <h3 className="font-semibold">{t('tested.history')}</h3>
+        <ol className="mt-2 flex flex-col gap-2 text-[14px]">
+          {summary.history.map((h) => (
+            <li key={h.version}>
+              <span className="font-mono text-[13px]">{h.version}</span>{' '}
+              <span className="text-[var(--muted)]">({h.date})</span> {h.text}
+            </li>
+          ))}
+        </ol>
+      </div>
     </section>
   )
 }

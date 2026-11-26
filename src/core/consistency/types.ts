@@ -13,6 +13,7 @@ export type ConsistencyKind =
   | 'one-number'
   | 'none-vs-list'
   | 'unlisted-name'
+  | 'omitted-name'
   | 'eu-only-vs-location'
   | 'audit-excluded'
   | 'audit-limited'

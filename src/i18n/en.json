@@ -172,7 +172,7 @@
   "overview.distribution": "Status of all items",
   "results.kicker": "Measured, not promised",
   "results.title": "How it does on test documents",
-  "results.note": "Synthetic documents written for testing, checked without AI. Three of the seven packs were written after the checks and the checks were not changed afterwards. Measured",
+  "results.note": "Synthetic documents written for testing, checked without AI. Contract-check numbers include a pack written after the checks; the vendor number is only from a pack written after the latest fixes. Measured",
   "results.missing": "Missing contract clauses found",
   "results.decoys": "Look-alike clauses wrongly accepted",
   "results.conflicts": "Planted contradictions flagged",
@@ -207,7 +207,7 @@
   "upload.hint.answers": "XLSX or CSV with a question column and an answer column.",
   "upload.mapping.needAnswer": "Choose the column with the vendor's answers.",
   "mode.client.sample": "Or try the vendor sample",
-  "results.vendor": "Planted vendor contradictions found",
+  "results.vendor": "Vendor contradictions found on a pack the checks had not seen",
   "hero.audience": "For small B2B companies answering customer security questionnaires and checking their vendors.",
   "pilot.kicker": "Free pilot",
   "pilot.title": "Have a DPA or a questionnaire due?",
@@ -221,5 +221,8 @@
   "tested.heldOut": "held out",
   "tested.misses": "What it missed",
   "tested.noMisses": "No misses.",
-  "results.vendorClean": "Consistent vendor answers left alone"
+  "results.vendorClean": "Consistent vendor answers left alone",
+  "vendor.kind.omitted-name": "The answer leaves out sub-processors that the DPA lists: {names}.",
+  "results.vendorBuilt": "Vendor contradictions found on packs used to build the checks",
+  "tested.history": "Results history"
 }

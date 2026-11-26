@@ -1,5 +1,5 @@
 {
-  "source": "npm run eval (no-AI mode, synthetic packs A to G). The eval fails if these numbers or the list of misses differ from what it measures.",
+  "source": "npm run eval (no-AI mode, synthetic packs A to H). The eval fails if these numbers or the list of misses differ from what it measures.",
   "measured": "2026-11-26",
   "packs": [
     {
@@ -7,7 +7,11 @@
       "heldOut": false,
       "about": "Complete DPA: every core Art. 28 element present"
     },
-    { "id": "pack-b", "heldOut": false, "about": "DPA with 12 planted defects" },
+    {
+      "id": "pack-b",
+      "heldOut": false,
+      "about": "DPA with 12 planted defects"
+    },
     {
       "id": "pack-c",
       "heldOut": false,
@@ -23,11 +27,20 @@
       "heldOut": true,
       "about": "DPA in a different drafting style, 3 missing clauses and a decoy"
     },
-    { "id": "pack-f", "heldOut": true, "about": "Vendor DPA and 12 answers, 6 contradictions" },
+    {
+      "id": "pack-f",
+      "heldOut": false,
+      "about": "Vendor DPA and 12 answers, 6 contradictions (held out in v1, used for the v1.1 fixes)"
+    },
     {
       "id": "pack-g",
+      "heldOut": false,
+      "about": "Vendor DPA and 10 answers, 5 contradictions, 1 look-alike (held out in v1, used for the v1.1 fixes)"
+    },
+    {
+      "id": "pack-h",
       "heldOut": true,
-      "about": "Vendor DPA and 10 answers, 5 contradictions, 1 look-alike"
+      "about": "Vendor DPA and 11 answers, 6 contradictions, written after the v1.1 fixes"
     }
   ],
   "noAi": [
@@ -89,38 +102,47 @@
     },
     {
       "id": "vendor",
-      "value": 15,
-      "total": 19,
+      "value": 3,
+      "total": 6,
       "missed": [
         {
-          "ref": "pack-f F02",
-          "why": "\"thirty (30) calendar days\" is not read as a number, so 90 days vs 30 days was not compared."
+          "ref": "pack-h H02",
+          "why": "\"purged no later than forty-five (45) days\": the DPA sentence has none of the deletion words the check looks for, so 2 weeks vs 45 days was not compared."
         },
         {
-          "ref": "pack-f F03",
-          "why": "The answer leaves out a listed sub-processor; only extra names are checked, not missing ones."
+          "ref": "pack-h H04",
+          "why": "\"No, data never leaves the EEA\" starts with \"No\", so it was not read as an EU-only claim."
         },
         {
-          "ref": "pack-f F04",
-          "why": "\"hosted and supported from within the European Union\" is not recognised as an EU-only claim."
-        },
-        {
-          "ref": "pack-g G02",
-          "why": "Backups \"14 days\" vs \"six (6) months\": the DPA sentence shares too few words with the question to be compared."
+          "ref": "pack-h H06",
+          "why": "The answer is stricter than the DPA (no on-site audits, while the DPA allows them); only the opposite direction is checked."
         }
       ]
     },
     {
+      "id": "vendorBuilt",
+      "value": 19,
+      "total": 19,
+      "missed": []
+    },
+    {
       "id": "vendorClean",
-      "value": 14,
-      "total": 15,
-      "missed": [
-        {
-          "ref": "pack-g G07",
-          "why": "\"Audits through our SOC 2 report\" agrees with the DPA, but was flagged as partly found."
-        }
-      ]
+      "value": 19,
+      "total": 19,
+      "missed": []
     }
   ],
-  "ai": null
+  "ai": null,
+  "history": [
+    {
+      "version": "v1",
+      "date": "2026-11-26",
+      "text": "Vendor checks on packs F and G, written after the checks: 7 of 11 contradictions found; 1 of 9 consistent answers wrongly flagged."
+    },
+    {
+      "version": "v1.1",
+      "date": "2026-11-26",
+      "text": "Fixed the v1 misses (\"calendar days\", sub-processors left out of a list, \"all data within the EU\", audits through a report). On new pack H, written after these fixes: 3 of 6 found, 0 of 4 consistent answers flagged. Packs F and G now pass 11 of 11, but they shaped the fixes, so they no longer count as unseen."
+    }
+  ]
 }

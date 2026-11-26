@@ -118,7 +118,9 @@ describe('sub-processor checks (C-SUBPROC)', () => {
         'Cobalt Hosting and Brightpath Analytics Inc.',
       ],
     ])
-    expect(findings.map((f) => f.detail.name)).toEqual(['Brightpath Analytics Inc.'])
+    expect(findings.filter((f) => f.kind === 'unlisted-name').map((f) => f.detail.name)).toEqual([
+      'Brightpath Analytics Inc.',
+    ])
   })
 })
 
@@ -191,5 +193,51 @@ describe('splitUnits', () => {
     expect(splitUnits('| A Ltd | Hosting | Ireland |\n|---|---|---|')).toEqual([
       'A Ltd | Hosting | Ireland',
     ])
+  })
+})
+
+describe('v1.1 fixes', () => {
+  it('reads "calendar days" as a number', () => {
+    const { findings } = run(
+      '7.1 After the account is closed, Acme Cloud deletes Customer personal data within thirty (30) calendar days.',
+      [
+        [
+          'How long after the account is closed is data deleted?',
+          'Data is deleted 90 days after the account is closed.',
+        ],
+      ],
+    )
+    expect(findings[0]?.detail).toEqual({
+      answer: '90 days',
+      contract: 'thirty (30) calendar days',
+    })
+  })
+
+  it('flags a list that leaves out a listed sub-processor', () => {
+    const { findings } = run(SUBS, [
+      ['Please list all sub-processors.', 'We use Cobalt Hosting BV for hosting.'],
+    ])
+    expect(findings[0]).toMatchObject({
+      kind: 'omitted-name',
+      detail: { names: 'Ridgeway Support Inc.' },
+    })
+  })
+
+  it('does not flag audits through a report when the DPA limits audits to reports', () => {
+    const { findings } = run(
+      '10.1 Audit rights are satisfied by Acme Cloud providing its SOC 2 report.',
+      [['Do you offer audit rights?', 'Yes, through our annual SOC 2 report.']],
+    )
+    expect(findings).toEqual([])
+  })
+
+  it('reads "all data is hosted within the EU" as an EU-only claim', () => {
+    const { findings } = run(SUBS, [
+      [
+        'Where is data processed?',
+        'All data is hosted and supported from within the European Union.',
+      ],
+    ])
+    expect(findings.some((f) => f.ruleId === 'C-TRANSFER')).toBe(true)
   })
 })
