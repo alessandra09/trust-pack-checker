@@ -1,0 +1,66 @@
+{
+  "pack": "pack-f",
+  "mode": "client",
+  "holdout": true,
+  "dpa": "docs/dpa.md",
+  "answers": "answers.csv",
+  "contradictions": [
+    {
+      "id": "F-1",
+      "ruleId": "C-BREACH-TIME",
+      "qid": "F01",
+      "numeric": true,
+      "expected": "CONFLICT",
+      "answerQuote": "within 24 hours",
+      "dpaQuote": "no later than two (2) business days"
+    },
+    {
+      "id": "F-2",
+      "ruleId": "C-RETENTION",
+      "qid": "F02",
+      "numeric": true,
+      "expected": "CONFLICT",
+      "answerQuote": "erased 90 days after the account is closed",
+      "dpaQuote": "within thirty (30) calendar days"
+    },
+    {
+      "id": "F-3",
+      "ruleId": "C-SUBPROC",
+      "qid": "F03",
+      "numeric": false,
+      "expected": "CONFLICT",
+      "answerQuote": "We use two sub-processors",
+      "dpaQuote": "Tessel Support Pvt Ltd: first-line customer support, India"
+    },
+    {
+      "id": "F-4",
+      "ruleId": "C-TRANSFER",
+      "qid": "F04",
+      "numeric": false,
+      "expected": "CONFLICT",
+      "answerQuote": "hosted and supported from within the European Union",
+      "dpaQuote": "may view message metadata from India"
+    },
+    {
+      "id": "F-5",
+      "ruleId": "C-AI-TRAIN",
+      "qid": "F05",
+      "numeric": false,
+      "expected": "CONFLICT",
+      "answerQuote": "We do not train models on customer messages",
+      "dpaQuote": "may use message content to train its spam-detection models"
+    },
+    {
+      "id": "F-6",
+      "ruleId": "C-AUDIT",
+      "qid": "F06",
+      "numeric": false,
+      "expected": "CONFLICT",
+      "answerQuote": "Customers can carry out an on-site audit",
+      "dpaQuote": "No on-site audits will be permitted"
+    }
+  ],
+  "clean": ["F07", "F08", "F09", "F10", "F11"],
+  "unbacked": [{ "qid": "F12", "claim": "penetration testing" }],
+  "injections": []
+}

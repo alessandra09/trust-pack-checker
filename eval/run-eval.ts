@@ -37,13 +37,16 @@ function ruleGates(pack: LoadedPack) {
     (r) => r.status === 'FOUND' && !r.evidence.some((e) => e.verified),
   ).length
   const missing = pack.key.defects.filter((d) => d.type === 'missing')
-  const detected = missing.filter((d) => byId.get(d.ruleId)?.status === 'NOT_FOUND').length
+  const detectedList = missing.filter((d) => byId.get(d.ruleId)?.status === 'NOT_FOUND')
+  const detected = detectedList.length
+  const missedMissing = missing.filter((d) => !detectedList.includes(d)).map((d) => d.ruleId)
   const presentCore = art28.rules.filter((r) => r.class === 'core' && pack.key.rules[r.id]?.quote)
   const falseAlarms = presentCore
     .filter((r) => byId.get(r.id)?.status === 'NOT_FOUND')
     .map((r) => r.id)
   const decoys = pack.key.defects.filter((d) => d.type === 'decoy')
-  const decoyFooled = decoys.filter((d) => byId.get(d.ruleId)?.status !== 'NOT_FOUND').length
+  const fooled = decoys.filter((d) => byId.get(d.ruleId)?.status !== 'NOT_FOUND')
+  const decoyFooled = fooled.length
   return {
     unverifiedFound,
     missing: missing.length,
@@ -52,6 +55,8 @@ function ruleGates(pack: LoadedPack) {
     presentCore: presentCore.length,
     decoys: decoys.length,
     decoyFooled,
+    missedMissing,
+    fooledRules: fooled.map((d) => d.ruleId),
   }
 }
 
@@ -73,6 +78,8 @@ for (const name of packs) {
     continue
   }
   const pack = loadPack(name)
+  // Held-out packs were written after the engine and are not tuned against: measured and published, not gated.
+  const gated = !pack.key.holdout
   const r = retrieval(pack)
   const rate = pct(r.hits, r.total)
   console.log(`\n[${name}] ${pack.chunks.length} chunks`)
@@ -80,15 +87,23 @@ for (const name of packs) {
     `  rule passage retrieval (top-3): ${r.hits}/${r.total} = ${rate}%${r.misses.length ? `  missed: ${r.misses.join(', ')}` : ''}`,
   )
   gates.push({
-    name: `${name}: rule passage retrieval >= 90%`,
-    passed: rate >= 90,
+    name: `${name}: rule passage retrieval >= 90%${gated ? '' : ' (held out, not gated)'}`,
+    passed: !gated || rate >= 90,
     detail: `${rate}%`,
   })
   const g = ruleGates(pack)
-  if (name === 'pack-b') {
-    record('missing', g.detected, g.missing)
-    record('decoys', g.decoyFooled, g.decoys)
-  }
+  record(
+    'missing',
+    g.detected,
+    g.missing,
+    g.missedMissing.map((id) => `${name} ${id}`),
+  )
+  record(
+    'decoys',
+    g.decoyFooled,
+    g.decoys,
+    g.fooledRules.map((id) => `${name} ${id}`),
+  )
   console.log(`  FOUND without verified evidence: ${g.unverifiedFound}`)
   gates.push({
     name: `${name}: zero FOUND without verified evidence`,
@@ -100,24 +115,24 @@ for (const name of packs) {
     `  core rules present but reported NOT_FOUND: ${fa.length}/${g.presentCore}${fa.length ? `  ${fa.join(', ')}` : ''}`,
   )
   gates.push({
-    name: `${name}: no false NOT_FOUND on present core rules`,
-    passed: fa.length === 0,
+    name: `${name}: no false NOT_FOUND on present core rules${gated ? '' : ' (held out, not gated)'}`,
+    passed: !gated || fa.length === 0,
     detail: `${fa.length}`,
   })
   if (g.missing > 0) {
     const recall = pct(g.detected, g.missing)
     console.log(`  no-AI recall of missing-clause defects: ${g.detected}/${g.missing} = ${recall}%`)
     gates.push({
-      name: `${name}: no-AI missing-clause recall >= 90%`,
-      passed: recall >= 90,
+      name: `${name}: no-AI missing-clause recall >= 90%${gated ? '' : ' (held out, not gated)'}`,
+      passed: !gated || recall >= 90,
       detail: `${recall}%`,
     })
   }
   if (g.decoys > 0) {
     console.log(`  decoys that satisfied a rule: ${g.decoyFooled}/${g.decoys}`)
     gates.push({
-      name: `${name}: decoys do not satisfy rules`,
-      passed: g.decoyFooled === 0,
+      name: `${name}: decoys do not satisfy rules${gated ? '' : ' (held out, not gated)'}`,
+      passed: !gated || g.decoyFooled === 0,
       detail: `${g.decoyFooled}`,
     })
   }

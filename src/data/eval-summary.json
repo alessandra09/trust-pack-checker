@@ -1,12 +1,126 @@
 {
-  "source": "npm run eval (no-AI mode, synthetic packs A, B, C, D). The eval fails if these numbers differ from what it measures.",
-  "measured": "2026-11-25",
+  "source": "npm run eval (no-AI mode, synthetic packs A to G). The eval fails if these numbers or the list of misses differ from what it measures.",
+  "measured": "2026-11-26",
+  "packs": [
+    {
+      "id": "pack-a",
+      "heldOut": false,
+      "about": "Complete DPA: every core Art. 28 element present"
+    },
+    { "id": "pack-b", "heldOut": false, "about": "DPA with 12 planted defects" },
+    {
+      "id": "pack-c",
+      "heldOut": false,
+      "about": "60-question customer questionnaire, three company documents"
+    },
+    {
+      "id": "pack-d",
+      "heldOut": false,
+      "about": "Vendor DPA and 15 vendor answers, 8 contradictions"
+    },
+    {
+      "id": "pack-e",
+      "heldOut": true,
+      "about": "DPA in a different drafting style, 3 missing clauses and a decoy"
+    },
+    { "id": "pack-f", "heldOut": true, "about": "Vendor DPA and 12 answers, 6 contradictions" },
+    {
+      "id": "pack-g",
+      "heldOut": true,
+      "about": "Vendor DPA and 10 answers, 5 contradictions, 1 look-alike"
+    }
+  ],
   "noAi": [
-    { "id": "missing", "value": 4, "total": 4 },
-    { "id": "decoys", "value": 0, "total": 1 },
-    { "id": "conflicts", "value": 5, "total": 6 },
-    { "id": "passages", "value": 41, "total": 44 },
-    { "id": "vendor", "value": 8, "total": 8 }
+    {
+      "id": "missing",
+      "value": 5,
+      "total": 7,
+      "missed": [
+        {
+          "ref": "pack-e A28-3-b",
+          "why": "No confidentiality clause, but a security line about \"Supplier personnel\" was taken as a possible passage."
+        },
+        {
+          "ref": "pack-e A28-3-f",
+          "why": "No assistance with Articles 32 to 36, but the breach notice clause was taken as a possible passage."
+        }
+      ]
+    },
+    {
+      "id": "decoys",
+      "value": 1,
+      "total": 2,
+      "missed": [
+        {
+          "ref": "pack-e A28-3-h",
+          "why": "A building fire-safety \"inspection\" was taken as a possible audit clause."
+        }
+      ]
+    },
+    {
+      "id": "conflicts",
+      "value": 5,
+      "total": 6,
+      "missed": [
+        {
+          "ref": "pack-c Q08",
+          "why": "Two documents give different notice periods for new sub-processors; not flagged as a conflict."
+        }
+      ]
+    },
+    {
+      "id": "passages",
+      "value": 41,
+      "total": 44,
+      "missed": [
+        {
+          "ref": "pack-c Q13",
+          "why": "\"Where is customer data hosted?\": the right passage was not in the top 5."
+        },
+        {
+          "ref": "pack-c Q18",
+          "why": "\"What information will a breach notification contain?\": the right passage was not in the top 5."
+        },
+        {
+          "ref": "pack-c Q39",
+          "why": "\"Do you operate a 24/7 security operations centre?\": the right passage was not in the top 5."
+        }
+      ]
+    },
+    {
+      "id": "vendor",
+      "value": 15,
+      "total": 19,
+      "missed": [
+        {
+          "ref": "pack-f F02",
+          "why": "\"thirty (30) calendar days\" is not read as a number, so 90 days vs 30 days was not compared."
+        },
+        {
+          "ref": "pack-f F03",
+          "why": "The answer leaves out a listed sub-processor; only extra names are checked, not missing ones."
+        },
+        {
+          "ref": "pack-f F04",
+          "why": "\"hosted and supported from within the European Union\" is not recognised as an EU-only claim."
+        },
+        {
+          "ref": "pack-g G02",
+          "why": "Backups \"14 days\" vs \"six (6) months\": the DPA sentence shares too few words with the question to be compared."
+        }
+      ]
+    },
+    {
+      "id": "vendorClean",
+      "value": 14,
+      "total": 15,
+      "missed": [
+        {
+          "ref": "pack-g G07",
+          "why": "\"Audits through our SOC 2 report\" agrees with the DPA, but was flagged as partly found."
+        }
+      ]
+    }
   ],
   "ai": null
 }

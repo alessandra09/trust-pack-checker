@@ -16,6 +16,7 @@ import { record } from './published.ts'
 export type ClientKey = {
   pack: string
   mode: 'client'
+  holdout?: boolean
   dpa: string
   answers: string
   contradictions: {
@@ -81,7 +82,21 @@ export function evalClientPack(name: string): Gate[] {
     (f) => !f.answer.verified || f.contract.some((e) => !e.verified),
   ).length
 
-  record('vendor', detected.length, key.contradictions.length)
+  record(
+    'vendor',
+    detected.length,
+    key.contradictions.length,
+    key.contradictions.filter((c) => !detected.includes(c)).map((c) => `${name} ${c.qid}`),
+  )
+  record(
+    'vendorClean',
+    key.clean.length -
+      new Set(findings.filter((f) => key.clean.includes(f.qid)).map((f) => f.qid)).size,
+    key.clean.length,
+    [...new Set(findings.filter((f) => key.clean.includes(f.qid)).map((f) => `${name} ${f.qid}`))],
+  )
+  const gated = !key.holdout
+  const note = gated ? '' : ' (held out, not gated)'
   console.log(`\n[${name}] client mode, ${findings.length} findings`)
   console.log(
     `  contradictions found: ${detected.length}/${key.contradictions.length} = ${pct(detected.length, key.contradictions.length)}%${missed.length ? `  missed: ${missed.join(', ')}` : ''}`,
@@ -93,8 +108,8 @@ export function evalClientPack(name: string): Gate[] {
   console.log(`  claims not in the contract found: ${unbackedHit}/${key.unbacked.length}`)
   return [
     {
-      name: `${name}: numeric contradiction recall = 100%`,
-      passed: numericHit === numeric.length,
+      name: `${name}: numeric contradiction recall = 100%${note}`,
+      passed: !gated || numericHit === numeric.length,
       detail: `${numericHit}/${numeric.length}`,
     },
     {
@@ -103,8 +118,8 @@ export function evalClientPack(name: string): Gate[] {
       detail: String(unverified),
     },
     {
-      name: `${name}: no findings on consistent answers`,
-      passed: falseFlags.length === 0,
+      name: `${name}: no findings on consistent answers${note}`,
+      passed: !gated || falseFlags.length === 0,
       detail: String(falseFlags.length),
     },
   ]

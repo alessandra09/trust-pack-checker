@@ -1,0 +1,13 @@
+Ref,Question,Vendor response
+F01,How quickly will you notify us of a personal data breach?,We will notify you within 24 hours.
+F02,How long after the account is closed is customer data deleted?,Data is erased 90 days after the account is closed.
+F03,Please list all sub-processors that handle our data.,We use two sub-processors: Amberline Hosting GmbH and Corvid Telecom Ltd.
+F04,Where is customer data processed and accessed?,All data is hosted and supported from within the European Union.
+F05,Do you use customer data to train any models?,We do not train models on customer messages.
+F06,Can customers carry out on-site audits?,Customers can carry out an on-site audit with reasonable notice.
+F07,How much notice do you give before adding a sub-processor?,We give at least 30 days' notice before adding a sub-processor.
+F08,Is customer data encrypted?,"Yes, in transit and at rest."
+F09,Who is your data protection officer?,Our DPO can be reached at dpo@quillon.example.
+F10,How long are message logs kept?,Message logs are kept for 30 days and then deleted.
+F11,Are your staff bound by confidentiality?,"Yes, all staff with access sign confidentiality terms."
+F12,Do you run regular penetration tests?,"Yes, an external firm runs a penetration test twice a year."

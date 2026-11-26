@@ -29,17 +29,18 @@ Pinned toolchain: Vite 8.3, React 19.3, TypeScript 6.0 (TypeScript 7 is not yet 
 
 ## Evaluation
 
-`npm run eval` runs the synthetic gold-set evaluation (SPEC section 13). No-AI results, measured 2026-11-25 on synthetic packs (copied from `npm run eval`; the same numbers are on the landing page and the eval fails if they drift):
+`npm run eval` runs the synthetic gold-set evaluation (SPEC section 13), no AI, measured 2026-11-26. Packs E, F and G are held out: written after the checks, with the checks left unchanged afterwards.
 
-| Metric                                                 | Result                                                 |
-| ------------------------------------------------------ | ------------------------------------------------------ |
-| Missing-clause defects found (Pack B)                  | 4 / 4                                                  |
-| Look-alike clauses wrongly accepted (Pack B)           | 0 / 1                                                  |
-| Planted cross-document conflicts flagged (Pack C)      | 5 / 6                                                  |
-| Questions with the right passage in the top 5 (Pack C) | 41 / 44                                                |
-| Planted vendor contradictions found (Pack D)           | 8 / 8 (numeric 3 / 3, 0 findings on 6 consistent rows) |
+| Metric                                                | Built-with packs | Held-out packs | Total   |
+| ----------------------------------------------------- | ---------------- | -------------- | ------- |
+| Missing contract clauses found                        | 4 / 4 (B)        | 1 / 3 (E)      | 5 / 7   |
+| Look-alike clauses wrongly accepted (lower is better) | 0 / 1 (B)        | 1 / 1 (E)      | 1 / 2   |
+| Planted cross-document conflicts flagged              | 5 / 6 (C)        | none yet       | 5 / 6   |
+| Questions with the right passage in the top 5         | 41 / 44 (C)      | none yet       | 41 / 44 |
+| Planted vendor contradictions found                   | 8 / 8 (D)        | 7 / 11 (F, G)  | 15 / 19 |
+| Consistent vendor answers left alone                  | 6 / 6 (D)        | 8 / 9 (F, G)   | 14 / 15 |
 
-These packs were written by the same author as the checks, so the numbers are optimistic. AI results will be added after the AI evaluation run, with date, model ID and prompt version.
+Every miss is named, with its reason, on the landing page ("How it was tested") and in `src/data/eval-summary.json`; the eval fails if that list differs from what it measures. AI results will be added after the AI evaluation run.
 
 ## Limits and privacy
 

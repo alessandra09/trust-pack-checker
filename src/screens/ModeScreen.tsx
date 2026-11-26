@@ -5,6 +5,8 @@ import { StatusChip } from '../components/StatusChip.tsx'
 import { art28 } from '../data/load.ts'
 import { BuiltBy } from '../components/BuiltBy.tsx'
 import { EvalResults } from '../components/EvalResults.tsx'
+import { HowTested } from '../components/HowTested.tsx'
+import { PilotOffer } from '../components/PilotOffer.tsx'
 
 // Landing: hero over a slow gradient mesh, then a bento grid of modes and what the tool does.
 export function ModeScreen({
@@ -31,6 +33,7 @@ export function ModeScreen({
           <p className="enter-2 max-w-2xl text-[18px] leading-relaxed text-[var(--muted)] md:text-[20px]">
             {t('hero.subline')}
           </p>
+          <p className="enter-2 max-w-2xl text-[16px] font-medium">{t('hero.audience')}</p>
           <div className="enter-2 flex flex-wrap items-center gap-x-5 gap-y-3 pt-2">
             <button
               type="button"
@@ -130,7 +133,9 @@ export function ModeScreen({
             </article>
           </div>
         </section>
+        <PilotOffer />
         <EvalResults />
+        <HowTested />
         <BuiltBy />
       </div>
     </div>
