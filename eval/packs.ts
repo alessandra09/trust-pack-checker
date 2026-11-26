@@ -21,6 +21,7 @@ export type Defect = {
 }
 export type PackKey = {
   pack: string
+  holdout?: boolean
   document: string
   rules: Record<string, KeyRule>
   defects: Defect[]

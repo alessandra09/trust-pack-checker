@@ -20,6 +20,8 @@ Synthetic document packs live in `eval/packs/<name>/`. Each has a `SYNTHETIC.md`
 - Rule passage retrieval: for every rule whose key has a supporting quote, the share of rules where one of the top 3 candidate passages contains that quote. Gate: at least 90% per pack.
 - No-AI missing-clause recall (gated from M2): a "missing clause" defect counts as detected only when that rule's status is NOT_FOUND. Vague, contradictory, partial, incorporated and decoy defects are measured only with AI.
 
+- Held-out packs E, F and G were written after the checks existed, in different wording, and the engine and rule hints were not changed after seeing their results. Their metrics are published and their misses are listed on the landing page, but they do not fail the build (except the safety gates: no FOUND without a verified quote, every client finding quotes both sides). One key quote in Pack G (G04) was corrected after the first run because it pointed at the question instead of the vendor's answer; the expected rule and status did not change.
+- Published metrics add up across packs, and `src/data/eval-summary.json` must list exactly the misses the eval measures, so the page cannot hide one. Pack E also shows one present clause reported as not found (A28-3-a2, wording "believes that an instruction ... infringes").
 - Client mode (Pack D): a contradiction counts as found only when the finding has the keyed rule, status and question, and both quotes (answer and DPA) contain the keyed text. Gates: numeric contradictions 100%, zero findings on consistent rows, every finding quotes both sides verbatim.
 
 ## Client mode checks

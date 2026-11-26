@@ -120,8 +120,27 @@ export function evalQuestionnairePack(name: string): Gate[] {
   }
 
   if (name === 'pack-c') {
-    record('conflicts', conflictHits, conflicts.length)
-    record('passages', retrievalHits, answerable.length)
+    record(
+      'conflicts',
+      conflictHits,
+      conflicts.length,
+      conflicts
+        .filter(([qid]) => answers.get(qid)?.status !== 'CONFLICT')
+        .map(([q]) => `${name} ${q}`),
+    )
+    record(
+      'passages',
+      retrievalHits,
+      answerable.length,
+      answerable
+        .filter(
+          ([qid, k]) =>
+            !k.evidence.some((e) =>
+              answers.get(qid)?.passages.some((c) => verifyQuote(e.quote, c.text)),
+            ),
+        )
+        .map(([q]) => `${name} ${q}`),
+    )
   }
 
   return [

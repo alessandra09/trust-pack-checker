@@ -1,0 +1,83 @@
+{
+  "pack": "pack-e",
+  "holdout": true,
+  "document": "docs/dpa.md",
+  "rules": {
+    "A28-3-intro": {
+      "expected": "FOUND",
+      "quote": "Schedule 1 sets out the subject matter and duration of the processing"
+    },
+    "A28-3-a": {
+      "expected": "FOUND",
+      "quote": "only on documented instructions from the Client, including in relation to transfers of personal data to a third country"
+    },
+    "A28-3-a2": {
+      "expected": "FOUND",
+      "quote": "If the Supplier believes that an instruction from the Client infringes the GDPR"
+    },
+    "A28-3-b": { "expected": "NOT_FOUND", "defect": "E01" },
+    "A28-3-c": {
+      "expected": "FOUND",
+      "quote": "technical and organisational measures described in Schedule 2"
+    },
+    "A28-2": {
+      "expected": "FOUND",
+      "quote": "general written authorisation to use the sub-processors listed in Schedule 3"
+    },
+    "A28-3-d": {
+      "expected": "FOUND",
+      "quote": "only under the conditions in this Section 4"
+    },
+    "A28-4": {
+      "expected": "FOUND",
+      "quote": "will impose the same data protection obligations as in these Terms by written contract"
+    },
+    "A28-3-e": { "expected": "NOT_FOUND", "defect": "E02" },
+    "A28-3-f": { "expected": "NOT_FOUND", "defect": "E03" },
+    "A28-3-g": {
+      "expected": "FOUND",
+      "quote": "return or delete all personal data and delete existing copies"
+    },
+    "A28-3-h": { "expected": "NOT_FOUND", "defect": "E04" }
+  },
+  "defects": [
+    {
+      "id": "E01",
+      "type": "missing",
+      "ruleId": "A28-3-b",
+      "description": "No confidentiality commitment for persons authorised to process.",
+      "mustContain": [],
+      "mustNotContain": ["confidentiality", "committed themselves", "statutory obligation"]
+    },
+    {
+      "id": "E02",
+      "type": "missing",
+      "ruleId": "A28-3-e",
+      "description": "No assistance with data subject requests.",
+      "mustContain": [],
+      "mustNotContain": [
+        "data subject request",
+        "data subject rights",
+        "rights of data subjects",
+        "exercise of rights",
+        "chapter iii"
+      ]
+    },
+    {
+      "id": "E03",
+      "type": "missing",
+      "ruleId": "A28-3-f",
+      "description": "No assistance with Articles 32 to 36 (security, breach notification, DPIA, prior consultation). A breach notice clause exists, but it is the processor's own duty, not assistance.",
+      "mustContain": [],
+      "mustNotContain": ["articles 32 to 36", "impact assessment", "prior consultation"]
+    },
+    {
+      "id": "E04",
+      "type": "decoy",
+      "ruleId": "A28-3-h",
+      "description": "No audit clause; the word \"inspection\" appears only for a building fire-safety inspection.",
+      "mustContain": ["annual inspection by the building owner"],
+      "mustNotContain": ["audit", "demonstrate compliance"]
+    }
+  ]
+}
