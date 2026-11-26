@@ -8,12 +8,12 @@ import type { ConsistencyFinding, Unit, VendorAnswer } from './types.ts'
 type Ctx = { answers: VendorAnswer[]; dpa: Chunk[]; docNames: Record<string, string> }
 
 const EU_ONLY =
-  /\b(only|exclusively|solely|stays?|remains?|kept|never leaves?|never (be )?transferred|does not leave|not transferred)\b[^.?]{0,60}\b(EU|EEA|European Union|European Economic Area)\b|\b(EU|EEA)[- ]only\b/i
+  /\b(only|exclusively|solely|stays?|remains?|kept|never leaves?|never (be )?transferred|does not leave|not transferred)\b[^.?]{0,60}\b(EU|EEA|European Union|European Economic Area)\b|\b(EU|EEA)[- ]only\b|\ball (of )?(the |our |your )?(customer |personal )?data\b[^.?]{0,60}\b(in|within|inside)\b[^.?]{0,15}\b(EU|EEA|European Union|European Economic Area)\b/i
 // Case-sensitive so the pronoun "us" is never read as a country.
 const NON_EEA =
   /\b(United States|USA|U\.S\.A?\.|US|United Kingdom|UK|Switzerland|India|Canada|Australia|New Zealand|Singapore|Japan|South Korea|Philippines|Brazil|Argentina|Mexico|China|Hong Kong|Israel|South Africa|Ukraine|Serbia|Turkey|Malaysia|Vietnam|Indonesia|Egypt|Nigeria|Kenya|United Arab Emirates|UAE)\b/
 const LOCATION_CUE =
-  /\b(located|location|hosted|hosting|stored|processed|data cent(re|er)s?|region|servers?|facilit(y|ies))\b/i
+  /\b(located|location|hosted|hosting|stored|processed|accessed|access|view|views|handled|data cent(re|er)s?|region|servers?|facilit(y|ies))\b/i
 const FRAMEWORK = /\bEU[- ]U\.?S\.?\b|Data Privacy Framework/gi
 
 function claimsEuOnly(a: VendorAnswer): boolean {
@@ -72,6 +72,8 @@ export function checkAudit({ answers, dpa, docNames }: Ctx): ConsistencyFinding[
   return answers.flatMap((a) => {
     if (matchHints(`${a.question}\n${a.answer}`, AUDIT_HINTS).length === 0) return []
     if (NO.test(a.answer) || !(YES.test(a.answer) || AUDIT_CLAIM.test(a.answer))) return []
+    // An answer that itself offers audits through a report agrees with a DPA that limits audits to reports.
+    if (!excluded && REPORT.test(a.answer) && !/on-?site/i.test(a.answer)) return []
     const answer = answerEvidence(a, docNames, (s) => AUDIT_CLAIM.test(s))
     if (!answer) return []
     return [

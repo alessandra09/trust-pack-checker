@@ -82,8 +82,9 @@ export function evalClientPack(name: string): Gate[] {
     (f) => !f.answer.verified || f.contract.some((e) => !e.verified),
   ).length
 
+  // The headline vendor number counts only held-out packs; packs used to build the checks are reported apart.
   record(
-    'vendor',
+    key.holdout ? 'vendor' : 'vendorBuilt',
     detected.length,
     key.contradictions.length,
     key.contradictions.filter((c) => !detected.includes(c)).map((c) => `${name} ${c.qid}`),

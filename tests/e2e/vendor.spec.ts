@@ -31,7 +31,7 @@ test('vendor sample shows contradictions with both quotes and questions to send'
     'true',
   )
   const list = page.getByRole('list', { name: 'Answers vs DPA' })
-  await expect(list.getByRole('listitem')).toHaveCount(9)
+  await expect(list.getByRole('listitem')).toHaveCount(10)
 
   await list.getByRole('button', { name: /V03/ }).click()
   await expect(
@@ -66,7 +66,7 @@ test('vendor upload flow runs the checks on uploaded files', async ({ page }) =>
   await run.click()
   await expect(
     page.getByRole('list', { name: 'Answers vs DPA' }).getByRole('listitem'),
-  ).toHaveCount(9)
+  ).toHaveCount(10)
   await page.getByRole('tab', { name: 'DPA check (Art. 28)' }).click()
   await expect(
     page.getByRole('list', { name: 'DPA check (Art. 28)' }).getByRole('listitem'),

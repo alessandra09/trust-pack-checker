@@ -1,7 +1,6 @@
 {
   "pack": "pack-g",
   "mode": "client",
-  "holdout": true,
   "dpa": "docs/dpa.md",
   "answers": "answers.csv",
   "contradictions": [

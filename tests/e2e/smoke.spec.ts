@@ -153,5 +153,5 @@ test('landing offers a free pilot review and lists every measured miss', async (
   await expect(
     page.getByRole('heading', { name: 'Where it works and where it misses' }),
   ).toBeVisible()
-  await expect(page.getByText('pack-g G07')).toBeVisible()
+  await expect(page.getByText('pack-h H06')).toBeVisible()
 })

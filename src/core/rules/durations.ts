@@ -32,12 +32,13 @@ const UNIT_HOURS: Record<string, number> = {
   hour: 1,
   day: 24,
   'business day': 24,
+  'calendar day': 24,
   'working day': 24,
   week: 168,
   month: 730,
   year: 8760,
 }
-const UNIT = '(hours?|(?:business |working )?days?|weeks?|months?|years?)'
+const UNIT = '(hours?|(?:business |working |calendar )?days?|weeks?|months?|years?)'
 const WORD = `(${Object.keys(NUMBER_WORDS)
   .sort((a, b) => b.length - a.length)
   .join('|')})`

@@ -50,7 +50,10 @@ function bestStatement(a: VendorAnswer, dpa: Chunk[], hints: readonly string[]):
     const duration = scan.durations[0]
     const vague = scan.vague[0]
     if (!duration && !vague) continue
-    const shared = sharedTerms(terms, unit.text)
+    // A topic word that both the answer and the sentence use (e.g. "backup") counts as one shared term.
+    const answerHints = matchHints(`${a.question}\n${a.answer}`, [...hints])
+    const commonHint = matchHints(unit.text, answerHints).length > 0 ? 1 : 0
+    const shared = sharedTerms(terms, unit.text) + commonHint
     if (shared < MIN_SHARED) continue
     if (!best || shared > best.shared)
       best = { unit, shared, ...(duration ? { duration } : {}), ...(vague ? { vague } : {}) }
