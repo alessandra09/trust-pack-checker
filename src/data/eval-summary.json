@@ -1,5 +1,5 @@
 {
-  "source": "npm run eval (no-AI mode, synthetic packs A to H). The eval fails if these numbers or the list of misses differ from what it measures.",
+  "source": "npm run eval (no-AI mode, synthetic packs A to I). The eval fails if these numbers or the list of misses differ from what it measures.",
   "measured": "2026-11-26",
   "packs": [
     {
@@ -20,88 +20,45 @@
     {
       "id": "pack-d",
       "heldOut": false,
-      "about": "Vendor DPA and 15 vendor answers, 8 contradictions"
+      "about": "Vendor DPA and 15 answers, 8 contradictions"
     },
     {
       "id": "pack-e",
-      "heldOut": true,
-      "about": "DPA in a different drafting style, 3 missing clauses and a decoy"
+      "heldOut": false,
+      "about": "DPA in another drafting style (new in v1, shaped the v1.2 rule-hint changes)"
     },
     {
       "id": "pack-f",
       "heldOut": false,
-      "about": "Vendor DPA and 12 answers, 6 contradictions (held out in v1, used for the v1.1 fixes)"
+      "about": "Vendor DPA and 12 answers (new in v1, shaped the v1.1 fixes)"
     },
     {
       "id": "pack-g",
       "heldOut": false,
-      "about": "Vendor DPA and 10 answers, 5 contradictions, 1 look-alike (held out in v1, used for the v1.1 fixes)"
+      "about": "Vendor DPA and 10 answers (new in v1, shaped the v1.1 fixes)"
     },
     {
       "id": "pack-h",
       "heldOut": true,
-      "about": "Vendor DPA and 11 answers, 6 contradictions, written after the v1.1 fixes"
+      "about": "Vendor DPA and 11 answers, written after the v1.1 fixes"
+    },
+    {
+      "id": "pack-i",
+      "heldOut": true,
+      "about": "DPA with 3 missing clauses, written before the v1.2 rule-hint changes and measured before and after"
     }
   ],
   "noAi": [
     {
       "id": "missing",
-      "value": 5,
-      "total": 7,
-      "missed": [
-        {
-          "ref": "pack-e A28-3-b",
-          "why": "No confidentiality clause, but a security line about \"Supplier personnel\" was taken as a possible passage."
-        },
-        {
-          "ref": "pack-e A28-3-f",
-          "why": "No assistance with Articles 32 to 36, but the breach notice clause was taken as a possible passage."
-        }
-      ]
-    },
-    {
-      "id": "decoys",
-      "value": 1,
-      "total": 2,
-      "missed": [
-        {
-          "ref": "pack-e A28-3-h",
-          "why": "A building fire-safety \"inspection\" was taken as a possible audit clause."
-        }
-      ]
-    },
-    {
-      "id": "conflicts",
-      "value": 5,
-      "total": 6,
-      "missed": [
-        {
-          "ref": "pack-c Q08",
-          "why": "Two documents give different notice periods for new sub-processors; not flagged as a conflict."
-        }
-      ]
-    },
-    {
-      "id": "passages",
-      "value": 41,
-      "total": 44,
-      "missed": [
-        {
-          "ref": "pack-c Q13",
-          "why": "\"Where is customer data hosted?\": the right passage was not in the top 5."
-        },
-        {
-          "ref": "pack-c Q18",
-          "why": "\"What information will a breach notification contain?\": the right passage was not in the top 5."
-        },
-        {
-          "ref": "pack-c Q39",
-          "why": "\"Do you operate a 24/7 security operations centre?\": the right passage was not in the top 5."
-        }
-      ]
+      "group": "new",
+      "value": 3,
+      "total": 3,
+      "missed": []
     },
     {
       "id": "vendor",
+      "group": "new",
       "value": 3,
       "total": 6,
       "missed": [
@@ -120,15 +77,80 @@
       ]
     },
     {
+      "id": "vendorClean",
+      "group": "new",
+      "value": 4,
+      "total": 4,
+      "missed": []
+    },
+    {
+      "id": "missingBuilt",
+      "group": "training",
+      "value": 6,
+      "total": 7,
+      "missed": [
+        {
+          "ref": "pack-e A28-3-f",
+          "why": "No assistance with Articles 32 to 36, but the breach notice clause was taken as a possible passage."
+        }
+      ]
+    },
+    {
+      "id": "decoysBuilt",
+      "group": "training",
+      "value": 1,
+      "total": 2,
+      "missed": [
+        {
+          "ref": "pack-e A28-3-h",
+          "why": "A building fire-safety \"inspection\" was taken as a possible audit clause."
+        }
+      ]
+    },
+    {
+      "id": "conflicts",
+      "group": "training",
+      "value": 5,
+      "total": 6,
+      "missed": [
+        {
+          "ref": "pack-c Q08",
+          "why": "Two documents give different notice periods for new sub-processors; not flagged as a conflict."
+        }
+      ]
+    },
+    {
+      "id": "passages",
+      "group": "training",
+      "value": 41,
+      "total": 44,
+      "missed": [
+        {
+          "ref": "pack-c Q13",
+          "why": "\"Where is customer data hosted?\": the right passage was not in the top 5."
+        },
+        {
+          "ref": "pack-c Q18",
+          "why": "\"What information will a breach notification contain?\": the right passage was not in the top 5."
+        },
+        {
+          "ref": "pack-c Q39",
+          "why": "\"Do you operate a 24/7 security operations centre?\": the right passage was not in the top 5."
+        }
+      ]
+    },
+    {
       "id": "vendorBuilt",
+      "group": "training",
       "value": 19,
       "total": 19,
       "missed": []
     },
     {
-      "id": "vendorClean",
-      "value": 19,
-      "total": 19,
+      "id": "vendorCleanBuilt",
+      "group": "training",
+      "value": 15,
+      "total": 15,
       "missed": []
     }
   ],
@@ -143,6 +165,11 @@
       "version": "v1.1",
       "date": "2026-11-26",
       "text": "Fixed the v1 misses (\"calendar days\", sub-processors left out of a list, \"all data within the EU\", audits through a report). On new pack H, written after these fixes: 3 of 6 found, 0 of 4 consistent answers flagged. Packs F and G now pass 11 of 11, but they shaped the fixes, so they no longer count as unseen."
+    },
+    {
+      "version": "v1.2",
+      "date": "2026-11-26",
+      "text": "Owner-approved hint changes to two Art. 28 rules (added \"infringes the GDPR\" to A28-3-a2; removed the too-general \"personnel\" from A28-3-b; requirement text and severity unchanged). On new pack I: missing clauses found 2/3 before, 3/3 after; present clauses wrongly reported missing 1/9 before, 0/9 after. No pack got more false flags."
     }
   ]
 }

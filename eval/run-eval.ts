@@ -79,7 +79,9 @@ for (const name of packs) {
   }
   const pack = loadPack(name)
   // Held-out packs were written after the engine and are not tuned against: measured and published, not gated.
-  const gated = !pack.key.holdout
+  const gated = !pack.key.holdout && pack.key.gate !== false
+  // Headline numbers come only from held-out packs; packs used to build the checks are reported apart.
+  const suffix = pack.key.holdout ? '' : 'Built'
   const r = retrieval(pack)
   const rate = pct(r.hits, r.total)
   console.log(`\n[${name}] ${pack.chunks.length} chunks`)
@@ -87,19 +89,19 @@ for (const name of packs) {
     `  rule passage retrieval (top-3): ${r.hits}/${r.total} = ${rate}%${r.misses.length ? `  missed: ${r.misses.join(', ')}` : ''}`,
   )
   gates.push({
-    name: `${name}: rule passage retrieval >= 90%${gated ? '' : ' (held out, not gated)'}`,
+    name: `${name}: rule passage retrieval >= 90%${gated ? '' : ' (not gated)'}`,
     passed: !gated || rate >= 90,
     detail: `${rate}%`,
   })
   const g = ruleGates(pack)
   record(
-    'missing',
+    `missing${suffix}`,
     g.detected,
     g.missing,
     g.missedMissing.map((id) => `${name} ${id}`),
   )
   record(
-    'decoys',
+    `decoys${suffix}`,
     g.decoyFooled,
     g.decoys,
     g.fooledRules.map((id) => `${name} ${id}`),
@@ -115,7 +117,7 @@ for (const name of packs) {
     `  core rules present but reported NOT_FOUND: ${fa.length}/${g.presentCore}${fa.length ? `  ${fa.join(', ')}` : ''}`,
   )
   gates.push({
-    name: `${name}: no false NOT_FOUND on present core rules${gated ? '' : ' (held out, not gated)'}`,
+    name: `${name}: no false NOT_FOUND on present core rules${gated ? '' : ' (not gated)'}`,
     passed: !gated || fa.length === 0,
     detail: `${fa.length}`,
   })
@@ -123,7 +125,7 @@ for (const name of packs) {
     const recall = pct(g.detected, g.missing)
     console.log(`  no-AI recall of missing-clause defects: ${g.detected}/${g.missing} = ${recall}%`)
     gates.push({
-      name: `${name}: no-AI missing-clause recall >= 90%${gated ? '' : ' (held out, not gated)'}`,
+      name: `${name}: no-AI missing-clause recall >= 90%${gated ? '' : ' (not gated)'}`,
       passed: !gated || recall >= 90,
       detail: `${recall}%`,
     })
@@ -131,7 +133,7 @@ for (const name of packs) {
   if (g.decoys > 0) {
     console.log(`  decoys that satisfied a rule: ${g.decoyFooled}/${g.decoys}`)
     gates.push({
-      name: `${name}: decoys do not satisfy rules${gated ? '' : ' (held out, not gated)'}`,
+      name: `${name}: decoys do not satisfy rules${gated ? '' : ' (not gated)'}`,
       passed: !gated || g.decoyFooled === 0,
       detail: `${g.decoyFooled}`,
     })

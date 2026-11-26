@@ -90,7 +90,7 @@ export function evalClientPack(name: string): Gate[] {
     key.contradictions.filter((c) => !detected.includes(c)).map((c) => `${name} ${c.qid}`),
   )
   record(
-    'vendorClean',
+    key.holdout ? 'vendorClean' : 'vendorCleanBuilt',
     key.clean.length -
       new Set(findings.filter((f) => key.clean.includes(f.qid)).map((f) => f.qid)).size,
     key.clean.length,

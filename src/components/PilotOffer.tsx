@@ -15,7 +15,10 @@ export function PilotOffer() {
           {t('pilot.title')}
         </h2>
         <p>{t('pilot.body')}</p>
-        <p className="text-[14px] text-[var(--muted)]">{t('pilot.note')}</p>
+        <p className="text-[14px]">{t('pilot.privacy')}</p>
+        <p className="text-[14px] text-[var(--muted)]">
+          {t('pilot.note')} {t('pilot.response')}
+        </p>
       </div>
       <a href={AUTHOR.pilot} className="btn-primary shrink-0">
         {t('pilot.cta')}

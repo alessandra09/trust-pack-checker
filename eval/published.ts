@@ -20,7 +20,9 @@ export function publishedMismatches(): string[] {
   const summary = JSON.parse(readFileSync('src/data/eval-summary.json', 'utf8')) as {
     noAi: Published[]
   }
-  const ids = new Set([...summary.noAi.map((m) => m.id), ...Object.keys(measured)])
+  // A metric no pack measured (total 0) need not be published.
+  const measuredIds = Object.keys(measured).filter((id) => (measured[id]?.total ?? 0) > 0)
+  const ids = new Set([...summary.noAi.map((m) => m.id), ...measuredIds])
   return [...ids].flatMap((id) => {
     const p = summary.noAi.find((m) => m.id === id)
     const m = measured[id]
