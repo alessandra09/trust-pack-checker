@@ -1,0 +1,85 @@
+{
+  "pack": "pack-i",
+  "holdout": true,
+  "document": "docs/dpa.md",
+  "rules": {
+    "A28-3-intro": {
+      "expected": "FOUND",
+      "quote": "Appendix A describes the subject matter and duration of the processing"
+    },
+    "A28-3-a": {
+      "expected": "FOUND",
+      "quote": "only on documented instructions from the Controller, including with regard to transfers to a third country"
+    },
+    "A28-3-a2": {
+      "expected": "FOUND",
+      "quote": "If the Processor considers that any instruction of the Controller infringes the GDPR"
+    },
+    "A28-3-b": { "expected": "NOT_FOUND", "defect": "I01" },
+    "A28-3-c": {
+      "expected": "FOUND",
+      "quote": "technical and organisational measures listed in Appendix B"
+    },
+    "A28-2": {
+      "expected": "FOUND",
+      "quote": "general written authorisation for the sub-processors listed in Appendix C"
+    },
+    "A28-3-d": {
+      "expected": "FOUND",
+      "quote": "engages sub-processors only under the conditions of this Article"
+    },
+    "A28-4": {
+      "expected": "FOUND",
+      "quote": "imposes the same data protection obligations on them by written contract"
+    },
+    "A28-3-e": { "expected": "NOT_FOUND", "defect": "I02" },
+    "A28-3-f": {
+      "expected": "FOUND",
+      "quote": "assists the Controller in ensuring compliance with Articles 32 to 36 GDPR"
+    },
+    "A28-3-g": { "expected": "NOT_FOUND", "defect": "I03" },
+    "A28-3-h": {
+      "expected": "FOUND",
+      "quote": "allows for and contributes to audits, including inspections"
+    }
+  },
+  "defects": [
+    {
+      "id": "I01",
+      "type": "missing",
+      "ruleId": "A28-3-b",
+      "description": "No confidentiality commitment; only staff training is mentioned.",
+      "mustContain": ["Processor personnel"],
+      "mustNotContain": ["confidentiality", "committed themselves", "statutory obligation"]
+    },
+    {
+      "id": "I02",
+      "type": "missing",
+      "ruleId": "A28-3-e",
+      "description": "No assistance with data subject requests.",
+      "mustContain": [],
+      "mustNotContain": [
+        "data subject request",
+        "data subject rights",
+        "rights of data subjects",
+        "exercise of rights",
+        "chapter iii"
+      ]
+    },
+    {
+      "id": "I03",
+      "type": "missing",
+      "ruleId": "A28-3-g",
+      "description": "No deletion or return of data at the end of services.",
+      "mustContain": [],
+      "mustNotContain": [
+        "delete",
+        "deletion",
+        "return",
+        "termination",
+        "end of the provision",
+        "existing copies"
+      ]
+    }
+  ]
+}

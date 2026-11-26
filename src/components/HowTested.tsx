@@ -35,6 +35,10 @@ export function HowTested() {
             {summary.noAi.map((m) => (
               <div key={m.id}>
                 <dt className="font-medium">
+                  <span className="text-[var(--muted)]">
+                    {t(m.group === 'new' ? 'results.group.new' : 'results.group.training')}
+                    {' · '}
+                  </span>
                   {t(`results.${m.id}` as MessageKey)}:{' '}
                   <span className="tabular-nums">
                     {m.value} / {m.total}

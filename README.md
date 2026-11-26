@@ -31,17 +31,28 @@ Pinned toolchain: Vite 8.3, React 19.3, TypeScript 6.0 (TypeScript 7 is not yet 
 
 `npm run eval` runs the synthetic gold-set evaluation (SPEC section 13), no AI, measured 2026-11-26. Held-out packs are written after the checks they measure, and the checks are not changed after seeing them.
 
-| Metric                                                                  | Result  |
-| ----------------------------------------------------------------------- | ------- |
-| Missing contract clauses found (B, E held out)                          | 5 / 7   |
-| Look-alike clauses wrongly accepted, lower is better (B, E held out)    | 1 / 2   |
-| Planted cross-document conflicts flagged (C)                            | 5 / 6   |
-| Questions with the right passage in the top 5 (C)                       | 41 / 44 |
-| Vendor contradictions found on a held-out pack (H, v1.1)                | 3 / 6   |
-| Vendor contradictions found on packs used to build the checks (D, F, G) | 19 / 19 |
-| Consistent vendor answers left alone (D, F, G, H)                       | 19 / 19 |
+All packs are synthetic and small, so these are early results.
 
-History: v1 found 7 of 11 on then-held-out packs F and G. v1.1 fixed those misses and was then measured on new pack H.
+**New packs the checks had not seen (the fair test)**
+
+| Metric                                   | Result |
+| ---------------------------------------- | ------ |
+| Missing contract clauses found (I)       | 3 / 3  |
+| Vendor contradictions found (H)          | 3 / 6  |
+| Consistent vendor answers left alone (H) | 4 / 4  |
+
+**Training packs: tuned on these, not a fair test**
+
+| Metric                                                      | Result  |
+| ----------------------------------------------------------- | ------- |
+| Missing contract clauses found (B, E)                       | 6 / 7   |
+| Look-alike clauses wrongly accepted, lower is better (B, E) | 1 / 2   |
+| Planted cross-document conflicts flagged (C)                | 5 / 6   |
+| Questions with the right passage in the top 5 (C)           | 41 / 44 |
+| Vendor contradictions found (D, F, G)                       | 19 / 19 |
+| Consistent vendor answers left alone (D, F, G)              | 15 / 15 |
+
+History: v1 found 7 of 11 vendor contradictions on then-new packs F and G; v1.1 fixed those misses and found 3 of 6 on new pack H. v1.2 (owner-approved hint changes to A28-3-a2 and A28-3-b) on new pack I: missing clauses 2/3 before, 3/3 after; present clauses wrongly reported missing 1/9 before, 0/9 after.
 
 Every miss is named, with its reason, on the landing page ("How it was tested") and in `src/data/eval-summary.json`; the eval fails if that list differs from what it measures. AI results will be added after the AI evaluation run.
 

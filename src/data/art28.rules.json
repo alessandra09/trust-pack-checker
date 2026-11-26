@@ -80,7 +80,9 @@
         "infringes applicable data protection",
         "violates applicable data protection",
         "unlawful instruction",
-        "in its opinion"
+        "in its opinion",
+        "infringes the gdpr",
+        "infringes data protection"
       ],
       "negativeHints": [],
       "severityIfMissing": "MEDIUM",
@@ -105,7 +107,6 @@
         "obligation of confidentiality",
         "committed themselves to confidentiality",
         "persons authorised to process",
-        "personnel",
         "duty of confidentiality"
       ],
       "negativeHints": [],

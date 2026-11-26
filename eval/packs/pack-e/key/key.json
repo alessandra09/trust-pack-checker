@@ -1,6 +1,6 @@
 {
   "pack": "pack-e",
-  "holdout": true,
+  "gate": false,
   "document": "docs/dpa.md",
   "rules": {
     "A28-3-intro": {
