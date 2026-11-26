@@ -29,16 +29,19 @@ Pinned toolchain: Vite 8.3, React 19.3, TypeScript 6.0 (TypeScript 7 is not yet 
 
 ## Evaluation
 
-`npm run eval` runs the synthetic gold-set evaluation (SPEC section 13), no AI, measured 2026-11-26. Packs E, F and G are held out: written after the checks, with the checks left unchanged afterwards.
+`npm run eval` runs the synthetic gold-set evaluation (SPEC section 13), no AI, measured 2026-11-26. Held-out packs are written after the checks they measure, and the checks are not changed after seeing them.
 
-| Metric                                                | Built-with packs | Held-out packs | Total   |
-| ----------------------------------------------------- | ---------------- | -------------- | ------- |
-| Missing contract clauses found                        | 4 / 4 (B)        | 1 / 3 (E)      | 5 / 7   |
-| Look-alike clauses wrongly accepted (lower is better) | 0 / 1 (B)        | 1 / 1 (E)      | 1 / 2   |
-| Planted cross-document conflicts flagged              | 5 / 6 (C)        | none yet       | 5 / 6   |
-| Questions with the right passage in the top 5         | 41 / 44 (C)      | none yet       | 41 / 44 |
-| Planted vendor contradictions found                   | 8 / 8 (D)        | 7 / 11 (F, G)  | 15 / 19 |
-| Consistent vendor answers left alone                  | 6 / 6 (D)        | 8 / 9 (F, G)   | 14 / 15 |
+| Metric                                                                  | Result  |
+| ----------------------------------------------------------------------- | ------- |
+| Missing contract clauses found (B, E held out)                          | 5 / 7   |
+| Look-alike clauses wrongly accepted, lower is better (B, E held out)    | 1 / 2   |
+| Planted cross-document conflicts flagged (C)                            | 5 / 6   |
+| Questions with the right passage in the top 5 (C)                       | 41 / 44 |
+| Vendor contradictions found on a held-out pack (H, v1.1)                | 3 / 6   |
+| Vendor contradictions found on packs used to build the checks (D, F, G) | 19 / 19 |
+| Consistent vendor answers left alone (D, F, G, H)                       | 19 / 19 |
+
+History: v1 found 7 of 11 on then-held-out packs F and G. v1.1 fixed those misses and was then measured on new pack H.
 
 Every miss is named, with its reason, on the landing page ("How it was tested") and in `src/data/eval-summary.json`; the eval fails if that list differs from what it measures. AI results will be added after the AI evaluation run.
 
