@@ -2,6 +2,10 @@
 
 ## Unreleased (Sprint 2)
 
+### Before deploy
+
+- Pilot and contact email is now oleksandrahordieieva+pilot@gmail.com (owner's choice); one-pager regenerated with it and the current results.
+
 ### Task 1: pilot page and landing
 
 - Results summary sentence from the data file ("On packs the checks had not seen: ..."); training packs, misses and history behind one toggle.
