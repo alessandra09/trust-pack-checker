@@ -49,6 +49,11 @@ export function TrustPage({ id }: { id: TrustPageId }) {
       <p className="text-[14px] text-[var(--muted)]">
         {t('trust.updated')}: {UPDATED}
       </p>
+      {id !== 'contact' ? (
+        <p role="note" className="diff-line font-medium">
+          {t('trust.draft')}
+        </p>
+      ) : null}
       {PARTS[id].map((k) =>
         k.includes('.h.') ? (
           <h2 key={k} className="pt-2 text-[20px] font-semibold">

@@ -306,5 +306,6 @@
   "trust.contact.p1": "Questions, feedback or a pilot review: write to me by email. I reply within 3 working days.",
   "trust.contact.p2": "Please do not send personal data or confidential commercial terms in a first email.",
   "trust.contact.linkedin": "LinkedIn",
-  "nav.trust": "About this site"
+  "nav.trust": "About this site",
+  "trust.draft": "Draft. The site owner has not yet reviewed this text."
 }
