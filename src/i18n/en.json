@@ -97,6 +97,7 @@
   "evidence.conflict": "These passages state different numbers.",
   "evidence.needsDoc": "Needs one of these documents to answer:",
   "evidence.unclassified": "Topic not recognised. Read the passages and decide.",
+  "evidence.instruction": "The model quoted text that gives instructions to an AI assistant. It is not evidence, so this needs your review.",
   "evidence.unverified": "The model's quote was not found in the document, so it is not shown as found.",
   "evidence.detailsNotInEvidence": "The draft contains details that are not in the evidence:",
   "evidence.incorporated": "Incorporated by reference; the referenced text was not provided and was not checked.",

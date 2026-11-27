@@ -66,7 +66,18 @@ test('a rejected key stops the run and the key is only sent to the provider', as
 
 test('model replies are gated: a quote copied from a passage is shown as found', async ({
   page,
+  baseURL,
 }) => {
+  // Network assertion (SPRINT2 task 7): nothing leaves the app except to the provider, and only after consent.
+  let consented = false
+  const early: string[] = []
+  const elsewhere: string[] = []
+  page.on('request', (req) => {
+    const url = req.url()
+    if (url.startsWith(baseURL ?? 'http://localhost')) return
+    if (!url.startsWith('https://api.anthropic.com/')) elsewhere.push(url)
+    else if (!consented) early.push(url)
+  })
   await page.route('https://api.anthropic.com/**', async (route) => {
     const body = JSON.parse(route.request().postData() ?? '{}') as {
       messages: { content: string }[]
@@ -97,7 +108,26 @@ test('model replies are gated: a quote copied from a passage is shown as found',
   })
   await upload(page)
   await page.getByRole('button', { name: 'Check documents' }).click()
+  await expect(page.getByRole('dialog', { name: 'Send passages to Anthropic?' })).toBeVisible()
+  consented = true
   await page.getByRole('button', { name: 'Send to Anthropic' }).click()
   await expect(page.locator('[data-item-id]').first()).toBeVisible({ timeout: 20_000 })
   await expect(page.getByRole('button', { name: /Found in text/ }).first()).toBeVisible()
+  expect(early).toEqual([])
+  expect(elsewhere).toEqual([])
+})
+
+test('with AI off, a full check makes no request outside the app', async ({ page, baseURL }) => {
+  const outside: string[] = []
+  page.on('request', (req) => {
+    if (!req.url().startsWith(baseURL ?? 'http://localhost')) outside.push(req.url())
+  })
+  await page.goto('/')
+  await page.getByRole('button', { name: /answering a questionnaire/ }).click()
+  await page.getByLabel('My DPA').setInputFiles(`${PACK}/docs/dpa.md`)
+  await page.getByLabel('Client questionnaire').setInputFiles(`${PACK}/questionnaire.csv`)
+  await expect(page.getByText(/questions found/)).toBeVisible()
+  await page.getByRole('button', { name: 'Check documents' }).click()
+  await expect(page.locator('[data-item-id]').first()).toBeVisible()
+  expect(outside).toEqual([])
 })
