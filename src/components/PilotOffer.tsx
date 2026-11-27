@@ -20,7 +20,7 @@ export function PilotOffer() {
         </p>
       </div>
       <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-        <a href={AUTHOR.pilotForm || href(PAGE_PATH.pilot)} className="btn-primary">
+        <a href={AUTHOR.pilotForm || href(PAGE_PATH.pilot)} className="btn-secondary">
           {t('pilot.formCta')}
         </a>
         {AUTHOR.pilot ? (

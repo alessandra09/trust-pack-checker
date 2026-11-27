@@ -1,5 +1,10 @@
 # Changelog
 
+## Landing polish (2026-11-27)
+
+- Hero: name and role under the headline, one primary button ("Request a free pilot review"), the sample buttons secondary, and the quote card in place of the results line.
+- Results stay further down with one line of context ("the checks are still improving, and every miss is listed"). All disclaimers unchanged.
+
 ## v1.5 (2026-11-27)
 
 - Owner-approved hint fixes for the two N2 misses (A28-3-d, A28-3-f). Requirement text and severity unchanged.

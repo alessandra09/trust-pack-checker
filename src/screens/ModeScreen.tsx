@@ -5,7 +5,9 @@ import { StatusChip } from '../components/StatusChip.tsx'
 import { art28 } from '../data/load.ts'
 import { BuiltBy } from '../components/BuiltBy.tsx'
 import { ConsultantOffer } from '../components/ConsultantOffer.tsx'
-import { EvalResults, resultsSummary } from '../components/EvalResults.tsx'
+import { EvalResults } from '../components/EvalResults.tsx'
+import { AUTHOR } from '../app/config.ts'
+import { PAGE_PATH, href } from '../pages/paths.ts'
 import { PilotOffer } from '../components/PilotOffer.tsx'
 
 // Landing: hero over a slow gradient mesh, then a bento grid of modes and what the tool does.
@@ -30,31 +32,39 @@ export function ModeScreen({
             {t('privacy.note')}
           </span>
           <h1 className="display text-gradient enter max-w-4xl">{t('hero.headline')}</h1>
+          <p className="enter max-w-2xl text-[16px]">
+            <span className="font-semibold">{AUTHOR.name}</span>
+            <span className="text-[var(--muted)]"> · {t('hero.byline')}</span>
+          </p>
           <p className="enter-2 max-w-2xl text-[18px] leading-relaxed text-[var(--muted)] md:text-[20px]">
             {t('hero.subline')}
           </p>
-          <p className="enter-2 max-w-2xl text-[16px] font-medium">{t('hero.audience')}</p>
-          <p className="enter-2 max-w-2xl text-[15px] text-[var(--muted)]">
-            {resultsSummary()}{' '}
-            <a href="#how-it-was-tested" className="btn-link">
-              {t('results.summaryLink')}
-            </a>
-          </p>
           <div className="enter-2 flex flex-wrap items-center gap-x-5 gap-y-3 pt-2">
-            <button
-              type="button"
-              className="btn-primary btn-hero"
-              onClick={() => onSample('company')}
-            >
+            <a href={AUTHOR.pilotForm || href(PAGE_PATH.pilot)} className="btn-primary btn-hero">
+              {t('consult.cta')}
+            </a>
+            <button type="button" className="btn-secondary" onClick={() => onSample('company')}>
               <Icon name="sparkle" size={18} />
               {t('mode.sample')}
             </button>
-
             <button type="button" className="btn-link" onClick={() => onSample('client')}>
               {t('mode.client.sample')}
             </button>
-            <p className="max-w-xs text-[14px] text-[var(--muted)]">{t('mode.sampleNote')}</p>
           </div>
+          <p className="enter-2 max-w-xl text-[14px] text-[var(--muted)]">{t('mode.sampleNote')}</p>
+          <figure className="evidence-card enter-2 w-full max-w-2xl flex flex-col gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="font-medium">{t('bento.evidence.question')}</span>
+              <StatusChip status="FOUND" />
+            </div>
+            <blockquote className="quote leading-relaxed">
+              “<mark className="quote-hl">{t('bento.evidence.quote')}</mark>”
+            </blockquote>
+            <figcaption className="text-[14px] text-[var(--muted)]">
+              {t('bento.evidence.source')}
+            </figcaption>
+          </figure>
+          <p className="enter-2 max-w-2xl text-[16px] font-medium">{t('hero.audience')}</p>
         </div>
 
         <section className="enter-3 flex flex-col gap-4" aria-labelledby="mode-title">
@@ -95,33 +105,14 @@ export function ModeScreen({
               </span>
             </button>
 
-            <article className="tile glass span-4 rows-2">
-              <span className="kicker">{t('bento.evidence.example')}</span>
-              <h3 className="text-[22px] font-semibold tracking-tight">
-                {t('bento.evidence.title')}
-              </h3>
-              <p className="max-w-xl text-[var(--muted)]">{t('bento.evidence.body')}</p>
-              <figure className="evidence-card mt-3 flex flex-col gap-3">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-medium">{t('bento.evidence.question')}</span>
-                  <StatusChip status="FOUND" />
-                </div>
-                <blockquote className="quote leading-relaxed">
-                  “<mark className="quote-hl">{t('bento.evidence.quote')}</mark>”
-                </blockquote>
-                <figcaption className="text-[14px] text-[var(--muted)]">
-                  {t('bento.evidence.source')}
-                </figcaption>
-              </figure>
-            </article>
-            <article className="tile glass span-2">
+            <article className="tile glass span-3">
               <span className="card-icon">
                 <Icon name="lock" />
               </span>
               <h3 className="text-[18px] font-semibold">{t('bento.local.title')}</h3>
               <p className="text-[14px] text-[var(--muted)]">{t('bento.local.body')}</p>
             </article>
-            <article className="tile glass span-2">
+            <article className="tile glass span-3">
               <span className="text-[40px] leading-none font-semibold tracking-tight tabular-nums">
                 {art28.rules.length}
               </span>
