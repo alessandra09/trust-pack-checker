@@ -52,6 +52,11 @@
 - Dates and wording corrected and verified (Regulation (EU) 2026/1744): Art. 4 "support the development of AI literacy", Art. 5(1)(f) workplace and education, Art. 50 from 2 Aug 2026 with 2 Dec 2026 for existing systems under Art. 50(2), Annex III 2 Dec 2027, Annex I 2 Aug 2028. Sources in `docs/QA_REPORT.md`.
 - No classification or verdict anywhere; answers stay in memory and are never sent.
 
+### Task 9: content kit (optional)
+
+- Three carousels of 7 slides (light and dark, 1080 x 1350), a LinkedIn PDF each, captions and alt text, in `content/carousels/`. Cover has a marked photo area. `npm run carousels` re-renders them and stops on overflow or low contrast.
+- `content/README.md`: how to post, one carousel a week.
+
 ### Task 10: Danish standard clauses (research note)
 
 - `docs/DANISH_CLAUSES.md`: what the clauses are (EDPB Opinion 14/2019), a design for a "compare against standard clauses" mode, reuse questions, lawyer questions and an estimate of 5 to 8 days. No code.
