@@ -62,6 +62,16 @@ How to repeat: `python3 eval/fixtures/make_qa_fixtures.py`, then `npm run build 
 - **The 2,000-row limit counts every row in every sheet**, including headers and cover sheets. A CSV with a header and 1,999 questions works; one with 2,000 questions is refused with a clear message.
 - **The incorporated-by-reference DPA** gets "Partly found" for security, with the reference sentence as the passage; the report's "What this tool did not check" says referenced documents are not checked.
 
+## Lighthouse (mobile, production build, 2026-11-27)
+
+| Page                                   | Performance | Accessibility | Best practices | SEO |
+| -------------------------------------- | ----------- | ------------- | -------------- | --- |
+| Landing                                | 96          | 100           | 96             | 100 |
+| /pilot/                                | 99          | 100           | 96             | 100 |
+| /guides/gdpr-article-28-dpa-checklist/ | 99          | 100           | 96             | 100 |
+
+Run locally with `npx lighthouse` against `vite preview`; Lighthouse is not a project dependency. Best practices stays at 96 on every page because Chrome logs a "Content security policy" item in its Issues panel. It does not block anything the site needs (the e2e suite checks for CSP violations and console errors); it is left as a known issue to look into.
+
 ## Not covered by this run
 
 Real customer documents (none are used, by rule), browsers other than Chromium, and AI mode (task 7).

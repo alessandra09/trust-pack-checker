@@ -1,5 +1,5 @@
 import { makeDoc } from '../core/ingest/text.ts'
-import { csvToTable } from '../core/ingest/sheet.ts'
+import { csvToTable } from '../core/ingest/csv.ts'
 import dpa from '../../eval/packs/pack-c/docs/dpa.md?raw'
 import privacy from '../../eval/packs/pack-c/docs/privacy-policy.md?raw'
 import security from '../../eval/packs/pack-c/docs/security-policy.md?raw'

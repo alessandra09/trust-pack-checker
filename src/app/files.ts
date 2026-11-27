@@ -1,13 +1,16 @@
 import { IngestError } from '../core/ingest/errors.ts'
-import { ingestDocument, ingestTable } from '../core/ingest/index.ts'
 import type { DocKind } from '../core/types.ts'
-import { browserAdapters } from './adapters.ts'
 import type { LoadedFile } from './types.ts'
 
 // File contents are never logged (SPEC 7.1); only the error code and file name reach the UI.
 export async function loadDocFile(file: File, slot: string, kind: DocKind): Promise<LoadedFile> {
   try {
     const bytes = new Uint8Array(await file.arrayBuffer())
+    // Parsers (pdf.js, mammoth, ExcelJS) load on first use, not with the landing page.
+    const [{ ingestDocument }, { browserAdapters }] = await Promise.all([
+      import('../core/ingest/index.ts'),
+      import('./adapters.ts'),
+    ])
     const r = await ingestDocument(slot, file.name, kind, bytes, browserAdapters)
     return { name: file.name, doc: r.doc, warnings: r.warnings }
   } catch (e) {
@@ -18,6 +21,7 @@ export async function loadDocFile(file: File, slot: string, kind: DocKind): Prom
 export async function loadTableFile(file: File): Promise<LoadedFile> {
   try {
     const bytes = new Uint8Array(await file.arrayBuffer())
+    const { ingestTable } = await import('../core/ingest/index.ts')
     const r = await ingestTable('questionnaire', file.name, bytes)
     return {
       name: file.name,

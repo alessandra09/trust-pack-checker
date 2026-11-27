@@ -99,3 +99,46 @@ test('old #/privacy links open the privacy page', async ({ page }) => {
   await page.goto('/#/privacy')
   await expect(page).toHaveURL(/\/privacy\/$/)
 })
+
+test('guides render, are axe clean and linked from the footer', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('link', { name: 'Article 28 checklist' }).click()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'GDPR Article 28 checklist for processor agreements (DPA)',
+  )
+  await expect(page.getByText(/^Not legal advice\./)).toBeVisible()
+  await noOverflowAndAxeClean(page)
+  await page.getByRole('link', { name: 'Answering security questionnaires' }).click()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'How to answer a customer security questionnaire without guessing',
+  )
+  await noOverflowAndAxeClean(page)
+})
+
+test('SEO basics: one h1, description, canonical, social card, JSON-LD, sitemap, robots', async ({
+  page,
+  request,
+}) => {
+  for (const path of ['/', '/pilot/', '/about/', '/guides/gdpr-article-28-dpa-checklist/']) {
+    await page.goto(path)
+    await expect(page.locator('h1')).toHaveCount(1)
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /.{50,}/)
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      /^https:\/\/alessandra09\.github\.io\/trust-pack-checker\//,
+    )
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /og\.png$/)
+  }
+  await page.goto('/')
+  const ld = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? '{}',
+  )
+  expect(ld['@type']).toBe('SoftwareApplication')
+  expect(ld.aggregateRating).toBeUndefined()
+  expect(ld.offers).toBeUndefined()
+  expect(await (await request.get('/sitemap.xml')).text()).toContain('/pilot/</loc>')
+  expect(await (await request.get('/robots.txt')).text()).toContain('Sitemap:')
+  expect((await request.get('/og.png')).headers()['content-type']).toContain('image/png')
+  const imgs = await page.locator('img:not([alt])').count()
+  expect(imgs).toBe(0)
+})

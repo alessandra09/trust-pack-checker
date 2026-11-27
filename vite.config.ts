@@ -2,6 +2,7 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
 import { buildCsp } from './src/app/csp.ts'
+import { headTags, LANDING_DESCRIPTION, softwareJsonLd } from './src/pages/head.ts'
 
 // The CSP is injected only into the production build: the dev server needs inline scripts for hot reload.
 function cspPlugin(): Plugin {
@@ -16,10 +17,25 @@ function cspPlugin(): Plugin {
   }
 }
 
+// The landing page gets its title, description, social tags and JSON-LD at build time.
+function landingHeadPlugin(): Plugin {
+  return {
+    name: 'landing-head',
+    apply: 'build',
+    transformIndexHtml: (html, ctx) =>
+      ctx.path.endsWith('/index.html')
+        ? html.replace(
+            '<title>Trust Pack Checker</title>',
+            `${headTags({ title: 'Trust Pack Checker', description: LANDING_DESCRIPTION, path: '' })}\n    ${softwareJsonLd(LANDING_DESCRIPTION)}`,
+          )
+        : html,
+  }
+}
+
 // BASE_PATH lets GitHub Pages serve the app from /<repo>/.
 export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
-  plugins: [react(), tailwindcss(), cspPlugin()],
+  plugins: [react(), tailwindcss(), cspPlugin(), landingHeadPlugin()],
   build: {
     // pages.html is the template for the prerendered static pages (scripts/prerender.tsx).
     rollupOptions: { input: { main: 'index.html', pages: 'pages.html' } },
