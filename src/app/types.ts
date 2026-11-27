@@ -49,7 +49,7 @@ export type Analysis = {
   vendorRows: VendorRow[]
 }
 
-export type Tab = 'questions' | 'vendor' | 'rules' | 'gaps'
+export type Tab = 'questions' | 'vendor' | 'rules' | 'gaps' | 'ai'
 
 export type AppState = {
   step: Step

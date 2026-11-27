@@ -4,43 +4,56 @@
   "dates": [
     {
       "id": "D-PROHIBITIONS",
-      "label": "AI Act prohibited practices (Art. 5) apply",
+      "label": "Prohibited AI practices (Art. 5), including inferring emotions of people at work or in education (Art. 5(1)(f)), apply",
       "date": "2025-02-02",
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "lastVerified": null,
-      "note": "Baseline from the owner's notes. Must be checked against the Official Journal text before launch (SPEC 10.3)."
+      "source": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-5",
+      "lastVerified": "2026-11-27",
+      "note": "Art. 5(1)(f) wording checked on the Commission AI Act Service Desk (consolidated text as at 27 July 2026). Date confirmed by FPF and Gibson Dunn."
     },
     {
       "id": "D-LITERACY",
-      "label": "AI Act AI literacy obligation (Art. 4) applies",
+      "label": "AI literacy (Art. 4) applies: providers and deployers take measures to support the development of AI literacy of their staff",
       "date": "2025-02-02",
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "lastVerified": null,
-      "note": "Baseline from the owner's notes. Must be checked against the Official Journal text before launch (SPEC 10.3)."
+      "source": "https://fpf.org/blog/the-ai-act-implementation-timeline-what-changes-under-the-ai-omnibus/",
+      "lastVerified": "2026-11-27",
+      "note": "Wording as amended by Regulation (EU) 2026/1744, quoted by FPF (\"shall take measures to support the development of AI literacy\"). Not yet checked against the EUR-Lex body text, which could not be fetched."
     },
     {
       "id": "D-TRANSPARENCY",
-      "label": "AI Act transparency obligations (Art. 50) apply",
+      "label": "Transparency obligations (Art. 50) apply",
       "date": "2026-08-02",
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "lastVerified": null,
-      "note": "Baseline from the owner's notes. Must be checked against the Official Journal text before launch (SPEC 10.3)."
+      "source": "https://fpf.org/blog/the-ai-act-implementation-timeline-what-changes-under-the-ai-omnibus/",
+      "lastVerified": "2026-11-27",
+      "note": "Confirmed by FPF and Gibson Dunn; unchanged by the omnibus."
+    },
+    {
+      "id": "D-ART50-2-EXISTING",
+      "label": "Machine-readable marking of AI-generated content (Art. 50(2)) applies to generative AI systems placed on the market before 2 Aug 2026",
+      "date": "2026-12-02",
+      "source": "https://www.gibsondunn.com/eu-ai-act-omnibus-agreement-postponed-high-risk-deadlines-and-other-key-changes/",
+      "lastVerified": "2026-11-27",
+      "note": "Grace period added by the omnibus (new Art. 111(4), as reported by Gibson Dunn and euai-act.com). Not yet checked against the EUR-Lex body text."
     },
     {
       "id": "D-HIGH-RISK-ANNEX-III",
-      "label": "AI Act high-risk obligations for Annex III systems apply (as postponed by the 2026 omnibus amendment)",
+      "label": "High-risk obligations for Annex III systems apply (postponed by Regulation (EU) 2026/1744)",
       "date": "2027-12-02",
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "lastVerified": null,
-      "note": "Baseline from the owner's notes. Must be checked against the Official Journal text before launch (SPEC 10.3)."
+      "source": "https://fpf.org/blog/the-ai-act-implementation-timeline-what-changes-under-the-ai-omnibus/",
+      "lastVerified": "2026-11-27",
+      "note": "Confirmed by FPF and Gibson Dunn."
     },
     {
       "id": "D-HIGH-RISK-ANNEX-I",
-      "label": "AI Act high-risk obligations for Annex I product-embedded systems apply (as postponed by the 2026 omnibus amendment)",
+      "label": "High-risk obligations for Annex I (product-embedded) systems apply (postponed by Regulation (EU) 2026/1744)",
       "date": "2028-08-02",
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "lastVerified": null,
-      "note": "Baseline from the owner's notes. Must be checked against the Official Journal text before launch (SPEC 10.3)."
+      "source": "https://fpf.org/blog/the-ai-act-implementation-timeline-what-changes-under-the-ai-omnibus/",
+      "lastVerified": "2026-11-27",
+      "note": "Confirmed by FPF and Gibson Dunn."
     }
-  ]
+  ],
+  "amendedBy": {
+    "title": "Regulation (EU) 2026/1744 (Digital Omnibus on AI), in force since 27 July 2026",
+    "source": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+    "lastVerified": "2026-11-27"
+  }
 }

@@ -95,6 +95,9 @@ export const aiQuestionsFileSchema = z.object({
 export const datesFileSchema = z.object({
   owner: z.string().min(1),
   source: z.url(),
+  amendedBy: z
+    .object({ title: z.string().min(1), source: z.url(), lastVerified: isoDate })
+    .optional(),
   dates: z.array(
     z.object({
       id: z.string().regex(/^D-[A-Z0-9-]+$/),

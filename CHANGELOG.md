@@ -46,6 +46,12 @@
 - Playwright network assertions: nothing leaves the app before consent, then only the provider; nothing at all with AI off.
 - `npm run record-sample` and a loader that verifies every recorded quote again. AI evaluation pending (no key): see `docs/AI_EVAL.md`.
 
+### Task 8: AI Act module
+
+- New "AI use (AI Act)" tab in company mode: the 10-question declaration, five screening flags shown only on their triggers, a code-built "AI use disclosure (draft)" with a copy button, and the key dates, each with source and "last verified on".
+- Dates and wording corrected and verified (Regulation (EU) 2026/1744): Art. 4 "support the development of AI literacy", Art. 5(1)(f) workplace and education, Art. 50 from 2 Aug 2026 with 2 Dec 2026 for existing systems under Art. 50(2), Annex III 2 Dec 2027, Annex I 2 Aug 2028. Sources in `docs/QA_REPORT.md`.
+- No classification or verdict anywhere; answers stay in memory and are never sent.
+
 ## v1.3 (2026-11-27, deployed)
 
 - One-sentence held-out results, consultant block, pilot form, HTML report export and sample report, privacy and terms drafts.

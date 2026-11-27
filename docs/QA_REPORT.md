@@ -75,3 +75,20 @@ Run locally with `npx lighthouse` against `vite preview`; Lighthouse is not a pr
 ## Not covered by this run
 
 Real customer documents (none are used, by rule), browsers other than Chromium, and AI mode (task 7).
+
+## AI Act facts (Sprint 2, task 8), checked 2026-11-27
+
+Every date shown in the AI use tab has a source and a "last verified on" date (`src/data/dates.json`). Nothing was hidden: every item was confirmed by at least one official or well-known legal source. Where the EUR-Lex body text could not be fetched, that is said in the item's note.
+
+| Item                                                               | Value                                                                                                | Checked against                                                            |
+| ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Amending act                                                       | Regulation (EU) 2026/1744 (Digital Omnibus on AI), 8 July 2026, in force 27 July 2026                | EUR-Lex record (title and dates)                                           |
+| Prohibited practices (Art. 5)                                      | since 2 Feb 2025                                                                                     | Commission AI Act Service Desk, FPF, Gibson Dunn                           |
+| Art. 5(1)(f)                                                       | inferring emotions in the workplace and education institutions, except for medical or safety reasons | Commission AI Act Service Desk (consolidated text, 27 July 2026), verbatim |
+| AI literacy (Art. 4)                                               | "take measures to support the development of AI literacy", since 2 Feb 2025                          | FPF (quotes the amended text); Gibson Dunn agrees in substance             |
+| Transparency (Art. 50)                                             | 2 Aug 2026                                                                                           | FPF, Gibson Dunn                                                           |
+| Art. 50(2) marking, systems placed on the market before 2 Aug 2026 | 2 Dec 2026 (new Art. 111(4))                                                                         | Gibson Dunn, euai-act.com                                                  |
+| High-risk, Annex III                                               | 2 Dec 2027                                                                                           | FPF, Gibson Dunn                                                           |
+| High-risk, Annex I                                                 | 2 Aug 2028                                                                                           | FPF, Gibson Dunn                                                           |
+
+To do before relying on this: read Art. 4, Art. 111(4) and Art. 113 in the EUR-Lex text of Regulation (EU) 2026/1744 (the automated fetch returned only the record page). Not shown in the tool: the new Art. 5(1)(ba)/(bb) prohibitions (intimate imagery without consent, child sexual abuse material, from 2 Dec 2026), because no question in SPEC 10.2 covers them.
