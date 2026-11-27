@@ -147,7 +147,7 @@ test('landing offers a free pilot review and lists every measured miss', async (
   await page.goto('/')
   const pilot = page.getByRole('link', { name: 'Email me instead' })
   await expect(pilot).toHaveAttribute('href', /^mailto:.*subject=Free%20pilot%20review%20request/)
-  await expect(page.getByText('Oleksandrahordieieva@gmail.com').first()).toBeVisible()
+  await expect(page.getByText('oleksandrahordieieva+pilot@gmail.com').first()).toBeVisible()
   await expect(
     page.getByText('Completeness check and draft, not legal advice.', { exact: false }),
   ).toBeVisible()

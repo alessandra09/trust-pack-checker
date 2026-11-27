@@ -53,7 +53,7 @@ test('pilot page form builds a mailto link and needs the checkbox', async ({ pag
   const link = page.getByRole('link', { name: 'Open in email app' })
   const href = (await link.getAttribute('href')) ?? ''
   expect(href).toMatch(
-    /^mailto:Oleksandrahordieieva@gmail\.com\?subject=Free%20pilot%20review%20request&body=/,
+    /^mailto:oleksandrahordieieva\+pilot@gmail\.com\?subject=Free%20pilot%20review%20request&body=/,
   )
   const body = decodeURIComponent(href.split('body=')[1] ?? '')
   expect(body).toContain('Name: Test Person')
@@ -66,10 +66,9 @@ test('pilot page works without JavaScript and shows the email address', async ({
   const page = await ctx.newPage()
   await page.goto('/pilot/')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Free pilot review')
-  await expect(page.getByRole('link', { name: 'Oleksandrahordieieva@gmail.com' })).toHaveAttribute(
-    'href',
-    'mailto:Oleksandrahordieieva@gmail.com',
-  )
+  await expect(
+    page.getByRole('link', { name: 'oleksandrahordieieva+pilot@gmail.com' }),
+  ).toHaveAttribute('href', 'mailto:oleksandrahordieieva+pilot@gmail.com')
   await expect(page.getByText('Within 3 working days.')).toBeVisible()
   await ctx.close()
 })
