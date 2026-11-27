@@ -151,45 +151,20 @@ test('landing offers a free pilot review and lists every measured miss', async (
   await expect(
     page.getByText('Completeness check and draft, not legal advice.', { exact: false }),
   ).toBeVisible()
-  await expect(page.getByText(/^Early results on new synthetic packs/).first()).toBeVisible()
+  await expect(page.getByText(/^On packs the checks had not seen/).first()).toBeVisible()
+  await expect(page.getByText('pack-h H06')).toBeHidden()
+  await page.getByText('See all packs, misses and version history').click()
   await expect(
     page.getByRole('heading', { name: 'Where it works and where it misses' }),
   ).toBeVisible()
-  await page.getByText('Show the test packs and every miss').click()
   await expect(page.getByText('pack-h H06')).toBeVisible()
   await expect(page.getByRole('link', { name: 'See a sample report' })).toHaveAttribute(
     'href',
-    /sample-report\.html$/,
+    /sample-report\/$/,
   )
-})
-
-test('pilot form needs the personal-data checkbox and writes an email', async ({ page }) => {
-  await page.goto('/')
-  await page.getByRole('button', { name: 'Fill in a short request' }).click()
-  await page.getByLabel('Your name').fill('Test Person')
-  await page.getByLabel('Company and size').fill('Example Ltd, 30 people')
-  await page.getByRole('button', { name: 'Write the email' }).click()
-  await expect(page.getByText('Your request is ready.')).toHaveCount(0)
-  await page.getByLabel(/I will remove personal data/).check()
-  await page.getByRole('button', { name: 'Write the email' }).click()
-  await expect(page.getByText(/Your request is ready\./)).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Open in email app' })).toHaveAttribute(
-    'href',
-    /^mailto:Oleksandrahordieieva@gmail\.com\?subject=Free%20pilot%20review%20request&body=.*Test%20Person/,
-  )
-})
-
-test('trust pages open from the footer', async ({ page }) => {
-  await page.goto('/')
-  await page.getByRole('link', { name: 'Privacy', exact: true }).click()
-  await expect(page.getByRole('heading', { level: 1, name: 'Privacy' })).toBeVisible()
   await expect(
-    page.getByText('There are no cookies, analytics or trackers.', { exact: false }),
-  ).toBeVisible()
-  await page.getByRole('link', { name: 'Terms', exact: true }).click()
-  await expect(page.getByRole('heading', { level: 1, name: 'Terms of use' })).toBeVisible()
-  await page.getByRole('link', { name: /Back to the checker/ }).click()
-  await expect(
-    page.getByRole('heading', { level: 1, name: 'Every answer comes with its proof.' }),
+    page.getByRole('heading', {
+      name: 'Work with clients on their data protection? Try it on a real DPA.',
+    }),
   ).toBeVisible()
 })

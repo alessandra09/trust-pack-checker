@@ -6,8 +6,8 @@ const dpa = readFileSync('eval/packs/pack-d/docs/dpa.md', 'utf8')
 const csv = readFileSync('eval/packs/pack-d/answers.csv', 'utf8')
 
 describe('HTML report', () => {
-  it('public/sample-report.html matches the tool output on the vendor sample', () => {
-    expect(readFileSync('public/sample-report.html', 'utf8')).toBe(sampleReport(dpa, csv))
+  it('public/sample-report/index.html matches the tool output on the vendor sample', () => {
+    expect(readFileSync('public/sample-report/index.html', 'utf8')).toBe(sampleReport(dpa, csv))
   })
 
   it('escapes document text and carries no script', () => {

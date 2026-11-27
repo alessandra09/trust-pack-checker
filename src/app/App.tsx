@@ -14,7 +14,8 @@ import { useApiKey } from './useApiKey.ts'
 import { AiPanel } from '../components/AiPanel.tsx'
 import { ConsentDialog } from '../components/ConsentDialog.tsx'
 import { Icon } from '../components/Icon.tsx'
-import { TrustLinks, TrustPage, useTrustPage } from '../components/TrustPage.tsx'
+import { SiteFooterLinks } from '../pages/Layout.tsx'
+import { href } from '../pages/paths.ts'
 import { DOC_SLOTS, type AppState, type Mode } from './types.ts'
 
 // Client mode makes no model calls: every check is code (SPEC 9.3).
@@ -52,7 +53,11 @@ export function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [running, setRunning] = useState(false)
   const [isDark, toggleTheme] = useTheme()
-  const trustPage = useTrustPage()
+  // Old hash links (#/privacy) from v1.3 now go to the static pages.
+  useEffect(() => {
+    const m = /^#\/(privacy|terms|contact)$/.exec(location.hash)
+    if (m) location.replace(href(m[1] === 'contact' ? 'about/' : `${m[1]}/`))
+  }, [])
   const apiKey = useApiKey()
   const ai = useAiRun(apiKey.key, (analysis) => {
     dispatch({ type: 'analysis', analysis })
@@ -121,11 +126,10 @@ export function App() {
         {t('mobile.notice')}
       </p>
       <main id="main" className="flex min-h-0 flex-1 flex-col md:overflow-y-auto">
-        {trustPage ? <TrustPage id={trustPage} /> : null}
-        {!trustPage && state.step === 'mode' ? (
+        {state.step === 'mode' ? (
           <ModeScreen onMode={(mode) => dispatch({ type: 'start', mode })} onSample={sample} />
         ) : null}
-        {!trustPage && state.step === 'upload' ? (
+        {state.step === 'upload' ? (
           <UploadScreen
             state={state}
             dispatch={dispatch}
@@ -167,9 +171,7 @@ export function App() {
             {t(ai.notice === 'authError' ? 'ai.authError' : 'ai.failed')}
           </p>
         ) : null}
-        {!trustPage && state.step === 'review' ? (
-          <ReviewScreen state={state} dispatch={dispatch} />
-        ) : null}
+        {state.step === 'review' ? <ReviewScreen state={state} dispatch={dispatch} /> : null}
         {ai.pending ? (
           <ConsentDialog estimate={ai.pending.estimate} onSend={ai.accept} onNoAi={ai.decline} />
         ) : null}
@@ -180,7 +182,7 @@ export function App() {
         <span title={t('notChecked.body')}>
           {t('notChecked.title')}: {t('notChecked.body')}
         </span>
-        <TrustLinks />
+        <SiteFooterLinks />
       </footer>
     </div>
   )

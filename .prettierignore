@@ -6,4 +6,5 @@ node_modules
 package-lock.json
 SPEC.md
 CLAUDE.md
-public/sample-report.html
+public/sample-report/index.html
+docs/SPRINT2.md

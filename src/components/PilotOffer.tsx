@@ -1,14 +1,11 @@
-import { useState } from 'react'
 import { AUTHOR } from '../app/config.ts'
 import { t } from '../i18n/t.ts'
+import { href, PAGE_PATH, SAMPLE_REPORT_PATH } from '../pages/paths.ts'
 import { EmailLine } from './EmailLine.tsx'
-import { PilotForm } from './PilotForm.tsx'
 
-// Offer of a free manual review by the author. Hidden when no pilot address is set in config.ts.
+// Offer of a free manual review by the author; the request form lives on the pilot page.
 export function PilotOffer() {
-  const [open, setOpen] = useState(false)
-  if (!AUTHOR.pilot && !AUTHOR.email) return null
-  const sample = `${import.meta.env.BASE_URL}sample-report.html`
+  if (!AUTHOR.email) return null
   return (
     <section id="pilot" className="tile glass flex-col gap-4" aria-labelledby="pilot-title">
       <div className="flex max-w-3xl flex-col gap-2">
@@ -23,37 +20,20 @@ export function PilotOffer() {
         </p>
       </div>
       <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-        {AUTHOR.pilotForm ? (
-          <a
-            href={AUTHOR.pilotForm}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="btn-primary"
-          >
-            {t('pilot.formCta')}
-          </a>
-        ) : (
-          <button
-            type="button"
-            className="btn-primary"
-            aria-expanded={open}
-            onClick={() => setOpen(!open)}
-          >
-            {t('pilot.formCta')}
-          </button>
-        )}
+        <a href={AUTHOR.pilotForm || href(PAGE_PATH.pilot)} className="btn-primary">
+          {t('pilot.formCta')}
+        </a>
         {AUTHOR.pilot ? (
           <a href={AUTHOR.pilot} className="btn-secondary">
             {t('pilot.cta')}
           </a>
         ) : null}
-        <a href={sample} target="_blank" rel="noopener" className="btn-link">
+        <a href={href(SAMPLE_REPORT_PATH)} className="btn-link">
           {t('pilot.sample')}
         </a>
       </div>
       <p className="text-[13px] text-[var(--muted)]">{t('pilot.sampleNote')}</p>
       <EmailLine />
-      {open && !AUTHOR.pilotForm ? <PilotForm /> : null}
     </section>
   )
 }
