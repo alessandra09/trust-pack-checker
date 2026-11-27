@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import { CONFIRM_ABOVE_CALLS, type CostEstimate } from '../core/llm/cost.ts'
-import { createAnthropicProvider } from '../core/llm/anthropic.ts'
 import type { Doc } from '../core/types.ts'
 import { draftWithAi, planCost } from './aiRun.ts'
 import { AI_MODEL } from './config.ts'
@@ -22,6 +21,7 @@ export function useAiRun(apiKey: string, onResult: (analysis: Analysis) => void)
     const ctrl = new AbortController()
     abort.current = ctrl
     setProgress({ done: 0, total: 0 })
+    const { createAnthropicProvider } = await import('../core/llm/anthropic.ts')
     const provider = createAnthropicProvider({ apiKey, model: AI_MODEL })
     const res = await draftWithAi(analysis, docs, provider, {
       signal: ctrl.signal,

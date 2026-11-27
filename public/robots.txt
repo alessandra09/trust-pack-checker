@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alessandra09.github.io/trust-pack-checker/sitemap.xml

@@ -1,4 +1,4 @@
-import { csvToTable } from '../core/ingest/sheet.ts'
+import { csvToTable } from '../core/ingest/csv.ts'
 import { makeDoc } from '../core/ingest/text.ts'
 import { detectTable } from '../core/qa/detect.ts'
 import { analyzeClient } from './analyzeClient.ts'

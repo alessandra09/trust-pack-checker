@@ -8,7 +8,9 @@ export function SiteFooterLinks() {
   const links: [string, string][] = [
     [href(PAGE_PATH.pilot), t('nav.pilot')],
     [href(SAMPLE_REPORT_PATH), t('nav.sample')],
-    [`${BASE}#results`, t('nav.tested')],
+    [`${BASE}#how-it-was-tested`, t('nav.tested')],
+    [href(PAGE_PATH.art28), t('page.art28.short')],
+    [href(PAGE_PATH.questionnaire), t('page.questionnaire.short')],
     [href(PAGE_PATH.about), t('nav.about')],
     [href(PAGE_PATH.privacy), t('nav.privacy')],
     [href(PAGE_PATH.terms), t('nav.terms')],

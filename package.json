@@ -18,7 +18,8 @@
     "prepare": "git rev-parse --git-dir >/dev/null 2>&1 && git config core.hooksPath .githooks || true",
     "fixtures": "python3 scripts/fixtures/make_fixtures.py",
     "eval:ai": "tsx eval/run-ai-eval.ts",
-    "sample-report": "tsx scripts/make-sample-report.ts"
+    "sample-report": "tsx scripts/make-sample-report.ts",
+    "og": "npm run build && tsx --tsconfig tsconfig.prerender.json scripts/og.tsx"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.14.0",

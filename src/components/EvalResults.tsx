@@ -25,7 +25,7 @@ export function resultsSummary(): string {
 
 export function EvalResults() {
   return (
-    <section id="results" className="flex flex-col gap-6" aria-labelledby="results-title">
+    <section id="how-it-was-tested" className="flex flex-col gap-6" aria-labelledby="results-title">
       <div className="flex flex-col gap-1">
         <span className="kicker">{t('results.kicker')}</span>
         <h2 id="results-title" className="text-[24px] font-semibold tracking-tight">

@@ -26,6 +26,12 @@
 - Synthetic fixture generator (`eval/fixtures/make_qa_fixtures.py`) and UI runner (`eval/fixtures/run-qa.ts`): 27 scenarios (DPAs in four formats, questionnaires from 20 to 1,999 rows, vendor DOCX/PDF + XLSX, nine edge cases). All pass; see `docs/QA_REPORT.md`.
 - Fixed: questionnaire sheet choice, header below title rows, ID column, hidden-row count, PDF line breaks splitting sentences, DOCX/PDF sub-processor rows.
 
+### Task 5: SEO and content pages
+
+- Two guides: "GDPR Article 28 checklist for processor agreements (DPA)" (built only from `art28.rules.json`) and "How to answer a customer security questionnaire without guessing", with last-verified dates, a not-legal-advice line and sources.
+- Titles, descriptions, canonical URLs, Open Graph and Twitter tags on every page; `public/og.png` (1200 x 630) from `npm run og`; `sitemap.xml`; `robots.txt`; JSON-LD `SoftwareApplication` on the landing page (no ratings, no prices). Stable `#how-it-was-tested` anchor linked from the footer.
+- Landing loads about 0.6 MB less JavaScript: PDF, DOCX, XLSX and AI libraries load on first use. Lighthouse mobile: performance 96 (was 69), accessibility 100, best practices 96, SEO 100.
+
 ## v1.3 (2026-11-27, deployed)
 
 - One-sentence held-out results, consultant block, pilot form, HTML report export and sample report, privacy and terms drafts.

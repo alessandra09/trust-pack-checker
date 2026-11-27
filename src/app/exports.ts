@@ -1,5 +1,4 @@
 import { buildAuditLog } from '../core/export/audit.ts'
-import { exportXlsx } from '../core/export/xlsx.ts'
 import {
   buildLibraryMatcher,
   exportLibrary,
@@ -20,6 +19,7 @@ export async function exportQuestionnaire(s: AppState): Promise<void> {
     const answer = a.answers[q.qid]
     return answer ? [{ question: q, answer }] : []
   })
+  const { exportXlsx } = await import('../core/export/xlsx.ts')
   const bytes = await exportXlsx(
     s.files.questionnaire?.bytes ?? null,
     rows,

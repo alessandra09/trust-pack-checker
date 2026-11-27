@@ -36,7 +36,7 @@ export function ModeScreen({
           <p className="enter-2 max-w-2xl text-[16px] font-medium">{t('hero.audience')}</p>
           <p className="enter-2 max-w-2xl text-[15px] text-[var(--muted)]">
             {resultsSummary()}{' '}
-            <a href="#results" className="btn-link">
+            <a href="#how-it-was-tested" className="btn-link">
               {t('results.summaryLink')}
             </a>
           </p>
