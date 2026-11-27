@@ -181,7 +181,13 @@
         "engaging a sub-processor",
         "engage a sub-processor",
         "engage sub-processors",
-        "conditions for engaging"
+        "conditions for engaging",
+        "engage a subcontracted processor",
+        "engage subcontracted processors",
+        "engage a subcontractor",
+        "engage subcontractors",
+        "appoint a sub-processor",
+        "appoint another processor"
       ],
       "negativeHints": [],
       "severityIfMissing": "MEDIUM",
@@ -258,8 +264,10 @@
         "data protection impact assessment",
         "impact assessment",
         "prior consultation",
-        "personal data breach",
-        "breach notification"
+        "article 33",
+        "articles 33 and 34",
+        "article 35",
+        "article 36"
       ],
       "negativeHints": [],
       "severityIfMissing": "HIGH",
