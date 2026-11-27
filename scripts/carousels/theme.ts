@@ -1,4 +1,4 @@
-// Carousel colours: the site's design tokens (src/index.css) for light, and a matching dark set.
+// Carousel colours: the v1.x site palette (indigo accent), kept as is for the published carousels.
 export const THEMES = {
   light: {
     bg: '#fafafa',

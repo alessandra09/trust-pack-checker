@@ -18,7 +18,11 @@ export function SiteFooterLinks() {
   return (
     <nav aria-label={t('nav.footer')} className="flex flex-wrap gap-x-4 gap-y-1">
       {links.map(([to, label]) => (
-        <a key={to} href={to} className="hover:underline">
+        <a
+          key={to}
+          href={to}
+          className="inline-flex min-h-11 items-center hover:underline md:min-h-0"
+        >
           {label}
         </a>
       ))}

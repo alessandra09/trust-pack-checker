@@ -1,7 +1,6 @@
 import { StrictMode } from 'react'
 import { hydrateRoot } from 'react-dom/client'
-import '@fontsource-variable/inter'
-import '@fontsource-variable/jetbrains-mono'
+import '../styles/fonts.css'
 import '../index.css'
 import { Layout } from './Layout.tsx'
 import { STATIC_PAGES } from './registry.tsx'

@@ -19,7 +19,7 @@ export function AiPanel({ enabled, onEnabled, apiKey, onKey, remember, onRemembe
         {t('ai.title')}
       </h2>
       <p className="mt-1 text-[14px] text-[var(--muted)]">{t('ai.body')}</p>
-      <label className="mt-3 flex items-center gap-2">
+      <label className="mt-3 flex min-h-11 items-center gap-2">
         <input type="checkbox" checked={enabled} onChange={(e) => onEnabled(e.target.checked)} />
         {t('ai.enable')}
       </label>
@@ -36,7 +36,7 @@ export function AiPanel({ enabled, onEnabled, apiKey, onKey, remember, onRemembe
               onChange={(e) => onKey(e.target.value.trim())}
             />
           </label>
-          <label className="flex items-center gap-2 text-[14px]">
+          <label className="flex min-h-11 items-center gap-2 text-[14px]">
             <input
               type="checkbox"
               checked={remember}

@@ -168,3 +168,33 @@ test('landing offers a free pilot review and lists every measured miss', async (
     }),
   ).toBeVisible()
 })
+
+// DESIGN2 section 6: one primary button per viewport on the landing page, at phone and desktop sizes.
+for (const width of [390, 1280]) {
+  test(`landing shows at most one primary button per screen at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: width < 768 ? 844 : 900 })
+    await page.goto('/')
+    const counts = await page.evaluate(() => {
+      const h = window.innerHeight
+      const primaries = [...document.querySelectorAll('.btn-primary')].map((el) => {
+        const r = el.getBoundingClientRect()
+        return { top: r.top + window.scrollY, bottom: r.bottom + window.scrollY }
+      })
+      const out: number[] = []
+      for (let y = 0; y < document.documentElement.scrollHeight; y += h / 4)
+        out.push(primaries.filter((p) => p.bottom > y && p.top < y + h).length)
+      return out
+    })
+    expect(counts[0]).toBe(1)
+    expect(Math.max(...counts)).toBeLessThanOrEqual(1)
+  })
+}
+
+test('landing and review have no axe violations in the dark theme', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' })
+  await page.goto('/')
+  await axeClean(page)
+  await page.getByRole('button', { name: 'Try with sample data' }).first().click()
+  await page.locator('[data-item-id]').first().click()
+  await axeClean(page)
+})
