@@ -5,6 +5,7 @@
 - Owner-approved hint fixes for the two N2 misses (A28-3-d, A28-3-f). Requirement text and severity unchanged.
 - New unseen pack N3, keyed before any run and measured before and after: missing clauses 2/3 → 3/3, false alarms 2/9 → 1/9. The remaining miss (A28-4, "remains responsible") is published and not fixed.
 - N2 moved to the training packs; its first result stays in the version history.
+- Every result now shows how many packs it comes from, with "small sample" (for example "6/6 missing clauses found (2 packs, small sample)"). The eval checks the pack counts too.
 
 ## Unreleased (Sprint 2)
 

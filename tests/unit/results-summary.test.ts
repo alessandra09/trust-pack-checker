@@ -9,7 +9,9 @@ describe('results summary sentence', () => {
       const m = summary.noAi.find((x) => x.id === id && x.group === 'new')
       expect(m).toBeDefined()
       expect(text).toContain(`${m?.value}/${m?.total}`)
+      expect(m?.packs).toBeGreaterThan(0)
     }
     expect(text).not.toContain('?')
+    expect(text).toContain('small sample')
   })
 })

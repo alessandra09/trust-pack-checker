@@ -12,7 +12,9 @@ const exec = process.env.PW_CHROMIUM_PATH
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
 const score = (id: string) => {
   const m = summary.noAi.find((x) => x.id === id && x.group === 'new')
-  return m ? `${m.value}/${m.total}` : '?'
+  if (!m) return '?'
+  const n = m.packs === 1 ? 'one pack' : `${m.packs} packs`
+  return `${m.value}/${m.total} <small>(${n}, small sample)</small>`
 }
 
 async function main() {

@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import summary from '../../src/data/eval-summary.json'
 
-type Row = { id: string; value: number; total: number; missed: string[] }
+type Row = { id: string; value: number; total: number; packs: number; missed: string[] }
 const latest = JSON.parse(readFileSync('eval/results/latest.json', 'utf8')) as { noAi: Row[] }
 
 // SPRINT2 task 6: the numbers on the site must equal the last eval run, misses included.
@@ -13,6 +13,7 @@ describe('landing results equal eval/results/latest.json', () => {
         id: m.id,
         value: m.value,
         total: m.total,
+        packs: m.packs,
         missed: m.missed.map((x) => x.ref).sort(),
       }))
       .sort((a, b) => a.id.localeCompare(b.id))
