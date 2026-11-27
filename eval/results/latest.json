@@ -5,6 +5,7 @@
       "id": "conflicts",
       "value": 5,
       "total": 6,
+      "packs": 1,
       "missed": [
         "pack-c Q08"
       ]
@@ -13,6 +14,7 @@
       "id": "decoysBuilt",
       "value": 1,
       "total": 2,
+      "packs": 2,
       "missed": [
         "pack-e A28-3-h"
       ]
@@ -21,18 +23,21 @@
       "id": "missing",
       "value": 6,
       "total": 6,
+      "packs": 2,
       "missed": []
     },
     {
       "id": "missingBuilt",
       "value": 10,
       "total": 10,
+      "packs": 3,
       "missed": []
     },
     {
       "id": "passages",
       "value": 41,
       "total": 44,
+      "packs": 1,
       "missed": [
         "pack-c Q13",
         "pack-c Q18",
@@ -43,6 +48,7 @@
       "id": "presentKept",
       "value": 17,
       "total": 18,
+      "packs": 2,
       "missed": [
         "pack-n3 A28-4"
       ]
@@ -51,12 +57,14 @@
       "id": "presentKeptBuilt",
       "value": 37,
       "total": 37,
+      "packs": 4,
       "missed": []
     },
     {
       "id": "vendor",
       "value": 3,
       "total": 6,
+      "packs": 1,
       "missed": [
         "pack-h H02",
         "pack-h H04",
@@ -67,18 +75,21 @@
       "id": "vendorBuilt",
       "value": 19,
       "total": 19,
+      "packs": 3,
       "missed": []
     },
     {
       "id": "vendorClean",
       "value": 4,
       "total": 4,
+      "packs": 1,
       "missed": []
     },
     {
       "id": "vendorCleanBuilt",
       "value": 15,
       "total": 15,
+      "packs": 3,
       "missed": []
     }
   ]

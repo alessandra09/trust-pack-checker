@@ -9,17 +9,24 @@ const GROUPS = [
   { id: 'training', title: 'results.group.training', note: 'results.group.trainingNote' },
 ] as const
 
+const headline = (id: string) => summary.noAi.find((x) => x.id === id && x.group === 'new')
 const score = (id: string) => {
-  const m = summary.noAi.find((x) => x.id === id && x.group === 'new')
+  const m = headline(id)
   return m ? `${m.value}/${m.total}` : '?'
 }
+/** Sample size next to every number, so "3 of 3" is never read as a general rate. */
+export const packsLabel = (n: number | undefined) =>
+  n === 1 ? t('results.packsOne') : tf('results.packsMany', { n: String(n ?? '?') })
 
 /** The headline in one sentence: held-out ("new") packs only. */
 export function resultsSummary(): string {
   return tf('results.summary', {
     missing: score('missing'),
+    missingPacks: packsLabel(headline('missing')?.packs),
     vendor: score('vendor'),
+    vendorPacks: packsLabel(headline('vendor')?.packs),
     clean: score('vendorClean'),
+    cleanPacks: packsLabel(headline('vendorClean')?.packs),
   })
 }
 
@@ -57,6 +64,7 @@ export function EvalResults() {
                     >
                       <dt className="text-[14px] text-[var(--muted)]">
                         {t(`results.${m.id}` as MessageKey)}
+                        <span className="block text-[13px]">{packsLabel(m.packs)}</span>
                       </dt>
                       <dd
                         className={`order-first leading-none font-semibold tracking-tight tabular-nums ${g.id === 'new' ? 'text-[36px]' : 'text-[26px]'}`}

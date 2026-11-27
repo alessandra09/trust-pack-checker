@@ -64,7 +64,8 @@
       "group": "new",
       "value": 6,
       "total": 6,
-      "missed": []
+      "missed": [],
+      "packs": 2
     },
     {
       "id": "presentKept",
@@ -76,7 +77,8 @@
           "ref": "pack-n3 A28-4",
           "why": "\"remains responsible to Customer for the acts and omissions of each Subcontractor\": the check looks for \"liable\" wording, so this present flow-down clause was reported missing. Not fixed: it was found on this pack, so fixing it would need another new pack."
         }
-      ]
+      ],
+      "packs": 2
     },
     {
       "id": "vendor",
@@ -96,28 +98,32 @@
           "ref": "pack-h H06",
           "why": "The answer is stricter than the DPA (no on-site audits, while the DPA allows them); only the opposite direction is checked."
         }
-      ]
+      ],
+      "packs": 1
     },
     {
       "id": "vendorClean",
       "group": "new",
       "value": 4,
       "total": 4,
-      "missed": []
+      "missed": [],
+      "packs": 1
     },
     {
       "id": "missingBuilt",
       "group": "training",
       "value": 10,
       "total": 10,
-      "missed": []
+      "missed": [],
+      "packs": 3
     },
     {
       "id": "presentKeptBuilt",
       "group": "training",
       "value": 37,
       "total": 37,
-      "missed": []
+      "missed": [],
+      "packs": 4
     },
     {
       "id": "decoysBuilt",
@@ -129,7 +135,8 @@
           "ref": "pack-e A28-3-h",
           "why": "A building fire-safety \"inspection\" was taken as a possible audit clause."
         }
-      ]
+      ],
+      "packs": 2
     },
     {
       "id": "conflicts",
@@ -141,7 +148,8 @@
           "ref": "pack-c Q08",
           "why": "Two documents give different notice periods for new sub-processors; not flagged as a conflict."
         }
-      ]
+      ],
+      "packs": 1
     },
     {
       "id": "passages",
@@ -161,21 +169,24 @@
           "ref": "pack-c Q39",
           "why": "\"Do you operate a 24/7 security operations centre?\": the right passage was not in the top 5."
         }
-      ]
+      ],
+      "packs": 1
     },
     {
       "id": "vendorBuilt",
       "group": "training",
       "value": 19,
       "total": 19,
-      "missed": []
+      "missed": [],
+      "packs": 3
     },
     {
       "id": "vendorCleanBuilt",
       "group": "training",
       "value": 15,
       "total": 15,
-      "missed": []
+      "missed": [],
+      "packs": 3
     }
   ],
   "ai": null,
@@ -203,7 +214,7 @@
     {
       "version": "v1.5",
       "date": "2026-11-27",
-      "text": "Owner-approved hint changes for the two N2 misses (A28-3-d: wording for engaging subcontracted processors; A28-3-f: a plain breach notice no longer counts as assistance with Articles 32 to 36; requirement text and severity unchanged). N2 shaped them, so it moved to the training packs; its first-run result stays above. On new pack N3, keyed before any run: missing clauses 2/3 before, 3/3 after; present clauses wrongly reported missing 2/9 before, 1/9 after. Caveat: N3 was written after the fix was decided, by the same author. No pack got more false flags."
+      "text": "Owner-approved hint changes for the two N2 misses (A28-3-d: wording for engaging subcontracted processors; A28-3-f: a plain breach notice no longer counts as assistance with Articles 32 to 36; requirement text and severity unchanged). N2 shaped them, so it moved to the training packs; its first-run result stays above. On new pack N3 (one pack, small sample), keyed before any run: missing clauses 2/3 before, 3/3 after; present clauses wrongly reported missing 2/9 before, 1/9 after. Caveat: N3 was written after the fix was decided, by the same author. No pack got more false flags."
     }
   ]
 }
