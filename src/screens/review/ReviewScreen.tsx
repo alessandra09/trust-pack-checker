@@ -8,6 +8,8 @@ import type { AppState, Tab } from '../../app/types.ts'
 import { EvidencePanel } from './EvidencePanel.tsx'
 import { ExportMenu } from './ExportMenu.tsx'
 import { GapsView } from './GapsView.tsx'
+import { AiActView } from './AiActView.tsx'
+import { EMPTY_ANSWERS, type AiAnswers } from '../../core/aiact/flags.ts'
 import { filterItems, itemsFor, statusCounts } from './items.ts'
 import { RulePanel } from './RulePanel.tsx'
 import { ShortcutsDialog } from './ShortcutsDialog.tsx'
@@ -17,7 +19,7 @@ import { VendorPanel } from './VendorPanel.tsx'
 
 const STATUSES: Status[] = ['FOUND', 'PARTIAL', 'NOT_FOUND', 'CONFLICT', 'NEEDS_HUMAN']
 const TABS: Record<'company' | 'client', Tab[]> = {
-  company: ['questions', 'rules', 'gaps'],
+  company: ['questions', 'rules', 'gaps', 'ai'],
   client: ['vendor', 'rules', 'gaps'],
 }
 // Decorative segment colours; the labelled filter chips below carry the meaning (SPEC 11.4).
@@ -40,6 +42,7 @@ export function ReviewScreen({
   const searchRef = useRef<HTMLInputElement>(null)
   const [help, setHelp] = useState(false)
   const [editRequest, setEditRequest] = useState(0)
+  const [aiAnswers, setAiAnswers] = useState<AiAnswers>(EMPTY_ANSWERS)
   const [notice, setNotice] = useState('')
   const all = useMemo(() => itemsFor(state), [state])
   const items = useMemo(
@@ -68,7 +71,7 @@ export function ReviewScreen({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      {state.tab !== 'gaps' ? (
+      {state.tab !== 'gaps' && state.tab !== 'ai' ? (
         <section
           className="enter grid gap-4 border-b border-[var(--border)] px-6 py-4 md:grid-cols-[auto_auto_1fr]"
           aria-label={t('overview.distribution')}
@@ -130,7 +133,7 @@ export function ReviewScreen({
           ))}
         </div>
         <div className="ml-auto flex flex-wrap items-center gap-2">
-          {state.tab !== 'gaps' ? (
+          {state.tab !== 'gaps' && state.tab !== 'ai' ? (
             <span className="text-[14px] text-[var(--muted)]" aria-live="polite">
               {reviewed} / {all.length} {t('review.progress')}
             </span>
@@ -143,7 +146,11 @@ export function ReviewScreen({
       </p>
       {notice ? <p className="px-6 pt-2 text-[14px] text-[var(--muted)]">{notice}</p> : null}
 
-      {state.tab === 'gaps' ? (
+      {state.tab === 'ai' ? (
+        <div className="px-6 py-6">
+          <AiActView answers={aiAnswers} onChange={setAiAnswers} />
+        </div>
+      ) : state.tab === 'gaps' ? (
         <div className="px-6 py-6">
           {client ? <VendorAsksView analysis={analysis} /> : <GapsView analysis={analysis} />}
         </div>

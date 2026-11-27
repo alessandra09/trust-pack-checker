@@ -1,6 +1,6 @@
 {
   "owner": "Oleksandra Hordieieva",
-  "lastVerified": "2026-11-24",
+  "lastVerified": "2026-11-27",
   "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
   "questions": [
     {
@@ -57,13 +57,13 @@
   "flags": [
     {
       "id": "F-EMOTION-WORK",
-      "trigger": "Q9 = yes AND the people are employees or the setting is a workplace",
-      "text": "Inferring emotions of employees in the workplace is prohibited in the EU AI Act except for medical or safety reasons (Art. 5(1)(f)). This may apply. Obtain qualified advice before continuing.",
+      "trigger": "Q9 = yes AND the people include employees or students (workplace or education)",
+      "text": "Inferring emotions of people in the workplace or in education institutions is prohibited under the EU AI Act, except for medical or safety reasons (Art. 5(1)(f)). This may apply. Obtain qualified advice before continuing.",
       "dateId": "D-PROHIBITIONS"
     },
     {
       "id": "F-EMOTION-OTHER",
-      "trigger": "Q9 = yes (other settings)",
+      "trigger": "Q9 = yes AND the people are not employees or students",
       "text": "Emotion inference has specific rules (transparency, possible high-risk classification). Obtain qualified advice.",
       "dateId": "D-TRANSPARENCY"
     },
@@ -76,13 +76,13 @@
     {
       "id": "F-TRANSPARENCY",
       "trigger": "Q6 = yes AND not told",
-      "text": "Users interacting with AI generally must be informed (Art. 50).",
+      "text": "Users interacting with an AI system generally must be informed that they are (Art. 50).",
       "dateId": "D-TRANSPARENCY"
     },
     {
       "id": "F-LITERACY",
       "trigger": "Q5 = none",
-      "text": "AI literacy of staff is an obligation under Art. 4.",
+      "text": "Under Art. 4, providers and deployers of AI systems must take measures to support the development of AI literacy of their staff.",
       "dateId": "D-LITERACY"
     }
   ]
