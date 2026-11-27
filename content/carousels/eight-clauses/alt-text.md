@@ -1,0 +1,9 @@
+# Alt text: eight-clauses
+
+1. Cover slide with the title "Eight clauses I check first in a processor agreement" and space for a photo of the author.
+2. Slide titled "Clauses 1 and 2" listing: Documented instructions (The processor may act only on the controller's documented instructions, including for international transfers.); Authorisation of sub-processors (The controller must keep control over who else processes the data.).
+3. Slide titled "Clauses 3 and 4" listing: Flow-down and liability for sub-processors (Sub-processors must be bound by the same obligations, and the processor stays liable for them.); Assistance with Articles 32 to 36 (The controller relies on the processor to meet security, breach notification and DPIA obligations.).
+4. Slide titled "Clauses 5 and 6" listing: Deletion or return at end of services (When the service ends, the controller decides whether data is deleted or returned.); Information and audits (The controller must be able to verify the processor's compliance, through information and audits including inspections.).
+5. Slide titled "Clauses 7 and 8" listing: Breach notice time limit (The controller has 72 hours to notify the supervisory authority.); Transfer mechanism (Transfers outside the EEA need a legal mechanism under Chapter V.).
+6. Checklist slide titled "Save this: the eight clauses": Documented instructions; Authorisation of sub-processors; Flow-down and liability for sub-processors; Assistance with Articles 32 to 36; Deletion or return at end of services; Information and audits; Breach notice time limit; Transfer mechanism.
+7. Final slide: "Try the free checker, link in bio". It runs in your browser: your documents stay on your machine. Every result comes with the quote and page it is based on. Draft for human review, not legal advice.
