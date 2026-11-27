@@ -50,7 +50,14 @@
       "ruleId": "A28-3-f",
       "description": "No assistance with security, breach notification to the authority, impact assessments or prior consultation (Articles 32 to 36). A plain breach notice to the Customer is present and must not count.",
       "mustContain": ["Personal Data Breach"],
-      "mustNotContain": ["impact assessment", "prior consultation", "article 32", "articles 32", "article 35", "article 36"]
+      "mustNotContain": [
+        "impact assessment",
+        "prior consultation",
+        "article 32",
+        "articles 32",
+        "article 35",
+        "article 36"
+      ]
     },
     {
       "id": "N3-02",

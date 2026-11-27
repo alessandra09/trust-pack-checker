@@ -1,5 +1,5 @@
 {
-  "source": "npm run eval (no-AI mode, synthetic packs A to I and N2). The eval fails if these numbers or the list of misses differ from what it measures.",
+  "source": "npm run eval (no-AI mode, synthetic packs A to I, N2 and N3). The eval fails if these numbers or the list of misses differ from what it measures.",
   "measured": "2026-11-27",
   "packs": [
     {
@@ -49,22 +49,22 @@
     },
     {
       "id": "pack-n2",
+      "heldOut": false,
+      "about": "DPA in a new drafting style. First run (v1.4): 2 of 3 missing clauses found, 1 present clause reported missing. Shaped the v1.5 rule-hint changes"
+    },
+    {
+      "id": "pack-n3",
       "heldOut": true,
-      "about": "DPA in a new drafting style with 3 missing clauses, written and keyed before its single run (v1.4)"
+      "about": "DPA in a US SaaS drafting style with 3 missing clauses, keyed before any run and measured before and after the v1.5 rule-hint changes"
     }
   ],
   "noAi": [
     {
       "id": "missing",
       "group": "new",
-      "value": 5,
+      "value": 6,
       "total": 6,
-      "missed": [
-        {
-          "ref": "pack-n2 A28-3-f",
-          "why": "No assistance with Articles 32 to 36, but the 48-hour breach notice in the security part was taken as a possible passage, so it was marked partly found instead of missing."
-        }
-      ]
+      "missed": []
     },
     {
       "id": "presentKept",
@@ -73,8 +73,8 @@
       "total": 18,
       "missed": [
         {
-          "ref": "pack-n2 A28-3-d",
-          "why": "\"engage a subcontracted processor only under the conditions set out in this Part III\": the check looks for \"sub-processor\" wording, so this present clause was reported missing."
+          "ref": "pack-n3 A28-4",
+          "why": "\"remains responsible to Customer for the acts and omissions of each Subcontractor\": the check looks for \"liable\" wording, so this present flow-down clause was reported missing. Not fixed: it was found on this pack, so fixing it would need another new pack."
         }
       ]
     },
@@ -108,20 +108,15 @@
     {
       "id": "missingBuilt",
       "group": "training",
-      "value": 6,
-      "total": 7,
-      "missed": [
-        {
-          "ref": "pack-e A28-3-f",
-          "why": "No assistance with Articles 32 to 36, but the breach notice clause was taken as a possible passage."
-        }
-      ]
+      "value": 10,
+      "total": 10,
+      "missed": []
     },
     {
       "id": "presentKeptBuilt",
       "group": "training",
-      "value": 28,
-      "total": 28,
+      "value": 37,
+      "total": 37,
       "missed": []
     },
     {
@@ -204,6 +199,11 @@
       "version": "v1.4",
       "date": "2026-11-27",
       "text": "New pack N2, written in a new drafting style and keyed before a single run, with no rule changes: missing clauses found 2 of 3; present clauses wrongly reported missing 1 of 9. Both misses are published below. N2 now counts as a training pack: later fixes are measured on a new pack."
+    },
+    {
+      "version": "v1.5",
+      "date": "2026-11-27",
+      "text": "Owner-approved hint changes for the two N2 misses (A28-3-d: wording for engaging subcontracted processors; A28-3-f: a plain breach notice no longer counts as assistance with Articles 32 to 36; requirement text and severity unchanged). N2 shaped them, so it moved to the training packs; its first-run result stays above. On new pack N3, keyed before any run: missing clauses 2/3 before, 3/3 after; present clauses wrongly reported missing 2/9 before, 1/9 after. Caveat: N3 was written after the fix was decided, by the same author. No pack got more false flags."
     }
   ]
 }

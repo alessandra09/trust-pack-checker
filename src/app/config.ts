@@ -6,7 +6,7 @@ export const AI_PROVIDER = {
 } as const
 
 /** Shown in exported reports; bump with each release. */
-export const TOOL_VERSION = '1.4'
+export const TOOL_VERSION = '1.5'
 
 export const AI_MODEL = 'claude-haiku-5-5'
 

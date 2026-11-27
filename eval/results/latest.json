@@ -19,19 +19,15 @@
     },
     {
       "id": "missing",
-      "value": 5,
+      "value": 6,
       "total": 6,
-      "missed": [
-        "pack-n2 A28-3-f"
-      ]
+      "missed": []
     },
     {
       "id": "missingBuilt",
-      "value": 6,
-      "total": 7,
-      "missed": [
-        "pack-e A28-3-f"
-      ]
+      "value": 10,
+      "total": 10,
+      "missed": []
     },
     {
       "id": "passages",
@@ -48,13 +44,13 @@
       "value": 17,
       "total": 18,
       "missed": [
-        "pack-n2 A28-3-d"
+        "pack-n3 A28-4"
       ]
     },
     {
       "id": "presentKeptBuilt",
-      "value": 28,
-      "total": 28,
+      "value": 37,
+      "total": 37,
       "missed": []
     },
     {
