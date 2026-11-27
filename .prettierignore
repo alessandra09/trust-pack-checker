@@ -6,3 +6,4 @@ node_modules
 package-lock.json
 SPEC.md
 CLAUDE.md
+public/sample-report.html

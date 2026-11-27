@@ -14,8 +14,14 @@ export const AUTHOR: {
   linkedin: string
   contact: string
   pilot: string
+  email: string
+  pilotForm: string
 } = {
   name: 'Oleksandra Hordieieva',
+  /** Shown as plain text next to mail buttons, because mailto: does nothing without a mail app. */
+  email: 'Oleksandrahordieieva@gmail.com',
+  /** Optional https link to an external request form (Tally or Google Forms). Empty: the built-in form. */
+  pilotForm: '',
   role: 'Financial Analyst & Regulatory Compliance Specialist',
   linkedin: 'https://www.linkedin.com/in/oleksandra-hordieieva-41b143210/',
   /** mailto: address or an https URL for feedback. */

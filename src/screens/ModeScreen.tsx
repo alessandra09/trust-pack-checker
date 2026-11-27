@@ -4,7 +4,8 @@ import { Icon } from '../components/Icon.tsx'
 import { StatusChip } from '../components/StatusChip.tsx'
 import { art28 } from '../data/load.ts'
 import { BuiltBy } from '../components/BuiltBy.tsx'
-import { EvalResults } from '../components/EvalResults.tsx'
+import { ConsultantOffer } from '../components/ConsultantOffer.tsx'
+import { EvalResults, resultsSummary } from '../components/EvalResults.tsx'
 import { HowTested } from '../components/HowTested.tsx'
 import { PilotOffer } from '../components/PilotOffer.tsx'
 
@@ -34,6 +35,12 @@ export function ModeScreen({
             {t('hero.subline')}
           </p>
           <p className="enter-2 max-w-2xl text-[16px] font-medium">{t('hero.audience')}</p>
+          <p className="enter-2 max-w-2xl text-[15px] text-[var(--muted)]">
+            {resultsSummary()}{' '}
+            <a href="#results" className="btn-link">
+              {t('results.summaryLink')}
+            </a>
+          </p>
           <div className="enter-2 flex flex-wrap items-center gap-x-5 gap-y-3 pt-2">
             <button
               type="button"
@@ -134,6 +141,7 @@ export function ModeScreen({
           </div>
         </section>
         <PilotOffer />
+        <ConsultantOffer />
         <EvalResults />
         <HowTested />
         <BuiltBy />
