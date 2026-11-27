@@ -4,12 +4,13 @@ import {
   exportAcceptedLibrary,
   exportAudit,
   exportQuestionnaire,
+  exportReport,
   matchLibrary,
 } from '../../app/exports.ts'
 import type { Action } from '../../app/store.ts'
 import type { AppState } from '../../app/types.ts'
 
-// Client mode has no drafted answers, so it offers only the audit log.
+// Client mode has no drafted answers, so it offers the report and the audit log.
 export function ExportMenu({
   state,
   dispatch,
@@ -31,6 +32,9 @@ export function ExportMenu({
               {t('review.export.xlsx')}
             </button>
           ) : null}
+          <button type="button" onClick={() => exportReport(state)}>
+            {t('review.export.report')}
+          </button>
           <button type="button" onClick={() => exportAudit(state)}>
             {t('review.export.json')}
           </button>

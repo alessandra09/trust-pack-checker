@@ -7,6 +7,7 @@ import {
   type LibraryEntry,
 } from '../core/library/library.ts'
 import { download } from './files.ts'
+import { buildReport } from './report.ts'
 import type { AppState } from './types.ts'
 
 const XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -88,4 +89,12 @@ export function matchLibrary(
       }
   }
   return notes
+}
+
+export function exportReport(s: AppState): void {
+  const a = s.analysis
+  if (!a) return
+  const documents = Object.values(s.files).flatMap((f) => (f?.name ? [f.name] : []))
+  const html = buildReport({ analysis: a, mode: s.mode ?? 'company', documents, date: today() })
+  download(`report-${today()}.html`, html, 'text/html')
 }

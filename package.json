@@ -17,7 +17,8 @@
     "verify": "npm run lint && npm run typecheck && npm run test && npm run check-synthetic && npm run eval && npm run build",
     "prepare": "git rev-parse --git-dir >/dev/null 2>&1 && git config core.hooksPath .githooks || true",
     "fixtures": "python3 scripts/fixtures/make_fixtures.py",
-    "eval:ai": "tsx eval/run-ai-eval.ts"
+    "eval:ai": "tsx eval/run-ai-eval.ts",
+    "sample-report": "tsx scripts/make-sample-report.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.14.0",
