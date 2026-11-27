@@ -6,7 +6,6 @@ import { art28 } from '../data/load.ts'
 import { BuiltBy } from '../components/BuiltBy.tsx'
 import { ConsultantOffer } from '../components/ConsultantOffer.tsx'
 import { EvalResults, resultsSummary } from '../components/EvalResults.tsx'
-import { HowTested } from '../components/HowTested.tsx'
 import { PilotOffer } from '../components/PilotOffer.tsx'
 
 // Landing: hero over a slow gradient mesh, then a bento grid of modes and what the tool does.
@@ -143,7 +142,6 @@ export function ModeScreen({
         <PilotOffer />
         <ConsultantOffer />
         <EvalResults />
-        <HowTested />
         <BuiltBy />
       </div>
     </div>

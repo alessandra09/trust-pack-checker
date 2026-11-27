@@ -4,23 +4,40 @@ import { t, tf } from '../i18n/t.ts'
 import { EmailLine } from './EmailLine.tsx'
 
 // Builds the pilot request as an email; nothing is sent or stored by this page (CSP form-action 'none').
-const ROLES = ['company', 'consultant'] as const
-const WHAT = ['dpa', 'questionnaire', 'vendor'] as const
+export const PILOT_TYPES = ['consultant', 'company', 'procurement', 'other'] as const
+export type PilotType = (typeof PILOT_TYPES)[number]
+export type PilotRequest = {
+  name: string
+  company: string
+  role: string
+  type: PilotType
+  what: string
+}
+
+export function pilotBody(r: PilotRequest): string {
+  return tf('pilot.form.body', {
+    name: r.name.trim(),
+    company: r.company.trim(),
+    role: r.role.trim(),
+    type: t(`pilot.form.type.${r.type}`),
+    what: r.what.trim(),
+  })
+}
 
 export function pilotMail(body: string): string {
   return `mailto:${AUTHOR.email}?subject=${encodeURIComponent(t('pilot.form.subject'))}&body=${encodeURIComponent(body)}`
 }
 
+const EMPTY: PilotRequest = { name: '', company: '', role: '', type: 'consultant', what: '' }
+
 export function PilotForm() {
   const id = useId()
-  const [name, setName] = useState('')
-  const [company, setCompany] = useState('')
-  const [role, setRole] = useState<(typeof ROLES)[number]>('company')
-  const [what, setWhat] = useState<(typeof WHAT)[number]>('dpa')
-  const [deadline, setDeadline] = useState('')
+  const [req, setReq] = useState<PilotRequest>(EMPTY)
   const [consent, setConsent] = useState(false)
   const [body, setBody] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const set = (k: keyof PilotRequest) => (e: { target: { value: string } }) =>
+    setReq({ ...req, [k]: e.target.value })
 
   if (body !== null)
     return (
@@ -46,55 +63,54 @@ export function PilotForm() {
   return (
     <form
       className="grid gap-3 sm:grid-cols-2"
-      aria-labelledby={`${id}-title`}
+      aria-label={t('page.pilot.formTitle')}
       onSubmit={(e) => {
         e.preventDefault()
-        setBody(
-          tf('pilot.form.body', {
-            name: name.trim(),
-            company: company.trim(),
-            role: t(`pilot.form.role.${role}`),
-            what: t(`pilot.form.what.${what}`),
-            deadline: deadline.trim(),
-          }),
-        )
+        setBody(pilotBody(req))
       }}
     >
-      <h3 id={`${id}-title`} className="font-semibold sm:col-span-2">
-        {t('pilot.formTitle')}
-      </h3>
-      <p className="text-[14px] text-[var(--muted)] sm:col-span-2">{t('pilot.formIntro')}</p>
-      <label className="field">
+      <label className="field" htmlFor={`${id}-name`}>
         {t('pilot.form.name')}
-        <input required value={name} onChange={(e) => setName(e.target.value)} />
+        <input
+          id={`${id}-name`}
+          required
+          autoComplete="name"
+          value={req.name}
+          onChange={set('name')}
+        />
       </label>
-      <label className="field">
+      <label className="field" htmlFor={`${id}-company`}>
         {t('pilot.form.company')}
-        <input required value={company} onChange={(e) => setCompany(e.target.value)} />
+        <input
+          id={`${id}-company`}
+          required
+          autoComplete="organization"
+          value={req.company}
+          onChange={set('company')}
+        />
       </label>
-      <label className="field">
+      <label className="field" htmlFor={`${id}-role`}>
         {t('pilot.form.role')}
-        <select value={role} onChange={(e) => setRole(e.target.value as typeof role)}>
-          {ROLES.map((r) => (
-            <option key={r} value={r}>
-              {t(`pilot.form.role.${r}`)}
+        <input
+          id={`${id}-role`}
+          autoComplete="organization-title"
+          value={req.role}
+          onChange={set('role')}
+        />
+      </label>
+      <label className="field" htmlFor={`${id}-type`}>
+        {t('pilot.form.type')}
+        <select id={`${id}-type`} value={req.type} onChange={set('type')}>
+          {PILOT_TYPES.map((v) => (
+            <option key={v} value={v}>
+              {t(`pilot.form.type.${v}`)}
             </option>
           ))}
         </select>
       </label>
-      <label className="field">
+      <label className="field sm:col-span-2" htmlFor={`${id}-what`}>
         {t('pilot.form.what')}
-        <select value={what} onChange={(e) => setWhat(e.target.value as typeof what)}>
-          {WHAT.map((w) => (
-            <option key={w} value={w}>
-              {t(`pilot.form.what.${w}`)}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label className="field sm:col-span-2">
-        {t('pilot.form.deadline')}
-        <input value={deadline} onChange={(e) => setDeadline(e.target.value)} />
+        <textarea id={`${id}-what`} required rows={3} value={req.what} onChange={set('what')} />
       </label>
       <label className="flex items-start gap-2 text-[14px] sm:col-span-2">
         <input

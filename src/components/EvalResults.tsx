@@ -1,5 +1,6 @@
 import summary from '../data/eval-summary.json'
 import { t, tf, type MessageKey } from '../i18n/t.ts'
+import { HowTested } from './HowTested.tsx'
 
 // Measured numbers from `npm run eval`; the eval fails if these differ from what it measures.
 // Held-out ("new") packs come first as the headline; packs used to build the checks are labelled apart.
@@ -71,6 +72,7 @@ export function EvalResults() {
               </dl>
             </div>
           ))}
+          <HowTested />
         </div>
       </details>
       {summary.ai === null ? (

@@ -5,7 +5,7 @@ import { analyzeClient } from './analyzeClient.ts'
 import { buildReport } from './report.ts'
 
 // The sample pilot report on the landing page: the tool's own output on the synthetic Pack D vendor sample.
-// public/sample-report.html is generated from this (npm run sample-report); a unit test keeps them equal.
+// public/sample-report/index.html is generated from this (npm run sample-report); a unit test keeps them equal.
 export const SAMPLE_REPORT_DATE = '2026-11-27'
 const DPA = 'Harbourline DPA (sample)'
 const ANSWERS = 'Harbourline answers (sample).csv'

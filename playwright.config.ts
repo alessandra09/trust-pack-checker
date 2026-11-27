@@ -25,7 +25,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npx vite build && npx vite preview --port ${port} --strictPort`,
+    command: `npm run build && npx vite preview --port ${port} --strictPort`,
     port,
     reuseExistingServer: !process.env.CI,
   },
