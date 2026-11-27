@@ -9,3 +9,7 @@ CLAUDE.md
 public/sample-report/index.html
 SPRINT2.md
 docs/pilot-kit/09_one_pager.html
+# test input kept exactly as measured in its single run (SPRINT2 task 6)
+eval/packs/pack-n2/docs/dpa.md
+# written by npm run eval
+eval/results/latest.json

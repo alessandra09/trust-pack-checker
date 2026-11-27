@@ -1,6 +1,6 @@
 {
-  "source": "npm run eval (no-AI mode, synthetic packs A to I). The eval fails if these numbers or the list of misses differ from what it measures.",
-  "measured": "2026-11-26",
+  "source": "npm run eval (no-AI mode, synthetic packs A to I and N2). The eval fails if these numbers or the list of misses differ from what it measures.",
+  "measured": "2026-11-27",
   "packs": [
     {
       "id": "pack-a",
@@ -46,15 +46,37 @@
       "id": "pack-i",
       "heldOut": true,
       "about": "DPA with 3 missing clauses, written before the v1.2 rule-hint changes and measured before and after"
+    },
+    {
+      "id": "pack-n2",
+      "heldOut": true,
+      "about": "DPA in a new drafting style with 3 missing clauses, written and keyed before its single run (v1.4)"
     }
   ],
   "noAi": [
     {
       "id": "missing",
       "group": "new",
-      "value": 3,
-      "total": 3,
-      "missed": []
+      "value": 5,
+      "total": 6,
+      "missed": [
+        {
+          "ref": "pack-n2 A28-3-f",
+          "why": "No assistance with Articles 32 to 36, but the 48-hour breach notice in the security part was taken as a possible passage, so it was marked partly found instead of missing."
+        }
+      ]
+    },
+    {
+      "id": "presentKept",
+      "group": "new",
+      "value": 17,
+      "total": 18,
+      "missed": [
+        {
+          "ref": "pack-n2 A28-3-d",
+          "why": "\"engage a subcontracted processor only under the conditions set out in this Part III\": the check looks for \"sub-processor\" wording, so this present clause was reported missing."
+        }
+      ]
     },
     {
       "id": "vendor",
@@ -94,6 +116,13 @@
           "why": "No assistance with Articles 32 to 36, but the breach notice clause was taken as a possible passage."
         }
       ]
+    },
+    {
+      "id": "presentKeptBuilt",
+      "group": "training",
+      "value": 28,
+      "total": 28,
+      "missed": []
     },
     {
       "id": "decoysBuilt",
@@ -170,6 +199,11 @@
       "version": "v1.2",
       "date": "2026-11-26",
       "text": "Owner-approved hint changes to two Art. 28 rules (added \"infringes the GDPR\" to A28-3-a2; removed the too-general \"personnel\" from A28-3-b; requirement text and severity unchanged). On new pack I: missing clauses found 2/3 before, 3/3 after; present clauses wrongly reported missing 1/9 before, 0/9 after. No pack got more false flags."
+    },
+    {
+      "version": "v1.4",
+      "date": "2026-11-27",
+      "text": "New pack N2, written in a new drafting style and keyed before a single run, with no rule changes: missing clauses found 2 of 3; present clauses wrongly reported missing 1 of 9. Both misses are published below. N2 now counts as a training pack: later fixes are measured on a new pack."
     }
   ]
 }

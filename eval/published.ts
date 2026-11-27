@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 
 // Numbers shown on the landing page (src/data/eval-summary.json) must equal what this eval measures,
 // including the list of misses shown under "How it was tested". Metrics add up across packs.
@@ -36,4 +36,17 @@ export function publishedMismatches(): string[] {
       `${id}: page shows ${p ? `${p.value}/${p.total} missed [${pMissed}]` : 'nothing'}, eval measured ${m ? `${m.value}/${m.total} missed [${mMissed}]` : 'nothing'}`,
     ]
   })
+}
+
+/** Writes what this run measured to eval/results/latest.json; a unit test compares it to the landing data. */
+export function writeLatest(path = 'eval/results/latest.json'): void {
+  const ids = Object.keys(measured)
+    .filter((id) => (measured[id]?.total ?? 0) > 0)
+    .sort()
+  const out = ids.map((id) => {
+    const m = measured[id] as Measured
+    return { id, value: m.value, total: m.total, missed: [...m.missed].sort() }
+  })
+  mkdirSync('eval/results', { recursive: true })
+  writeFileSync(path, `${JSON.stringify({ mode: 'no-ai', noAi: out }, null, 2)}\n`)
 }

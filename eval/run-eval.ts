@@ -9,7 +9,7 @@ import { verifyQuote } from '../src/core/llm/verifyQuote.ts'
 import { PACKS_DIR, isQuestionnairePack, listPacks, loadPack, type LoadedPack } from './packs.ts'
 import { evalQuestionnairePack } from './eval-questionnaire.ts'
 import { evalClientPack, isClientPack } from './eval-client.ts'
-import { publishedMismatches, record } from './published.ts'
+import { publishedMismatches, record, writeLatest } from './published.ts'
 
 type Gate = { name: string; passed: boolean; detail: string }
 const gates: Gate[] = []
@@ -106,6 +106,12 @@ for (const name of packs) {
     g.decoys,
     g.fooledRules.map((id) => `${name} ${id}`),
   )
+  record(
+    `presentKept${suffix}`,
+    g.presentCore - g.falseAlarms.length,
+    g.presentCore,
+    g.falseAlarms.map((id) => `${name} ${id}`),
+  )
   console.log(`  FOUND without verified evidence: ${g.unverifiedFound}`)
   gates.push({
     name: `${name}: zero FOUND without verified evidence`,
@@ -140,6 +146,7 @@ for (const name of packs) {
   }
 }
 
+writeLatest()
 const mismatches = publishedMismatches()
 gates.push({
   name: 'Landing page numbers match this eval',
