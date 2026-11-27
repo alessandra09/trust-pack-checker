@@ -1,6 +1,7 @@
 {
   "app.name": "Trust Pack Checker",
   "hero.headline": "Every answer comes with its proof.",
+  "hero.byline": "leads GDPR compliance at a 35-person telecom",
   "hero.subline": "Check a DPA against GDPR Article 28 and draft questionnaire answers backed by quotes from your own documents.",
   "privacy.note": "Your files stay in this browser tab.",
   "footer.disclaimer": "Draft for human review. Not legal advice.",
@@ -260,6 +261,7 @@
   "results.vendorCleanBuilt": "Consistent vendor answers left alone",
   "pilot.privacy": "Please remove personal data and confidential commercial terms before sending. I delete files after the review.",
   "pilot.response": "I reply within 3 working days.",
+  "results.context": "Early, honest numbers: the checks are still improving, and every miss is listed with the reason.",
   "results.summary": "On packs the checks had not seen: {missing} missing clauses found ({missingPacks}), {vendor} vendor contradictions found ({vendorPacks}), {clean} clean vendor answers left alone ({cleanPacks}).",
   "results.packsOne": "one pack, small sample",
   "results.packsMany": "{n} packs, small sample",

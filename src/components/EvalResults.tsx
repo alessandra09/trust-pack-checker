@@ -42,6 +42,7 @@ export function EvalResults() {
           {t('results.note')} {summary.measured}.
         </p>
       </div>
+      <p className="max-w-4xl text-[15px] text-[var(--muted)]">{t('results.context')}</p>
       <p className="max-w-4xl text-[20px] leading-snug font-medium">{resultsSummary()}</p>
       <details>
         <summary className="btn-link cursor-pointer">{t('results.details')}</summary>
