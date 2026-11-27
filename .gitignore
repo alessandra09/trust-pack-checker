@@ -26,3 +26,4 @@ test-results
 .DS_Store
 *.local
 *.log
+eval/fixtures/out/

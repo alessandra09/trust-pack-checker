@@ -1,6 +1,6 @@
 import { useId, type ReactNode } from 'react'
 import { detectTable, extractQuestions, type ColumnMapping } from '../core/qa/detect.ts'
-import { t } from '../i18n/t.ts'
+import { t, tf } from '../i18n/t.ts'
 import { DropZone } from '../components/DropZone.tsx'
 import { Icon } from '../components/Icon.tsx'
 import { loadDocFile, loadTableFile } from '../app/files.ts'
@@ -35,7 +35,10 @@ function Mapping({ state, dispatch }: Pick<Props, 'state' | 'dispatch'>) {
     answerCol: null,
     idCol: null,
   }
-  const count = m ? extractQuestions(table, m).length : 0
+  const all = m ? extractQuestions(table, m) : []
+  // Hidden rows are skipped by the analysis, so the count shows only what will be checked (QA fix).
+  const count = all.filter((q) => !q.hidden).length
+  const hidden = all.length - count
   const set = (patch: Partial<ColumnMapping>) =>
     dispatch({ type: 'mapping', mapping: { ...base, ...patch } })
   return (
@@ -45,6 +48,7 @@ function Mapping({ state, dispatch }: Pick<Props, 'state' | 'dispatch'>) {
       </h2>
       <p className="mt-1 text-[14px] text-[var(--muted)]" role="status">
         {m ? `${count} ${t('upload.mapping.found')}` : t('upload.mapping.notDetected')}
+        {hidden > 0 ? ` ${tf('upload.mapping.hidden', { count: String(hidden) })}` : ''}
         {state.mode === 'client' && base.answerCol === null
           ? ` ${t('upload.mapping.needAnswer')}`
           : ''}

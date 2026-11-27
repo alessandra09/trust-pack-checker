@@ -1,0 +1,218 @@
+[
+  {
+    "id": "dpa-complete-md",
+    "files": "dpa-complete.md",
+    "expect": "1 of 20 Art. 28 elements not found, same as the .md text",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 0.8
+  },
+  {
+    "id": "dpa-complete-txt",
+    "files": "dpa-complete.txt",
+    "expect": "1 of 20 Art. 28 elements not found, same as the .md text",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 0.7
+  },
+  {
+    "id": "dpa-complete-pdf",
+    "files": "dpa-complete.pdf",
+    "expect": "1 of 20 Art. 28 elements not found, same as the .md text",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 0.9
+  },
+  {
+    "id": "dpa-complete-docx",
+    "files": "dpa-complete.docx",
+    "expect": "1 of 20 Art. 28 elements not found, same as the .md text",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 0.8
+  },
+  {
+    "id": "dpa-defects-pdf",
+    "files": "dpa-defects.pdf",
+    "expect": "2 of 20 Art. 28 elements not found, same as the .md text (confidentiality and deletion removed)",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 0.9
+  },
+  {
+    "id": "dpa-defects-docx",
+    "files": "dpa-defects.docx",
+    "expect": "2 of 20 Art. 28 elements not found, same as the .md text (confidentiality and deletion removed)",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 0.8
+  },
+  {
+    "id": "dpa-by-reference-docx",
+    "files": "dpa-by-reference.docx",
+    "expect": "1 of 20 Art. 28 elements not found, same as the .md text",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 0.9
+  },
+  {
+    "id": "dpa-decoy-audit-pdf",
+    "files": "dpa-decoy-audit.pdf",
+    "expect": "2 of 20 Art. 28 elements not found, same as the .md text",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 0.9
+  },
+  {
+    "id": "dpa-non-english-docx",
+    "files": "dpa-non-english.docx",
+    "expect": "1 of 20 Art. 28 elements not found, same as the .md text",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 0.8
+  },
+  {
+    "id": "dpa-300-pages-pdf",
+    "files": "edge-300-pages.pdf",
+    "expect": "1 of 20 Art. 28 elements not found, same as the .md text (300 pages, at the limit)",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 1.1
+  },
+  {
+    "id": "questionnaire-20-xlsx",
+    "files": "dpa-complete.md + questionnaire-20.xlsx",
+    "expect": "18 questions found; export keeps every original cell outside the answer column",
+    "actual": "as expected; export: original cells unchanged; 18 rows got a status in new columns",
+    "pass": true,
+    "seconds": 1
+  },
+  {
+    "id": "questionnaire-60-xlsx",
+    "files": "dpa-complete.md + questionnaire-60.xlsx",
+    "expect": "58 questions found; export keeps every original cell outside the answer column",
+    "actual": "as expected; export: original cells unchanged; 58 rows got a status in new columns",
+    "pass": true,
+    "seconds": 1
+  },
+  {
+    "id": "questionnaire-500-xlsx",
+    "files": "dpa-complete.md + questionnaire-500.xlsx",
+    "expect": "498 questions found; export keeps every original cell outside the answer column",
+    "actual": "as expected; export: original cells unchanged; 498 rows got a status in new columns",
+    "pass": true,
+    "seconds": 1.3
+  },
+  {
+    "id": "questionnaire-60-comma-csv",
+    "files": "dpa-complete.md + questionnaire-60-comma.csv",
+    "expect": "60 questions found; export keeps every original cell outside the answer column",
+    "actual": "as expected; export: XLSX copy created from CSV",
+    "pass": true,
+    "seconds": 0.8
+  },
+  {
+    "id": "questionnaire-60-semicolon-csv",
+    "files": "dpa-complete.md + questionnaire-60-semicolon.csv",
+    "expect": "60 questions found; export keeps every original cell outside the answer column",
+    "actual": "as expected; export: XLSX copy created from CSV",
+    "pass": true,
+    "seconds": 0.8
+  },
+  {
+    "id": "questionnaire-1999-csv",
+    "files": "dpa-complete.md + questionnaire-1999.csv",
+    "expect": "1999 questions found; export keeps every original cell outside the answer column",
+    "actual": "as expected; export: XLSX copy created from CSV",
+    "pass": true,
+    "seconds": 2.7
+  },
+  {
+    "id": "vendor-docx-xlsx",
+    "files": "vendor-dpa.docx + vendor-answers.xlsx",
+    "expect": "10 contradictions, as on the .md and .csv sample",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 0.9
+  },
+  {
+    "id": "vendor-pdf-xlsx",
+    "files": "vendor-dpa.pdf + vendor-answers.xlsx",
+    "expect": "10 contradictions, as on the .md and .csv sample",
+    "actual": "as expected",
+    "pass": true,
+    "seconds": 0.8
+  },
+  {
+    "id": "edge-scanned",
+    "files": "edge-scanned.pdf",
+    "expect": "message: \"This PDF looks scanned. v1 cannot read scanned PDFs. Export a text version or paste the text.\"",
+    "actual": "message shown, no crash",
+    "pass": true,
+    "seconds": 0.7
+  },
+  {
+    "id": "edge-password",
+    "files": "edge-password.pdf",
+    "expect": "message: \"is password-protected. Remove the password and try again.\"",
+    "actual": "message shown, no crash",
+    "pass": true,
+    "seconds": 0.7
+  },
+  {
+    "id": "edge-corrupt",
+    "files": "edge-corrupt.docx",
+    "expect": "message: \"could not be read. The file may be damaged.\"",
+    "actual": "message shown, no crash",
+    "pass": true,
+    "seconds": 0.5
+  },
+  {
+    "id": "edge-empty",
+    "files": "edge-empty.pdf",
+    "expect": "message: \"contains no text.\"",
+    "actual": "message shown, no crash",
+    "pass": true,
+    "seconds": 0.6
+  },
+  {
+    "id": "edge-301-pages",
+    "files": "edge-301-pages.pdf",
+    "expect": "message: \"has more than 300 pages.\"",
+    "actual": "message shown, no crash",
+    "pass": true,
+    "seconds": 0.7
+  },
+  {
+    "id": "edge-26mb",
+    "files": "edge-26mb.txt",
+    "expect": "message: \"is larger than 25 MB.\"",
+    "actual": "message shown, no crash",
+    "pass": true,
+    "seconds": 0.6
+  },
+  {
+    "id": "edge-old",
+    "files": "edge-old.doc",
+    "expect": "message: \"is not a supported file type.\"",
+    "actual": "message shown, no crash",
+    "pass": true,
+    "seconds": 0.6
+  },
+  {
+    "id": "edge-file",
+    "files": "edge-file.pages",
+    "expect": "message: \"is not a supported file type.\"",
+    "actual": "message shown, no crash",
+    "pass": true,
+    "seconds": 0.5
+  },
+  {
+    "id": "questionnaire-2000",
+    "files": "questionnaire-2000.csv",
+    "expect": "message: \"has more than 2,000 rows.\"",
+    "actual": "message shown, no crash",
+    "pass": true,
+    "seconds": 0.5
+  }
+]

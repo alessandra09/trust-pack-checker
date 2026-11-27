@@ -344,5 +344,6 @@
   "report.answers.col.answer": "Draft answer and quote",
   "report.sampleBanner": "Sample on fictional documents. This report was made by the tool from the synthetic vendor sample.",
   "report.back": "Back to Trust Pack Checker",
-  "report.disclaimer": "Draft for human review. Not legal advice. Rules not yet reviewed by a lawyer."
+  "report.disclaimer": "Draft for human review. Not legal advice. Rules not yet reviewed by a lawyer.",
+  "upload.mapping.hidden": "({count} more in hidden rows are skipped.)"
 }

@@ -135,3 +135,15 @@ describe('text helpers', () => {
     expect(htmlToStructuredText(html)).toBe('## 4. Security\n\nText & more\n\n- One\n\nA | B')
   })
 })
+
+describe('unwrapLines (QA regression, SPRINT2 task 4)', () => {
+  it('joins a sentence that a PDF line break split, and keeps real breaks', async () => {
+    const { unwrapLines } = await import('../../src/core/ingest/text.ts')
+    expect(
+      unwrapLines('may use data to train its machine\nlearning models.\n11.2 Next clause'),
+    ).toBe('may use data to train its machine learning models.\n11.2 Next clause')
+    expect(unwrapLines('Annex 3: Sub-processors\nCobalt Hosting BV')).toBe(
+      'Annex 3: Sub-processors\nCobalt Hosting BV',
+    )
+  })
+})
