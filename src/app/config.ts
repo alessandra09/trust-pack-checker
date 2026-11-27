@@ -5,6 +5,9 @@ export const AI_PROVIDER = {
   origin: 'https://api.anthropic.com',
 } as const
 
+/** Shown in exported reports; bump with each release. */
+export const TOOL_VERSION = '1.4'
+
 export const AI_MODEL = 'claude-haiku-5-5'
 
 // Shown on the landing page. Empty values hide the matching link (filled in by the owner).

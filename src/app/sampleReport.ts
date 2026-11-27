@@ -23,5 +23,6 @@ export function sampleReport(dpaText: string, answersCsv: string): string {
     mode: 'client',
     documents: [DPA, ANSWERS],
     date: SAMPLE_REPORT_DATE,
+    sample: { backHref: '../' },
   })
 }

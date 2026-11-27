@@ -331,5 +331,18 @@
   "page.about.p3": "The tool is free and runs in your browser. It is tested on synthetic documents, and every miss is published on the main page.",
   "page.about.h.contact": "Contact",
   "page.privacy.description": "What stays in your browser, what is sent in optional AI mode and to whom, and how pilot review files are handled.",
-  "page.terms.description": "Terms of use for Trust Pack Checker: a free tool, drafts for human review, not legal advice, no warranty."
+  "page.terms.description": "Terms of use for Trust Pack Checker: a free tool, drafts for human review, not legal advice, no warranty.",
+  "report.mode": "Mode",
+  "report.mode.company": "Company: answers and DPA check from your own documents",
+  "report.mode.client": "Vendor review: the vendor's DPA and answers",
+  "report.version": "Tool version {tool}, prompt version {prompt}",
+  "report.summaryTitle": "Summary",
+  "report.gapsTitle": "Gaps: Art. 28 elements not found in the DPA",
+  "report.gapsNone": "No Article 28 element was marked as not found.",
+  "report.asksTitle": "Questions to send the other side",
+  "report.answers.col.question": "Question",
+  "report.answers.col.answer": "Draft answer and quote",
+  "report.sampleBanner": "Sample on fictional documents. This report was made by the tool from the synthetic vendor sample.",
+  "report.back": "Back to Trust Pack Checker",
+  "report.disclaimer": "Draft for human review. Not legal advice. Rules not yet reviewed by a lawyer."
 }
