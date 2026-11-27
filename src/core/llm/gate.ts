@@ -25,6 +25,12 @@ const COMMON = new Set([
   'DPA',
 ])
 
+// Text addressed to an AI assistant is never evidence, even when the model quotes it verbatim (SPEC 5.4).
+const INSTRUCTION =
+  /\b(ignore (all |any )?(previous|prior|above|earlier) instructions|assistant instructions|automated assistants?|language models?|system prompt|reveal (the|your) (system )?prompt)\b/i
+
+export const looksLikeInstruction = (quote: string): boolean => INSTRUCTION.test(quote)
+
 const norm = (s: string) => s.normalize('NFKC').toLowerCase().replace(/\s+/g, ' ')
 
 export function unsupportedDetails(draft: string, quotes: string[]): string[] {
@@ -59,6 +65,12 @@ export function gateReply(
     verified,
   }
   if (!verified) return { status: 'NEEDS_HUMAN', evidence: [ev], warnings: ['quote-not-verified'] }
+  if (looksLikeInstruction(reply.quote))
+    return {
+      status: 'NEEDS_HUMAN',
+      evidence: [{ ...ev, verified: false }],
+      warnings: ['quote-looks-like-instruction'],
+    }
   const extra = reply.draft ? unsupportedDetails(reply.draft, [reply.quote]) : []
   if (reply.status === 'FOUND' && extra.length > 0) {
     return {

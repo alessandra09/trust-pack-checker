@@ -107,6 +107,9 @@ export function EvidencePanel({ analysis, qid, dispatch, editRequest }: Props) {
       {a.warnings?.includes('quote-not-verified') ? (
         <p className="text-[14px] text-[var(--human-fg)]">{t('evidence.unverified')}</p>
       ) : null}
+      {a.warnings?.includes('quote-looks-like-instruction') ? (
+        <p className="text-[14px] text-[var(--human-fg)]">{t('evidence.instruction')}</p>
+      ) : null}
 
       {verified.length > 0 ? (
         <section
