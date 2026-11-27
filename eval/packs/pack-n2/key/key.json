@@ -1,0 +1,85 @@
+{
+  "pack": "pack-n2",
+  "holdout": true,
+  "document": "docs/dpa.md",
+  "rules": {
+    "A28-3-intro": {
+      "expected": "FOUND",
+      "quote": "the subject matter, duration, nature and purpose of the processing, the types of Client Data and the categories of individuals concerned"
+    },
+    "A28-3-a": {
+      "expected": "FOUND",
+      "quote": "The Supplier will not process Client Data for any purpose other than on the Client's documented instructions"
+    },
+    "A28-3-a2": { "expected": "NOT_FOUND", "defect": "N03" },
+    "A28-3-b": {
+      "expected": "FOUND",
+      "quote": "No member of the Supplier's staff may access Client Data unless that person is bound by a duty of confidentiality"
+    },
+    "A28-3-c": {
+      "expected": "FOUND",
+      "quote": "appropriate technical and organisational measures to protect Client Data"
+    },
+    "A28-2": {
+      "expected": "FOUND",
+      "quote": "The Client gives the Supplier a general written authorisation to use subcontracted processors"
+    },
+    "A28-3-d": {
+      "expected": "FOUND",
+      "quote": "engage a subcontracted processor only under the conditions set out in this Part III"
+    },
+    "A28-4": { "expected": "NOT_FOUND", "defect": "N02" },
+    "A28-3-e": {
+      "expected": "FOUND",
+      "quote": "help the Client to respond to requests from individuals who exercise their rights under Chapter III GDPR"
+    },
+    "A28-3-f": { "expected": "NOT_FOUND", "defect": "N01" },
+    "A28-3-g": {
+      "expected": "FOUND",
+      "quote": "the Supplier will, at the Client's choice, delete or return all Client Data"
+    },
+    "A28-3-h": {
+      "expected": "FOUND",
+      "quote": "make available to the Client all information necessary to demonstrate that it meets the obligations in Article 28 GDPR"
+    }
+  },
+  "defects": [
+    {
+      "id": "N01",
+      "type": "missing",
+      "ruleId": "A28-3-f",
+      "description": "No assistance with security, breach notification, impact assessments or prior consultation (Articles 32 to 36).",
+      "mustContain": [],
+      "mustNotContain": [
+        "articles 32",
+        "article 32",
+        "impact assessment",
+        "prior consultation",
+        "article 36",
+        "articles 33"
+      ]
+    },
+    {
+      "id": "N02",
+      "type": "missing",
+      "ruleId": "A28-4",
+      "description": "No flow-down of the same obligations to subcontracted processors and no liability for them.",
+      "mustContain": ["subcontracted processor"],
+      "mustNotContain": [
+        "same data protection obligations",
+        "same obligations",
+        "fully liable",
+        "remains liable",
+        "flow down"
+      ]
+    },
+    {
+      "id": "N03",
+      "type": "missing",
+      "ruleId": "A28-3-a2",
+      "description": "No duty to tell the Client when an instruction appears to infringe the law.",
+      "mustContain": ["instructions"],
+      "mustNotContain": ["infringe", "unlawful", "breach of the gdpr", "contrary to"]
+    }
+  ]
+}

@@ -229,6 +229,8 @@
   "results.group.training": "Training packs: tuned on these, not a fair test",
   "results.group.trainingNote": "The checks were built and adjusted on these packs, so high scores here are expected.",
   "results.missingBuilt": "Missing contract clauses found",
+  "results.presentKept": "Clauses that are there, not reported missing",
+  "results.presentKeptBuilt": "Clauses that are there, not reported missing",
   "results.decoysBuilt": "Look-alike clauses wrongly accepted (lower is better)",
   "results.vendorCleanBuilt": "Consistent vendor answers left alone",
   "pilot.privacy": "Please remove personal data and confidential commercial terms before sending. I delete files after the review.",
