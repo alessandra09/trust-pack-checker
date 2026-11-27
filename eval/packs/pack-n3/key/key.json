@@ -1,0 +1,72 @@
+{
+  "pack": "pack-n3",
+  "holdout": true,
+  "document": "docs/dpa.md",
+  "rules": {
+    "A28-3-intro": {
+      "expected": "FOUND",
+      "quote": "Schedule 1 sets out the subject matter and duration of the processing, the nature and purpose of the processing, the types of Customer Personal Data and the categories of data subjects"
+    },
+    "A28-3-a": {
+      "expected": "FOUND",
+      "quote": "Service Provider shall process Customer Personal Data only on documented instructions from Customer"
+    },
+    "A28-3-a2": {
+      "expected": "FOUND",
+      "quote": "Service Provider shall promptly notify Customer if, in its opinion, an instruction infringes Data Protection Law"
+    },
+    "A28-3-b": { "expected": "NOT_FOUND", "defect": "N3-03" },
+    "A28-3-c": {
+      "expected": "FOUND",
+      "quote": "Service Provider shall implement and maintain the technical and organizational measures described in Schedule 2"
+    },
+    "A28-2": {
+      "expected": "FOUND",
+      "quote": "Customer grants Service Provider a general authorization to engage the Subcontractors listed on the Subcontractor Page"
+    },
+    "A28-3-d": {
+      "expected": "FOUND",
+      "quote": "Service Provider shall engage a Subcontractor only in accordance with this Section 6"
+    },
+    "A28-4": {
+      "expected": "FOUND",
+      "quote": "Service Provider remains responsible to Customer for the acts and omissions of each Subcontractor"
+    },
+    "A28-3-e": {
+      "expected": "FOUND",
+      "quote": "Service Provider shall assist Customer, by appropriate technical and organizational measures, in responding to requests from data subjects exercising their rights"
+    },
+    "A28-3-f": { "expected": "NOT_FOUND", "defect": "N3-01" },
+    "A28-3-g": { "expected": "NOT_FOUND", "defect": "N3-02" },
+    "A28-3-h": {
+      "expected": "FOUND",
+      "quote": "Service Provider shall make available to Customer all information necessary to demonstrate compliance with Article 28 of the GDPR"
+    }
+  },
+  "defects": [
+    {
+      "id": "N3-01",
+      "type": "missing",
+      "ruleId": "A28-3-f",
+      "description": "No assistance with security, breach notification to the authority, impact assessments or prior consultation (Articles 32 to 36). A plain breach notice to the Customer is present and must not count.",
+      "mustContain": ["Personal Data Breach"],
+      "mustNotContain": ["impact assessment", "prior consultation", "article 32", "articles 32", "article 35", "article 36"]
+    },
+    {
+      "id": "N3-02",
+      "type": "missing",
+      "ruleId": "A28-3-g",
+      "description": "No deletion or return of Customer Personal Data at the end of the services.",
+      "mustContain": [],
+      "mustNotContain": ["delete", "deletion", "return", "destroy", "erase"]
+    },
+    {
+      "id": "N3-03",
+      "type": "missing",
+      "ruleId": "A28-3-b",
+      "description": "No confidentiality commitment for personnel.",
+      "mustContain": [],
+      "mustNotContain": ["confidential", "confidentiality", "secrecy"]
+    }
+  ]
+}
