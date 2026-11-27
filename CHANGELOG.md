@@ -11,6 +11,10 @@
 - Old `#/privacy` links redirect to the static pages.
 - Tests: landing and pilot page at 360, 390, 768 and 1280 px (no overflow, axe clean), mailto content, no-JS fallback, summary equals the data file.
 
+### Task 2: pilot kit
+
+- `docs/pilot-kit/`: reply, checklist, report template, feedback questions, follow-ups, consultant and founder outreach (three versions, critique, best final), tracker XLSX with dropdowns and Summary formulas, one-pager HTML and PDF.
+
 ## v1.3 (2026-11-27, deployed)
 
 - One-sentence held-out results, consultant block, pilot form, HTML report export and sample report, privacy and terms drafts.
