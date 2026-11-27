@@ -32,10 +32,28 @@ function landingHeadPlugin(): Plugin {
   }
 }
 
+// Preload the two Latin fonts so text settles in the brand fonts without waiting for the CSS (DESIGN2).
+function fontPreloadPlugin(): Plugin {
+  return {
+    name: 'font-preload',
+    apply: 'build',
+    transformIndexHtml: (html, ctx) => {
+      const base = process.env.BASE_PATH ?? '/'
+      const fonts = Object.keys(ctx.bundle ?? {}).filter((f) =>
+        /\/(inter|source-serif-4)-latin-wght-normal-[\w-]+\.woff2$/.test(f),
+      )
+      const links = fonts.map(
+        (f) => `<link rel="preload" href="${base}${f}" as="font" type="font/woff2" crossorigin />`,
+      )
+      return html.replace('</head>', `    ${links.join('\n    ')}\n  </head>`)
+    },
+  }
+}
+
 // BASE_PATH lets GitHub Pages serve the app from /<repo>/.
 export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
-  plugins: [react(), tailwindcss(), cspPlugin(), landingHeadPlugin()],
+  plugins: [react(), tailwindcss(), cspPlugin(), landingHeadPlugin(), fontPreloadPlugin()],
   build: {
     // pages.html is the template for the prerendered static pages (scripts/prerender.tsx).
     rollupOptions: { input: { main: 'index.html', pages: 'pages.html' } },

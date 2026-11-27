@@ -1,16 +1,47 @@
-import { t } from '../i18n/t.ts'
+import { t, tf } from '../i18n/t.ts'
 import type { Mode } from '../app/types.ts'
-import { Icon } from '../components/Icon.tsx'
+import { AUTHOR } from '../app/config.ts'
+import { Icon, type IconName } from '../components/Icon.tsx'
 import { StatusChip } from '../components/StatusChip.tsx'
 import { art28 } from '../data/load.ts'
-import { BuiltBy } from '../components/BuiltBy.tsx'
-import { ConsultantOffer } from '../components/ConsultantOffer.tsx'
 import { EvalResults } from '../components/EvalResults.tsx'
-import { AUTHOR } from '../app/config.ts'
-import { PAGE_PATH, href } from '../pages/paths.ts'
 import { PilotOffer } from '../components/PilotOffer.tsx'
+import { href, PAGE_PATH } from '../pages/paths.ts'
 
-// Landing: hero over a slow gradient mesh, then a bento grid of modes and what the tool does.
+// Landing (DESIGN2 section 4): hero with the quote card, proof strip, how it works, use cases,
+// measured results, one pilot section. One primary button per screen.
+const PROOF: { icon: IconName; text: () => string }[] = [
+  { icon: 'lock', text: () => t('proof.local') },
+  { icon: 'file', text: () => tf('proof.rules', { n: String(art28.rules.length) }) },
+  { icon: 'check', text: () => t('proof.verbatim') },
+]
+const STEPS: { icon: IconName; n: 1 | 2 | 3 }[] = [
+  { icon: 'upload', n: 1 },
+  { icon: 'lock', n: 2 },
+  { icon: 'check', n: 3 },
+]
+
+function QuoteCard() {
+  return (
+    <figure className="evidence-card enter-2 flex flex-col gap-4">
+      <div className="doc-meta">
+        <span>{t('bento.evidence.source')}</span>
+        <span className="kicker">{t('bento.evidence.example')}</span>
+      </div>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <span className="font-medium">{t('bento.evidence.question')}</span>
+        <StatusChip status="FOUND" />
+      </div>
+      <blockquote className="quote">
+        “<mark className="quote-hl">{t('bento.evidence.quote')}</mark>”
+      </blockquote>
+      <figcaption className="text-[14px] text-[var(--muted)]">
+        {t('bento.evidence.body')}
+      </figcaption>
+    </figure>
+  )
+}
+
 export function ModeScreen({
   onMode,
   onSample,
@@ -19,121 +50,114 @@ export function ModeScreen({
   onSample: (m: Mode) => void
 }) {
   return (
-    <div className="relative isolate">
-      <div className="mesh" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </div>
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-6 pt-16 pb-20 md:pt-28">
-        <div className="flex flex-col items-start gap-6">
-          <span className="eyebrow glass enter">
-            <span className="pulse-dot" aria-hidden="true" />
-            {t('privacy.note')}
-          </span>
-          <h1 className="display text-gradient enter max-w-4xl">{t('hero.headline')}</h1>
-          <p className="enter max-w-2xl text-[16px]">
-            <span className="font-semibold">{AUTHOR.name}</span>
-            <span className="text-[var(--muted)]"> · {t('hero.byline')}</span>
-          </p>
-          <p className="enter-2 max-w-2xl text-[18px] leading-relaxed text-[var(--muted)] md:text-[20px]">
-            {t('hero.subline')}
-          </p>
-          <div className="enter-2 flex flex-wrap items-center gap-x-5 gap-y-3 pt-2">
-            <a href={AUTHOR.pilotForm || href(PAGE_PATH.pilot)} className="btn-primary btn-hero">
-              {t('consult.cta')}
-            </a>
-            <button type="button" className="btn-secondary" onClick={() => onSample('company')}>
-              <Icon name="sparkle" size={18} />
-              {t('mode.sample')}
-            </button>
-            <button type="button" className="btn-link" onClick={() => onSample('client')}>
-              {t('mode.client.sample')}
-            </button>
-          </div>
-          <p className="enter-2 max-w-xl text-[14px] text-[var(--muted)]">{t('mode.sampleNote')}</p>
-          <figure className="evidence-card enter-2 w-full max-w-2xl flex flex-col gap-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="font-medium">{t('bento.evidence.question')}</span>
-              <StatusChip status="FOUND" />
+    <div className="flex flex-col">
+      <section className="page-wrap pt-12 pb-16 md:pt-24 md:pb-24" aria-labelledby="hero-title">
+        <div className="hero-grid">
+          <div className="flex max-w-[640px] flex-col items-start gap-6">
+            <h1 id="hero-title" className="display enter">
+              {t('hero.headline')}
+            </h1>
+            <p className="lede enter">{t('hero.subline')}</p>
+            <div className="enter-2 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <button
+                type="button"
+                className="btn-primary btn-hero"
+                onClick={() => onSample('company')}
+              >
+                {t('mode.sample')}
+              </button>
+              <a href={AUTHOR.pilotForm || href(PAGE_PATH.pilot)} className="btn-link">
+                {t('consult.cta')}
+              </a>
             </div>
-            <blockquote className="quote leading-relaxed">
-              “<mark className="quote-hl">{t('bento.evidence.quote')}</mark>”
-            </blockquote>
-            <figcaption className="text-[14px] text-[var(--muted)]">
-              {t('bento.evidence.source')}
-            </figcaption>
-          </figure>
-          <p className="enter-2 max-w-2xl text-[16px] font-medium">{t('hero.audience')}</p>
-        </div>
-
-        <section className="enter-3 flex flex-col gap-4" aria-labelledby="mode-title">
-          <h2 id="mode-title" className="kicker">
-            {t('mode.title')}
-          </h2>
-          <div className="bento">
-            <button
-              type="button"
-              className="tile tile-interactive glass span-3"
-              onClick={() => onMode('company')}
-            >
-              <span className="card-icon">
-                <Icon name="answer" />
-              </span>
-              <span className="text-[22px] font-semibold tracking-tight">
-                {t('mode.company.title')}
-              </span>
-              <span className="text-[var(--muted)]">{t('mode.company.body')}</span>
-              <span className="tile-arrow">
-                {t('mode.start')} <span aria-hidden="true">→</span>
-              </span>
-            </button>
-            <button
-              type="button"
-              className="tile tile-interactive glass span-3"
-              onClick={() => onMode('client')}
-            >
-              <span className="card-icon">
-                <Icon name="review" />
-              </span>
-              <span className="text-[22px] font-semibold tracking-tight">
-                {t('mode.client.title')}
-              </span>
-              <span className="text-[var(--muted)]">{t('mode.client.body')}</span>
-              <span className="tile-arrow">
-                {t('mode.start')} <span aria-hidden="true">→</span>
-              </span>
-            </button>
-
-            <article className="tile glass span-3">
-              <span className="card-icon">
-                <Icon name="lock" />
-              </span>
-              <h3 className="text-[18px] font-semibold">{t('bento.local.title')}</h3>
-              <p className="text-[14px] text-[var(--muted)]">{t('bento.local.body')}</p>
-            </article>
-            <article className="tile glass span-3">
-              <span className="text-[40px] leading-none font-semibold tracking-tight tabular-nums">
-                {art28.rules.length}
-              </span>
-              <h3 className="text-[18px] font-semibold">{t('bento.rules.title')}</h3>
-              <p className="text-[14px] text-[var(--muted)]">{t('bento.rules.body')}</p>
-            </article>
-            <article className="tile glass span-6 md:flex-row md:items-center md:gap-6">
-              <span className="card-icon">
-                <Icon name="upload" />
-              </span>
-              <div className="flex flex-col gap-1">
-                <h3 className="text-[18px] font-semibold">{t('bento.export.title')}</h3>
-                <p className="text-[14px] text-[var(--muted)]">{t('bento.export.body')}</p>
-              </div>
-            </article>
+            <p className="enter-2 text-[14px] text-[var(--muted)]">{t('mode.sampleNote')}</p>
+            <p className="enter-2 max-w-[560px] text-[15px] text-[var(--muted)]">
+              {AUTHOR.linkedin ? (
+                <a
+                  href={AUTHOR.linkedin}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="text-[var(--text)] underline decoration-[var(--border-strong)] underline-offset-4 hover:decoration-[var(--accent)]"
+                >
+                  {tf('hero.builtBy', { name: AUTHOR.name })}
+                </a>
+              ) : (
+                tf('hero.builtBy', { name: AUTHOR.name })
+              )}
+            </p>
           </div>
-        </section>
-        <PilotOffer />
-        <ConsultantOffer />
+          <QuoteCard />
+        </div>
+      </section>
+
+      <section className="border-y border-[var(--border)] bg-[var(--surface)] py-8">
+        <ul className="page-wrap proof-strip">
+          {PROOF.map((p) => (
+            <li key={p.icon} className="proof">
+              <span className="card-icon !mb-0">
+                <Icon name={p.icon} />
+              </span>
+              {p.text()}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="page-wrap py-[var(--section)]" aria-labelledby="steps-title">
+        <h2 id="steps-title" className="h2 mb-10">
+          {t('steps.title')}
+        </h2>
+        <ol className="steps">
+          {STEPS.map((s) => (
+            <li key={s.n} className="flex flex-col gap-2">
+              <span className="card-icon">
+                <Icon name={s.icon} />
+              </span>
+              <span className="step-num">{s.n}.</span>
+              <h3 className="text-[18px] font-semibold">{t(`steps.${s.n}.title`)}</h3>
+              <p className="max-w-[34ch] text-[var(--muted)]">{t(`steps.${s.n}.body`)}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="section page-wrap" aria-labelledby="mode-title">
+        <h2 id="mode-title" className="h2 mb-8">
+          {t('mode.title')}
+        </h2>
+        <div className="bento">
+          {(['company', 'client'] as const).map((m) => (
+            <div key={m} className="tile glass gap-3">
+              <span className="card-icon">
+                <Icon name={m === 'company' ? 'answer' : 'review'} />
+              </span>
+              <h3 className="text-[20px] font-semibold tracking-tight">{t(`mode.${m}.title`)}</h3>
+              <p className="text-[var(--muted)]">{t(`mode.${m}.body`)}</p>
+              <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-3">
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  aria-label={`${t('mode.start')}: ${t(`mode.${m}.title`)}`}
+                  onClick={() => onMode(m)}
+                >
+                  {t('mode.start')} <span aria-hidden="true">→</span>
+                </button>
+                {m === 'client' ? (
+                  <button type="button" className="btn-link" onClick={() => onSample('client')}>
+                    {t('mode.client.sample')}
+                  </button>
+                ) : null}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="section page-wrap">
         <EvalResults />
-        <BuiltBy />
+      </div>
+      <div className="section page-wrap">
+        <PilotOffer />
       </div>
     </div>
   )

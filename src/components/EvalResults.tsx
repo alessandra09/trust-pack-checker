@@ -35,15 +35,15 @@ export function EvalResults() {
     <section id="how-it-was-tested" className="flex flex-col gap-6" aria-labelledby="results-title">
       <div className="flex flex-col gap-1">
         <span className="kicker">{t('results.kicker')}</span>
-        <h2 id="results-title" className="text-[24px] font-semibold tracking-tight">
+        <h2 id="results-title" className="h2">
           {t('results.title')}
         </h2>
         <p className="text-[14px] text-[var(--muted)]">
           {t('results.note')} {summary.measured}.
         </p>
       </div>
-      <p className="max-w-4xl text-[15px] text-[var(--muted)]">{t('results.context')}</p>
-      <p className="max-w-4xl text-[20px] leading-snug font-medium">{resultsSummary()}</p>
+      <p className="max-w-[720px] text-[20px] leading-snug font-medium">{resultsSummary()}</p>
+      <p className="max-w-[720px] text-[15px] text-[var(--muted)]">{t('results.vendorContext')}</p>
       <details>
         <summary className="btn-link cursor-pointer">{t('results.details')}</summary>
         <div className="mt-4 flex flex-col gap-6">

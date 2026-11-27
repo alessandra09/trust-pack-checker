@@ -1,5 +1,13 @@
 # Changelog
 
+## Design pass, DESIGN2 (2026-11-27, not deployed yet)
+
+- Light "paper" theme by default (warm off-white, ink-blue accent); the dark theme follows the system setting and the toggle. All colours, spacing, radius, shadow, type and motion come from `src/styles/tokens.css`.
+- Self-hosted Source Serif 4 (headlines) and Inter (UI), SIL Open Font License. About 100 KB of fonts load on the English pages; JetBrains Mono and the Fontsource packages were removed.
+- Landing in the DESIGN2 order: hero with the quote card as a document excerpt, name and role under the headline, one primary button per screen; proof strip, how it works, two use cases, measured results with one line of context beside the vendor number, one merged pilot and consultants section, footer. The "best on a desktop" note now shows only in the tool screens.
+- Tool screens: 44 px touch targets, a progress panel with the real steps of a check and skeleton rows, error messages that say what to do next, and no horizontal scroll at 360 px on the review screen.
+- New checks: contrast AA for every text and status chip pair in both themes, reduced motion, one primary button per screen, axe in the dark theme, and font size. Screenshots before and after are in `docs/design/`.
+
 ## Landing polish (2026-11-27)
 
 - Hero: name and role under the headline, one primary button ("Request a free pilot review"), the sample buttons secondary, and the quote card in place of the results line.

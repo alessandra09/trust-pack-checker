@@ -1,0 +1,147 @@
+/* Design tokens (DESIGN2): one file for colour, type, spacing, radius, shadow and motion.
+   Light "paper" theme by default; dark follows prefers-color-scheme unless the toggle set .light or .dark.
+   Fonts: see fonts.css (self-hosted, SIL Open Font License, licence texts in public/fonts). */
+
+:root {
+  /* Paper (light) */
+  --bg: #faf8f3;
+  --surface: #fffefb;
+  --surface-2: #f3f0e8;
+  --surface-3: #e6e1d5;
+  --text: #1b1a17;
+  --muted: #5a564d;
+  --accent: #1e3a8a;
+  --accent-hover: #172e6e;
+  --accent-fg: #ffffff;
+  --accent-soft: #e6ebf6;
+  --border: #e6e1d5;
+  --border-strong: #cfc8b8;
+  --paper: #fffdf8;
+  --paper-rule: #e9e2d0;
+  --hit-bg: #dde5f5;
+  --quote-bg: #fbe6a0;
+  --found-bg: #dcf2e3;
+  --found-fg: #14532d;
+  --partial-bg: #fbefc9;
+  --partial-fg: #713f12;
+  --notfound-bg: #e7e5e0;
+  --notfound-fg: #27272a;
+  --conflict-bg: #fbe0dc;
+  --conflict-fg: #8f1d1d;
+  --human-bg: #ece7fa;
+  --human-fg: #5b21b6;
+
+  --shadow-sm: 0 1px 2px rgb(40 32 16 / 0.05);
+  --shadow-md: 0 1px 2px rgb(40 32 16 / 0.04), 0 4px 14px rgb(40 32 16 / 0.05);
+  --shadow-lg: 0 2px 4px rgb(40 32 16 / 0.05), 0 18px 40px rgb(40 32 16 / 0.08);
+  --glow: rgb(30 58 138 / 0.08);
+
+  /* Type: serif for headlines, sans for UI and body, system mono only for keys and ids. */
+  --font-serif: 'Source Serif 4', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 20px;
+  --text-display: clamp(2.5rem, 5.2vw, 4.25rem);
+
+  /* Spacing (4 px base), layout, radius */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --section: 64px;
+  --content: 1080px;
+  --measure: 640px;
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  /* Motion */
+  --dur-fast: 150ms;
+  --dur: 220ms;
+  --dur-slow: 700ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  color-scheme: light;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section: 96px;
+  }
+}
+
+:root.dark {
+  --bg: #131417;
+  --surface: #1a1b1f;
+  --surface-2: #212328;
+  --surface-3: #2c2e34;
+  --text: #edebe6;
+  --muted: #a8a59d;
+  --accent: #9fb5ef;
+  --accent-hover: #bccbf4;
+  --accent-fg: #0e1220;
+  --accent-soft: #1d2642;
+  --border: #2a2c32;
+  --border-strong: #3c3f47;
+  --paper: #1c1d21;
+  --paper-rule: #2e3037;
+  --hit-bg: #28365f;
+  --quote-bg: #5a4812;
+  --found-bg: #173f27;
+  --found-fg: #d7f5e1;
+  --partial-bg: #4f3410;
+  --partial-fg: #fbefc9;
+  --notfound-bg: #34363c;
+  --notfound-fg: #f1f0ec;
+  --conflict-bg: #5c1d1d;
+  --conflict-fg: #fde2df;
+  --human-bg: #3b2470;
+  --human-fg: #ece7fa;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
+  --shadow-md: 0 1px 2px rgb(0 0 0 / 0.35), 0 4px 14px rgb(0 0 0 / 0.25);
+  --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.35), 0 18px 40px rgb(0 0 0 / 0.4);
+  --glow: rgb(159 181 239 / 0.1);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --bg: #131417;
+    --surface: #1a1b1f;
+    --surface-2: #212328;
+    --surface-3: #2c2e34;
+    --text: #edebe6;
+    --muted: #a8a59d;
+    --accent: #9fb5ef;
+    --accent-hover: #bccbf4;
+    --accent-fg: #0e1220;
+    --accent-soft: #1d2642;
+    --border: #2a2c32;
+    --border-strong: #3c3f47;
+    --paper: #1c1d21;
+    --paper-rule: #2e3037;
+    --hit-bg: #28365f;
+    --quote-bg: #5a4812;
+    --found-bg: #173f27;
+    --found-fg: #d7f5e1;
+    --partial-bg: #4f3410;
+    --partial-fg: #fbefc9;
+    --notfound-bg: #34363c;
+    --notfound-fg: #f1f0ec;
+    --conflict-bg: #5c1d1d;
+    --conflict-fg: #fde2df;
+    --human-bg: #3b2470;
+    --human-fg: #ece7fa;
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
+    --shadow-md: 0 1px 2px rgb(0 0 0 / 0.35), 0 4px 14px rgb(0 0 0 / 0.25);
+    --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.35), 0 18px 40px rgb(0 0 0 / 0.4);
+    --glow: rgb(159 181 239 / 0.1);
+    color-scheme: dark;
+  }
+}

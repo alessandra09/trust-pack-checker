@@ -12,10 +12,11 @@ import { initialState, reducer } from './store.ts'
 import { useAiRun } from './useAiRun.ts'
 import { useApiKey } from './useApiKey.ts'
 import { AiPanel } from '../components/AiPanel.tsx'
+import { RunProgress } from '../components/RunProgress.tsx'
 import { ConsentDialog } from '../components/ConsentDialog.tsx'
 import { Icon } from '../components/Icon.tsx'
 import { SiteFooterLinks } from '../pages/Layout.tsx'
-import { href } from '../pages/paths.ts'
+import { href, SAMPLE_REPORT_PATH } from '../pages/paths.ts'
 import { DOC_SLOTS, type AppState, type Mode } from './types.ts'
 
 // Client mode makes no model calls: every check is code (SPEC 9.3).
@@ -95,7 +96,7 @@ export function App() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col md:h-screen">
+    <div className={`flex min-h-screen flex-col ${state.step === 'mode' ? '' : 'md:h-screen'}`}>
       <a href="#main" className="skip-link">
         {t('nav.skip')}
       </a>
@@ -106,7 +107,23 @@ export function App() {
           </span>
           {t('app.name')}
         </span>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-4">
+          {state.step === 'mode' ? (
+            <nav
+              aria-label={t('nav.site')}
+              className="hidden items-center gap-5 text-[14px] sm:flex"
+            >
+              <a href="#how-it-was-tested" className="text-[var(--muted)] hover:text-[var(--text)]">
+                {t('nav.howTested')}
+              </a>
+              <a
+                href={href(SAMPLE_REPORT_PATH)}
+                className="text-[var(--muted)] hover:text-[var(--text)]"
+              >
+                {t('nav.sample')}
+              </a>
+            </nav>
+          ) : null}
           {state.step !== 'mode' ? (
             <button type="button" className="btn-link" onClick={() => dispatch({ type: 'reset' })}>
               {t('nav.startOver')}
@@ -122,10 +139,15 @@ export function App() {
           </button>
         </div>
       </header>
-      <p className="border-b border-[var(--border)] px-6 py-1.5 text-center text-[13px] text-[var(--muted)] md:hidden">
-        {t('mobile.notice')}
-      </p>
-      <main id="main" className="flex min-h-0 flex-1 flex-col md:overflow-y-auto">
+      {state.step !== 'mode' ? (
+        <p className="border-b border-[var(--border)] px-6 py-1.5 text-center text-[13px] text-[var(--muted)] md:hidden">
+          {t('mobile.notice')}
+        </p>
+      ) : null}
+      <main
+        id="main"
+        className={`flex min-h-0 flex-1 flex-col ${state.step === 'mode' ? '' : 'md:overflow-y-auto'}`}
+      >
         {state.step === 'mode' ? (
           <ModeScreen onMode={(mode) => dispatch({ type: 'start', mode })} onSample={sample} />
         ) : null}
@@ -148,20 +170,8 @@ export function App() {
               )
             }
             progress={
-              ai.progress ? (
-                <span role="status" className="flex items-center gap-3 text-[14px]">
-                  <span className="progress" aria-hidden="true">
-                    <span
-                      style={{
-                        width: `${ai.progress.total ? (100 * ai.progress.done) / ai.progress.total : 0}%`,
-                      }}
-                    />
-                  </span>
-                  {t('ai.progress')}: {ai.progress.done}/{ai.progress.total}
-                  <button type="button" className="btn-link" onClick={ai.stop}>
-                    {t('ai.cancel')}
-                  </button>
-                </span>
+              running || ai.progress ? (
+                <RunProgress ai={ai.progress ?? null} onStop={ai.stop} />
               ) : null
             }
           />

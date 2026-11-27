@@ -203,7 +203,10 @@ export function ReviewScreen({
                     <span className="font-mono text-[14px] text-[var(--muted)]">{i.label}</span>
                     <span className="truncate">{i.text}</span>
                     <StatusChip status={i.status} />
-                    <span className="hidden text-[14px] text-[var(--muted)] xl:inline">
+                    <span
+                      className="hidden max-w-[11rem] truncate text-[14px] text-[var(--muted)] xl:inline-block"
+                      title={i.topic}
+                    >
                       {i.topic}
                     </span>
                     <span className="text-[14px] text-[var(--muted)]">
