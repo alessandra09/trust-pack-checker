@@ -14,6 +14,7 @@ const NON_EEA =
   /\b(United States|USA|U\.S\.A?\.|US|United Kingdom|UK|Switzerland|India|Canada|Australia|New Zealand|Singapore|Japan|South Korea|Philippines|Brazil|Argentina|Mexico|China|Hong Kong|Israel|South Africa|Ukraine|Serbia|Turkey|Malaysia|Vietnam|Indonesia|Egypt|Nigeria|Kenya|United Arab Emirates|UAE)\b/
 const LOCATION_CUE =
   /\b(located|location|hosted|hosting|stored|processed|accessed|access|view|views|handled|data cent(re|er)s?|region|servers?|facilit(y|ies))\b/i
+const SUBPROC_SECTION = /sub-?processors?|subcontractors?/i
 const FRAMEWORK = /\bEU[- ]U\.?S\.?\b|Data Privacy Framework/gi
 
 function claimsEuOnly(a: VendorAnswer): boolean {
@@ -26,7 +27,12 @@ function nonEeaUnits(dpa: Chunk[]): { unit: Unit; country: string }[] {
     const text = unit.text.replace(FRAMEWORK, '')
     const m = NON_EEA.exec(text)
     if (!m) return []
-    const isRow = unit.chunk.text.includes(`| ${unit.text}`) || unit.chunk.text.includes('\t')
+    // A table row keeps its pipes in DOCX text; in PDF text a row is plain words under a sub-processor heading.
+    const isRow =
+      unit.chunk.text.includes(`| ${unit.text}`) ||
+      / \| /.test(unit.text) ||
+      unit.chunk.text.includes('\t') ||
+      SUBPROC_SECTION.test(unit.chunk.heading ?? '')
     return isRow || LOCATION_CUE.test(text) ? [{ unit, country: m[0] }] : []
   })
 }

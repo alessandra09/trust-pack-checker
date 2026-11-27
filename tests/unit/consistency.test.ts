@@ -241,3 +241,22 @@ describe('v1.1 fixes', () => {
     expect(findings.some((f) => f.ruleId === 'C-TRANSFER')).toBe(true)
   })
 })
+
+describe('QA regressions: DOCX and PDF text (SPRINT2 task 4)', () => {
+  const EU = ['Where is data processed?', 'All customer data stays within the EU.'] as [
+    string,
+    string,
+  ]
+
+  it('reads a DOCX table row without leading pipes as a location', () => {
+    const dpa =
+      '## Annex 3: Sub-processors\n\nSub-processor | Purpose | Location\n\nRidgeway Support Inc. | Support | United States'
+    expect(run(dpa, [EU]).findings.some((f) => f.ruleId === 'C-TRANSFER')).toBe(true)
+  })
+
+  it('reads a PDF row without pipes under a sub-processor heading as a location', () => {
+    const dpa =
+      '## Annex 3: Sub-processors\n\nSub-processor Purpose Location\nRidgeway Support Inc. Customer support United States'
+    expect(run(dpa, [EU]).findings.some((f) => f.ruleId === 'C-TRANSFER')).toBe(true)
+  })
+})

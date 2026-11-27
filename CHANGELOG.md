@@ -21,6 +21,11 @@
 - `/sample-report/` shows the report on the synthetic vendor sample with the banner "Sample on fictional documents".
 - Tests: only verified quotes are printed, every FOUND answer shows its quote, exported files open offline and print to PDF in both modes.
 
+### Task 4: QA through the real UI
+
+- Synthetic fixture generator (`eval/fixtures/make_qa_fixtures.py`) and UI runner (`eval/fixtures/run-qa.ts`): 27 scenarios (DPAs in four formats, questionnaires from 20 to 1,999 rows, vendor DOCX/PDF + XLSX, nine edge cases). All pass; see `docs/QA_REPORT.md`.
+- Fixed: questionnaire sheet choice, header below title rows, ID column, hidden-row count, PDF line breaks splitting sentences, DOCX/PDF sub-processor rows.
+
 ## v1.3 (2026-11-27, deployed)
 
 - One-sentence held-out results, consultant block, pilot form, HTML report export and sample report, privacy and terms drafts.

@@ -17,6 +17,14 @@ export function dehyphenate(text: string): string {
   return text.replace(/(\p{Ll})-\n(\p{Ll})/gu, '$1$2')
 }
 
+/**
+ * PDF text keeps the visual line breaks, which split sentences (QA, SPRINT2 task 4): a line that does not
+ * end a sentence is joined to the next line when that line starts in lower case.
+ */
+export function unwrapLines(text: string): string {
+  return text.replace(/([^\n.!?:;])\n(?=\p{Ll})/gu, '$1 ')
+}
+
 export function makeDoc(id: string, name: string, kind: DocKind, pageTexts: string[]): Doc {
   const pages: Page[] = pageTexts.map((t, i) => ({ n: i + 1, text: cleanText(t) }))
   const text = pages.map((p) => p.text).join(PAGE_SEPARATOR)

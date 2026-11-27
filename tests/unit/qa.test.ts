@@ -150,3 +150,54 @@ describe('rule engine without AI', () => {
     expect(evaluateRuleNoAi(sec, c, {}).incorporatedByReference).toBe(true)
   })
 })
+
+describe('questionnaire detection: QA regressions (SPRINT2 task 4)', () => {
+  const row = (index: number, cells: string[], hidden = false) => ({ index, cells, hidden })
+  const cover = {
+    name: 'Cover',
+    hidden: false,
+    rows: [
+      row(0, ['Supplier questionnaire']),
+      row(2, ['Please answer every question on the Questions sheet.']),
+    ],
+  }
+  const questions = {
+    name: 'Questions',
+    hidden: false,
+    rows: [
+      row(0, ['Fernhollow Retail Ltd: supplier review']),
+      row(1, ['Answer Yes or No and add a comment where needed.']),
+      row(3, ['Ref', 'Category', 'Question', 'Answer', 'Comments']),
+      row(4, ['', '', 'Section 1: data protection', '', '']),
+      row(5, ['F0001', 'Privacy', 'Do you encrypt personal data at rest?', '', '']),
+      row(6, ['F0002', 'Privacy', 'Have you appointed a data protection officer?', 'Yes', '']),
+      row(7, ['F0003', 'Privacy', 'Do you notify breaches within 72 hours?', '', '']),
+    ],
+  }
+  const table = { id: 'q', name: 'q.xlsx', sheets: [cover, questions] }
+
+  it('picks the sheet with the most questions, not a cover sheet with one instruction', () => {
+    expect(detectTable(table)?.sheet).toBe('Questions')
+  })
+
+  it('finds the header below title rows and the Ref column as the ID', () => {
+    const m = detectTable(table)
+    expect(m).toMatchObject({ headerRow: 3, questionCol: 2, answerCol: 3, idCol: 0 })
+    const qs = extractQuestions(table, m ?? ({} as never))
+    expect(qs.map((q) => q.qid)).toEqual(['F0001', 'F0002', 'F0003'])
+    expect(qs[0]?.section).toBe('Section 1: data protection')
+  })
+
+  it('does not use a repeated category column as the ID', () => {
+    const noRef = {
+      ...table,
+      sheets: [
+        { ...questions, rows: questions.rows.map((r) => ({ ...r, cells: r.cells.slice(1) })) },
+      ],
+    }
+    const m = detectTable(noRef)
+    expect(m?.idCol).toBeNull()
+    const ids = extractQuestions(noRef, m ?? ({} as never)).map((q) => q.qid)
+    expect(new Set(ids).size).toBe(ids.length)
+  })
+})
